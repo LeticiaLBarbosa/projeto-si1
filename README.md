@@ -3,9 +3,9 @@ projeto-si1
 
 Grupo:
 
-Nome | Matrícula
+Nome | Matrï¿½cula
   
 Felipe Bezerra Sales da Silva  | 112110044    
 Isabelly Santos Cavalcante     | 112110938      
-Ana Luiza Motta Gomes	       | 112110020 
+Ana Luiza Motta Gomes	       | 112110020      
 Maria Leticia Leoncio Barbosa  | 112110949

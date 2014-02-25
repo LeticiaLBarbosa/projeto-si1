@@ -1,0 +1,61 @@
+@(manager: FlowChartManager, message: String)
+@import helper._
+
+@main("Flow Chart Helper") {
+
+@if(!message.isEmpty()){
+<div id="alerta"></div>
+<div id="alerta-message">
+	<div class="alert">
+  <button type="button" class="close" data-dismiss="alert" onclick="dismiss()">×</button>
+  <strong>Problema!</strong> @message
+	</div>
+</div>
+}
+<div id="barra"> 
+@form(routes.Application.adicionaPeriodo()) {<input class="btn btn-large" type="submit" value="Adicionar periodo">}
+</div>
+<div id="periodos"> <center>
+<ul class="thumbnails">
+  
+  @for(i <- 1 to manager.getTotalDePeriodos()) {
+  
+  
+  <li class="span4">
+    <div class="thumbnail">
+    <div  id="internal-div-title"><h4>Período @i</h4> com @manager.getCreditos(i) créditos no momento
+    @if(manager.verificaMinimoDeCreditosDoPeriodo(i)){
+     <div class="alert">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  <strong>Créditos Insuficientes!</strong> Você precisa adicionar mais @manager.verificaQuantosCreditosFaltaNoPeriodo(i)
+ cŕeditos a este período</div>
+}
+</div>
+     <div  id="internal-div" data-value="@i" ondrop="drop(event)" ondragover="allowDrop(event)">
+     @for(disciplina <- manager.getDisciplinas(i)){
+     	<pre>@disciplina.getNome() <i class="icon-remove" onclick="retorna(event, @disciplina.getId(), @i)"></i></pre>
+     	}
+     </div>
+      
+    </div>
+  </li>
+  
+  }
+  
+
+  
+  
+</ul>
+
+</div>
+
+<div id="catalogo">
+<ul id="opa">
+@for(disciplina <- manager.getDisciplinasDisponiveis()){
+		<li><div id="@disciplina.getId()" draggable="true" data-value="@disciplina.getNome()" ondragstart="drag(event)" ondragend="clear(event)" ondragleave="clear(event)"  class="btn btn-primary btn-medium">@disciplina.getNome()</div></li>
+     	}
+</ul>
+</div>
+
+
+}

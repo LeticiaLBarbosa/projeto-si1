@@ -1,0 +1,57 @@
+Cálculo Diferencial e Integral I -> Cálculo Diferencial e Integral II, Fundamentos de Física Clássica -> 4 -> 0
+Álgebra Vetorial e Geometria Analítica -> Álgebra Linear, Fundamentos de Física Clássica -> 4 -> 1
+Leitura e Produção de Textos -> null -> 4 -> 2
+Programação I -> Programação II, Laboratório de Programação II, Teoria dos Grafos -> 4 -> 3
+Introdução à Computação -> Programação II, Laboratório de Programação II, Teoria da Computação -> 4 -> 4
+Laboratório de Programação I -> Programação II, Laboratório de Programação II, Teoria dos Grafos -> 4 -> 5
+Cálculo Diferencial e Integral II -> Análise e Técnicas de Algoritmos, Probabilidade e Estatística, Fundamentos de Física Moderna -> 4 -> 6
+Programação II -> Estruturas de Dados e Algoritmos, Laboratório de Estruturas de Dados e Algoritmos, Engenharia de software I -> 4 -> 7
+Laboratório de Programação II -> Estruturas de Dados e Algoritmos, Laboratório de Estruturas de Dados e Algoritmos, Engenharia de software I -> 4 -> 8
+Teoria dos Grafos -> Estruturas de Dados e Algoritmos, Laboratório de Estruturas de Dados e Algoritmos, Teoria da Computação -> 2 -> 9
+Matemática Discreta -> Teoria da Computação -> 4 -> 10
+Metodologia Científica -> Projeto em Computação i -> 4 -> 11
+Fundamentos de Física Clássica -> Fundamentos de Física Moderna -> 4 -> 12
+Álgebra Linear -> Métodos Estatísticos, Métodos e Software numéricos -> 4 -> 13
+Probabilidade e Estatística -> Engenharia de Software I, Métodos Estatísticos, Avaliação de Desempenho de Sistemas Discretos -> 4 -> 14
+Teoria da Computação -> Lógica Matemática, Paradigmas de Linguagens de Programação -> 4 -> 15
+Estruturas de Dados e Algoritmos -> Análise e Técnicas de Algoritmos, Organização e Arquitetura de Computadores I, Laboratório de Organização Arquitetura de Computadores, Paradigmas de Linguagens de Programação -> 4 -> 16
+Fundamentos de Física Moderna -> Organização e Arquitetura de Computadores I, Laboratório de Organização e Arquitetura de Computadores -> 4 -> 17
+Gerência da Informação -> Sistemas de Informação I -> 4 -> 18
+Laboratório de Estruturas de Dados e Algoritmos -> Análise e Técnicas de Algoritmos, Organização e Arquitetura de Computadores I, Laboratório de Organização e Arquitetura de Computadores, Paradigmas de Linguagens de Programação -> 4 -> 19
+Métodos Estatísticos -> Inteligência Artificial I -> 4 -> 20
+Paradigmas de Linguagens de Programação -> Compiladores, Inteligência Artificial I -> 2 -> 21
+Lógica Matemática -> Análise e Técnicas de Algoritmos -> 4 -> 21
+Organização e Arquitetura de Computadores I -> Compiladores, Redes de Computadores, Sistemas Operacionais -> 4 -> 22
+Engenharia de Software I -> Laboratório de Engenharia de Software -> 4 -> 23
+Sistemas de Informação I -> bancos de dados i,sistemas de informação ii -> 4 -> 24
+Laboratório de Organização e Arquitetura de Computadores -> Compiladores, Redes de Computadores, Sistemas Operacionais -> 4 -> 25
+Informática e Sociedade -> null -> 2 -> 26
+Análise e Técnicas de Algoritmos -> Inteligência Artificial I, Métodos e Software Numéricos -> 4 -> 27
+Compiladores -> null -> 4 -> 28
+Redes de Computadores -> Interconexão de Redes de computadores, Laboratório de Interconexão de Redes de Computadores -> 4 -> 29
+Bancos de Dados I -> Banco de Dados II -> 4 -> 30
+Sistemas de Informação II -> Banco de Dados II -> 4 -> 31
+Laboratório de Engenharia de Software -> Projeto em Computação i -> 2 -> 32
+Direito e Cidadania -> null -> 4 -> 33
+Sistemas Operacionais -> null -> 4 -> 34
+Interconexão de Redes de Computadores -> null -> 2 -> 34
+Banco de Dados II -> null -> 4 -> 35
+Inteligência Artificial I -> null -> 4 -> 36
+Laboratório de Interconexão de Redes de Computadores -> null -> 2 -> 37        
+Optativa 1 -> null -> 4 -> 38
+Optativa 2 -> null -> 4 -> 39
+Optativa 3 -> null -> 4 -> 40
+Optativa 4 -> null -> 4 -> 41
+Optativa 5 -> null -> 4 -> 42
+Optativa 6 -> null -> 4 -> 43
+Optativa 7 -> null -> 4 -> 44
+Optativa 8 -> null -> 4 -> 45
+Optativa 9 -> null -> 4 -> 46
+Optativa 10 -> null -> 4 -> 47
+Optativa 11 -> null -> 2 -> 48          
+TECC(TECNOLOGIAS DE COMUNICACAO SEM FIO) -> null -> 4 -> 49
+TECC(MINERAÇÃO DE DADOS) -> null -> 2 -> 50
+TECC(JOGOS DIGITAIS) -> null -> 4 -> 51 
+TECC(ALGORITMOS AVANÇADOS I -> null -> 4 -> 52
+TECC(INTRODUÇÃO À COMPUTAÇÃO QUÂNTICA) -> null -> 4 -> 53
+TECC(ANÁLISE DE DADOS I) -> null -> 4 -> 54

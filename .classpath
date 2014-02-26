@@ -1,7 +1,7 @@
 <classpath>
   <classpathentry kind="src" path="app" output=".target"/>
   <classpathentry kind="src" path="test" output=".target"/>
-  <classpathentry path="C:\Users\Leticia\Documents\SI1\projeto-si1\target\scala-2.10\classes_managed" kind="lib"></classpathentry>
+  <classpathentry path="C:\Users\Leticia\Documents\SI1\lab3si\FlowChartHelper\target\scala-2.10\classes_managed" kind="lib"></classpathentry>
   <classpathentry kind="lib" path="C:\Users\Leticia\Downloads\play-2.2.1\repository\local\com.typesafe.play\play-java-jdbc_2.10\2.2.1\jars\play-java-jdbc_2.10.jar"/>
   <classpathentry kind="lib" path="C:\Users\Leticia\Downloads\play-2.2.1\repository\local\com.typesafe.play\play-jdbc_2.10\2.2.1\jars\play-jdbc_2.10.jar"/>
   <classpathentry kind="lib" path="C:\Users\Leticia\Downloads\play-2.2.1\repository\local\com.typesafe.play\play_2.10\2.2.1\jars\play_2.10.jar"/>

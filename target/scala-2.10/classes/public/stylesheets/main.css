@@ -1,0 +1,71 @@
+#div1 {width:20%;height:200px;border:1px solid #aaaaaa;}
+#div2 {width:20%;height:200px;border:1px solid #bbbbbb;}
+#internal-div {height:500px; border:0px solid #bbbbbb; text-align: center; background-color: #cccccc; padding: 2px; }
+#internal-div-title {height:10%; border:0px solid #bbbbbb; text-align: center; background-color: #aaaaaa; padding: 2px; size: 10%; }
+#drag1 {background-color: black;}
+#drag2 {background-color: red;}
+#catalogo {
+	padding: 2%;
+	position: fixed;
+	top: 0px;
+	left: 80%;
+	height: 100%;
+	background-color: #aaaaaa;
+	overflow: auto;
+	-moz-box-shadow:    0px 0px 4px 4px #ccc;
+  	-webkit-box-shadow: 0px 0px 4px 4px #ccc;
+  	box-shadow:         0px 0px 4px 4px #ccc;
+}
+#barra {
+	padding: 1%;
+	position: absolute;
+	top: 0px;
+	left: 0%;
+	height: 7%;
+	width: 93%;
+	background-color: #aaaaaa;
+	-moz-box-shadow:    0px 0px 4px 4px #ccc;
+  	-webkit-box-shadow: 0px 0px 4px 4px #ccc;
+  	box-shadow:         0px 0px 4px 4px #ccc;
+}
+#periodos {
+	text-align: center;
+	padding-top: 2%;
+	padding-left: 7%;
+	position: absolute;
+	top: 10%;
+	left: 0%;
+	height: 80%;
+	width: 80%;
+}
+
+#alerta {
+	background-color: #aaaaaa;
+	text-align: center;
+	padding-top: 2%;
+	padding-left: 7%;
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	height: 100%;
+	width: 100%;
+	z-index: 8;
+	opacity:0.5;
+}
+#alerta-message {
+	text-align: center;
+	padding-top: 2%;
+	padding-left: 7%;
+	position: fixed;
+	top: 40%;
+	left: 20%;
+	height: 20%;
+	width: 40%;
+	z-index: 9;
+}
+
+ul > li{
+    display: inline-block; 
+    list-style: none;
+    *display:inline; /* this fix is needed for IE7- */
+}

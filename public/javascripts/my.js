@@ -23,6 +23,9 @@ function drop(ev){
 	var data = ev.dataTransfer.getData("Nome");
 	var id = ev.dataTransfer.getData("ID");
 	var periodo = event.target.dataset.value
-	document.location.href = "/adicionaDisciplina/"+id+"/"+periodo
-	document.getElementById(id).parentNode.removeChild(document.getElementById(id));
+	if(periodo.substring(0,7) == "periodo") {
+	        var num_periodo = periodo.substring(7,8)
+	        document.location.href = "/adicionaDisciplina/"+id+"/"+num_periodo
+	        document.getElementById(id).parentNode.removeChild(document.getElementById(id));
+	}
 }

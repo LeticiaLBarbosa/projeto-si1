@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public abstract class Periodo {
 
-	ArrayList<Disciplina> disciplinas; //CREATOR: Periodo é feito de disciplinas
+	ArrayList<Disciplina> disciplinas; 
 	/**
 	 * Construtor do Período
 	 */
@@ -70,20 +70,7 @@ public abstract class Periodo {
 		} 
 		return false;
 	}
-	/**
-	 * Remove disciplina sem pré-requisito
-	 * @param preRequisito
-	 * @throws Exception
-	 */
-	public ArrayList<Disciplina> removeDisciplinaSemRequisito(Disciplina preRequisito) throws Exception {
-		ArrayList<Disciplina> removidas = new ArrayList<Disciplina>();
-		for(Disciplina disciplina: disciplinas) 
-			if(disciplina.getPreRequisitos().contains(preRequisito)) {
-				removeDisciplina(disciplina);
-				removidas.add(disciplina);
-			}
-		return removidas;
-	}
+	
 	
 	
 	}

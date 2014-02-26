@@ -4,7 +4,7 @@
 		module="flowcharthelper_2.10"
 		revision="1.0-SNAPSHOT"
 		status="integration"
-		publication="20140225214028"
+		publication="20140225230823"
 	>
 		<description>
 		FlowChartHelper

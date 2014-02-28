@@ -4,7 +4,7 @@
 		module="flowcharthelper-build"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20140225214017"
+		publication="20140228135408"
 		e:scalaVersion="2.10" e:sbtVersion="0.13"
 	>
 		<description>

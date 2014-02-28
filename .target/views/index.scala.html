@@ -31,10 +31,9 @@
  cŕeditos a este período</div>
 }
 </div>
-     <div  id="internal-div" data-value="periodo@i" ondrop="drop(event)" ondragover="allowDrop(event)">
+     <div  id="internal-div" data-value="@i" ondrop="drop(event)" ondragover="allowDrop(event)">
      @for(disciplina <- manager.getDisciplinas(i)){
-     	<pre>@disciplina.getNome() <i class="icon-remove" onclick="retorna(event, @disciplina.getId(), @i)"></i> <br><small>(@disciplina.getCreditos() créditos)</small></pre>
-     	
+     	<pre>@disciplina.getNome() <i class="icon-remove" onclick="retorna(event, @disciplina.getId(), @i)"></i></pre>
      	}
      </div>
       
@@ -53,7 +52,7 @@
 <div id="catalogo">
 <ul id="opa">
 @for(disciplina <- manager.getDisciplinasDisponiveis()){
-		<li><div id="@disciplina.getId()" draggable="true" data-value="@disciplina.getNome()" ondragstart="drag(event)" ondragend="clear(event)" ondragleave="clear(event)"  class="btn btn-primary btn-medium">@disciplina.getNome() <br><small>(@disciplina.getCreditos() créditos)</small></div></li>
+		<li><div id="@disciplina.getId()" draggable="true" data-value="@disciplina.getNome()" ondragstart="drag(event)" ondragend="clear(event)" ondragleave="clear(event)"  class="btn btn-primary btn-medium">@disciplina.getNome()</div></li>
      	}
 </ul>
 </div>

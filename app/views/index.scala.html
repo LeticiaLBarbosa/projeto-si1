@@ -1,0 +1,132 @@
+@(periodos: List[Periodo],disciplinas: List[Disciplina], erro: String)
+
+@import helper._ 
+
+@main("Meu curso") {
+
+<head>
+<meta charset="UTF-8">
+</head>
+
+<!--Inutil -->
+<header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav"
+    role="banner">
+    <div class="navbar-inverse">
+        <div class="container">
+            <div class="navbar-header" >
+                <a href="/" class="navbar-brand">Home</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse"
+                role="navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/reiniciar">Reiniciar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div> 
+</header> 
+<!-- -->
+<div class="wrapper" style="height: 100%;">
+        <div class="titulo">
+                <nome-principal>Meu Curso</nome-principal>
+        </div>
+        <br/> 
+               
+        <div class="titulo">
+                        <nome-principal>Planejamento</nome-principal>
+        </div>
+        
+        <form id="addCadeira" method="POST" action="@routes.Application.disciplinaPeriodo()">
+        
+           <label>Período:</label>
+	                                
+	              <select name="periodo">
+		             
+		             <option value="2">2</option>
+		             <option value="3">3</option>
+		             <option value="4">4</option>
+		             <option value="5">5</option>
+		             <option value="6">6</option>
+		             <option value="7">7</option>
+		             <option value="8">8</option>
+		             <option value="9">9</option>
+		             <option value="10">10</option>
+	             </select>
+        	
+        	<select name="nome">
+	        @for(disciplina <- disciplinas){
+	       		@if(disciplina.getAlocada() != true){
+	                 <option value="@disciplina.getNome()">@disciplina.getNome()</option>
+	            }
+	        }
+	         
+	       </select>
+	       <input type="submit" value="Adicionar">
+	                
+           </form>
+           
+         <mensagem-erro> @erro  </mensagem-erro>
+          
+        <div id="colunas">
+        	
+        		
+                @for((periodo, i) <- periodos.zipWithIndex) {
+                	@if(periodo.getDisciplinas().size() != 0){
+           			 <div id="periodo_@(i + 1)" class="coluna" align='center'>
+           			 <nome-periodo>Período @(1 + periodos.indexOf(periodo))</nome-periodo>
+           			 @if( i !=  0){
+			            @for(disciplina <- periodo.getDisciplinas()){
+			                <div class="disciplina" id="@disciplina.getNome()">
+			                    <nome>@disciplina.getNome() <form method="post" action="@routes.Application.removeDisciplinaPeriodo()">
+	                                                <input type="hidden" name="nome" value="@disciplina.getNome()"/>
+	                                                <input type="hidden" name="periodo" value="@i"/>
+	                                        		
+	                                              	<input type="submit" value="X">
+	                                        		
+	                                        </form></nome>
+	                                        <descricao>@disciplina.getCreditos() creditos <br>
+	                                        Dificuldade: @disciplina.getDificuldade()</descricao>
+			                </div>
+	            		}
+            		 }else{
+            		 	@for(disciplina <- periodo.getDisciplinas()){
+			                <div class="disciplina" id="@disciplina.getNome()">
+			                    <nome>@disciplina.getNome()
+			                    <br>
+	                            <descricao>@disciplina.getCreditos() créditos
+	                            <br> Dificuldade: @disciplina.getDificuldade()</descricao>
+			                </div>
+	            		}
+            		 
+            		 }
+            		 
+                        <div class ="periodo"><nome> Total de créditos</nome><br/>
+                        	<descricao>@periodo.getTotalCreditos() créditos <br>
+                        	 <nome>Dificuldade Total <br></nome>@periodo.getDificuldadeTotal()</descricao></div>
+                        
+                        </div>
+                    }
+                }
+        
+        </div>
+        
+        <br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br>
+        <br><br><br><br>
+        <div class="titulo">
+                        <nome-principal>Disciplinas Ofertadas</nome-principal>
+        </div>
+        <br/>     
+           
+        <div id="disciplinas">
+                @for(disciplina <- disciplinas){
+                @if(disciplina.getAlocada() != true){
+                <div class="disciplina float-left">
+                        <nome>@disciplina.getNome()</nome><br/>
+                        <descricao>@disciplina.getCreditos() créditos<br> Dificuldade: @disciplina.getDificuldade() </descricao>
+                </div>
+                }
+                }        
+        </div>
+</div>
+}

@@ -124,8 +124,7 @@ public class CatalogoDisciplinas {
 
 		// 5periodo
 		todasDisciplinas.add(new Disciplina("Informática e Sociedade", 2, 1));
-		todasDisciplinas.add(new Disciplina("Metodologia Científica", 4,
-				listaDePreRequisitos("Métodos Estatísticos"), 2));
+		todasDisciplinas.add(new Disciplina("Metodologia Científica", 4, 2));
 		todasDisciplinas
 				.add(new Disciplina(
 						"Analises e Tecnicas de Algoritmos",

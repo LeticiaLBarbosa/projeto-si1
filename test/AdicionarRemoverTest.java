@@ -40,7 +40,7 @@ public class AdicionarRemoverTest {
 			System.out.println(e.getMessage());
 		}
 
-		assertEquals(sistema.getPeriodos().get(1).getTotalCreditos(), 4);
+		assertEquals(sistema.getAluno().getPeriodos().get(1).getTotalCreditos(), 4);
 
 
 		try{
@@ -49,7 +49,7 @@ public class AdicionarRemoverTest {
 			System.out.println(e.getMessage());
 		}
 
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 4);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 4);
 		
 		try{
 			sistema.addDisciplinasPeriodo(4, "Programação I");
@@ -57,7 +57,7 @@ public class AdicionarRemoverTest {
 			System.out.println(e.getMessage());
 		}
 		
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 8);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 8);
 		
 		try{
 			sistema.addDisciplinasPeriodo(4, "Teoria dos Grafos");
@@ -65,7 +65,7 @@ public class AdicionarRemoverTest {
 			System.out.println(e.getMessage());
 		}
 		
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 10);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 10);
 		
 	}
 
@@ -86,11 +86,11 @@ public class AdicionarRemoverTest {
 		}
 		
 		
-		assertEquals(sistema.getPeriodos().get(3).getTotalCreditos(), 4);
+		assertEquals(sistema.getAluno().getPeriodos().get(3).getTotalCreditos(), 4);
 		
 		sistema.removeDisciplinaPeriodo("Cálculo II");
 		
-		assertEquals(sistema.getPeriodos().get(3).getTotalCreditos(), 0);
+		assertEquals(sistema.getAluno().getPeriodos().get(3).getTotalCreditos(), 0);
 	}
 	
 	@Test

@@ -40,7 +40,7 @@ public class US2test {
 			System.out.println(e.getMessage());
 		}
 
-		assertEquals(sistema.getPeriodos().get(1).getTotalCreditos(), 4);
+		assertEquals(sistema.getAluno().getPeriodos().get(1).getTotalCreditos(), 4);
 
 
 		try{
@@ -49,7 +49,7 @@ public class US2test {
 			System.out.println(e.getMessage());
 		}
 
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 4);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 4);
 		
 		try{
 			sistema.addDisciplinasPeriodo(4, "Programação I");
@@ -57,7 +57,7 @@ public class US2test {
 			System.out.println(e.getMessage());
 		}
 		
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 8);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 8);
 		
 		try{
 			sistema.addDisciplinasPeriodo(4, "Teoria dos Grafos");
@@ -65,7 +65,7 @@ public class US2test {
 			System.out.println(e.getMessage());
 		}
 		
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 10);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 10);
 		
 	}
 
@@ -77,11 +77,11 @@ public class US2test {
 			System.out.println(e.getMessage());
 		}
 		
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 2);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 2);
 
 		sistema.removeDisciplinaPeriodo("Teoria dos Grafos");
 		
-		assertEquals(sistema.getPeriodos().get(4).getTotalCreditos(), 0);
+		assertEquals(sistema.getAluno().getPeriodos().get(4).getTotalCreditos(), 0);
 	}
 	
 	@Test

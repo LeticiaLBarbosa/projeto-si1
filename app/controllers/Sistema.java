@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import play.db.ebean.Model.Finder;
 import Exceptions.PreRequisitosInsuficientesException;
+import models.Aluno;
 import models.CatalogoDisciplinas;
 import models.Disciplina;
 import models.Periodo;
@@ -18,22 +20,30 @@ import models.Periodo;
 // as outras.
 public class Sistema {
 
-	// CREATOR: Ele eh formado por periodos
-	static private List<Periodo> periodos;
+	// CREATOR: Ele eh formado por aluno.getPeriodos()
+	
 	static private CatalogoDisciplinas catalogo;
+	private Aluno aluno;
+	private Finder<Long, Aluno> finder = new Finder<Long, Aluno>(Long.class, Aluno.class);
 
 	/**
 	 * Construtor
 	 */
 	public Sistema() {
-		periodos = new ArrayList<Periodo>();
+		
 		catalogo = new CatalogoDisciplinas();
+		aluno = new Aluno();
+		
 		try {
 			setPeriodosInicial();
 		} catch (Exception e) {
 			//Default;
 		}
 
+	}
+
+	public Aluno getAluno() {
+		return aluno;
 	}
 
 	// Nao trata a excessao pq o primeiro periodo eh sempre default
@@ -48,7 +58,7 @@ public class Sistema {
 		setOitavoPeriodo();
 		for (int i = 0; i < 6; i++){
 			Periodo periodo = new Periodo();
-			periodos.add(periodo);
+			aluno.getPeriodos().add(periodo);
 		}
 
 	}
@@ -150,21 +160,13 @@ public class Sistema {
 
 	/**
 	 * 
-	 * @return Retorna os períodos ja criados do sistema
-	 */
-	public List<Periodo> getPeriodos() {
-		return periodos;
-	}
-
-	/**
-	 * 
 	 * @return Retorna a lista de disciplinas do curso
 	 */
 	public List<Disciplina> getCatalogoDisc() {
 		return catalogo.getCatalogo();
 	}
 
-	// INFORMATION EXPERT: Sistema possui a lista de periodos e conhece o
+	// INFORMATION EXPERT: Sistema possui a lista de aluno.getPeriodos() e conhece o
 	// catalogo
 	/**
 	 * Adiciona uma disciplina em um periodo pelo nome
@@ -195,25 +197,23 @@ public class Sistema {
 	 */
 	public void addDisciplinasPeriodo(int periodo, Disciplina disc)
 			throws Exception {
-		if (periodos.size() <= periodo) {
+		if (aluno.getPeriodos().size() <= periodo) {
 			Periodo novoPerido = new Periodo();
-			periodos.add(novoPerido);
+			aluno.getPeriodos().add(novoPerido);
 			addDisciplinasPeriodo(periodo, disc);
 		} else {
-			int numPr = disc.getNumPreRequisitos(); // numpr significa o numero
-													// de pre-requisitos de cada
-													// disciplina
+			int numPr = disc.getNumPreRequisitos();
 			for (int i = 0; i < periodo; i++) {
-				for (int j = 0; j < periodos.get(i).numeroDisciplinas(); j++) {
+				for (int j = 0; j < aluno.getPeriodos().get(i).numeroDisciplinas(); j++) {
 					if (disc.getPreRequisitos().contains(
-							periodos.get(i).indiceDisciplina(j).getNome())) {
+							aluno.getPeriodos().get(i).indiceDisciplina(j).getNome())) {
 						numPr--;
 					}
 				}
 			}
 
 			if (numPr == 0) {
-				periodos.get(periodo).addDisciplina(disc);
+				aluno.getPeriodos().get(periodo).addDisciplina(disc);
 				disc.setAlocada();
 			} else {
 				throw new PreRequisitosInsuficientesException();
@@ -221,7 +221,7 @@ public class Sistema {
 		}
 	}
 
-	// INFORMATION EXPERT: Sistema possui a lista de periodos e conhece o
+	// INFORMATION EXPERT: Sistema possui a lista de aluno.getPeriodos() e conhece o
 	// catalogo
 	/**
 	 * Remove disciplina e seus preRequisitos
@@ -239,8 +239,8 @@ public class Sistema {
 			Disciplina disc;
 			Periodo periodo;
 
-			for (int j = 0; j < periodos.size(); j++) {
-				periodo = periodos.get(j);
+			for (int j = 0; j < aluno.getPeriodos().size(); j++) {
+				periodo = aluno.getPeriodos().get(j);
 
 				for (int k = 0; k < periodo.numeroDisciplinas(); k++) {
 
@@ -271,8 +271,8 @@ public class Sistema {
 		Periodo periodo;
 		Disciplina disc;
 
-		for (int j = 0; j < periodos.size(); j++) {
-			periodo = periodos.get(j);
+		for (int j = 0; j < aluno.getPeriodos().size(); j++) {
+			periodo = aluno.getPeriodos().get(j);
 
 			for (int i = 0; i < periodo.numeroDisciplinas(); i++) {
 

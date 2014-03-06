@@ -22,7 +22,7 @@ public class Application extends Controller {
 	public static Result index() {
 		sistema = new Sistema();
 		
-		return ok(index.render(sistema.getPeriodos(),
+		return ok(index.render(sistema.getAluno().getPeriodos(),
 				sistema.getCatalogoDisc(), erro));
 	}
 
@@ -36,7 +36,7 @@ public class Application extends Controller {
 		
 		String aux = "";
 		
-		return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(),aux));
+		return badRequest(index.render(sistema.getAluno().getPeriodos(),sistema.getCatalogoDisc(),aux));
     	
     	//return redirect("/");
     }
@@ -88,12 +88,12 @@ public class Application extends Controller {
 		
 		
 		String aux = "";
-		for(int i = 0; i < sistema.getPeriodos().size(); i++){
-			if(sistema.getPeriodos().get(i).getTotalCreditos() <= 14 ){
+		for(int i = 0; i < sistema.getAluno().getPeriodos().size(); i++){
+			if(sistema.getAluno().getPeriodos().get(i).getTotalCreditos() <= 14 ){
 				if( aux.equals("")){
 					aux += "Quantidade de créditos insuficientes no: ";
 				}
-				if(i != sistema.getPeriodos().size() -1){
+				if(i != sistema.getAluno().getPeriodos().size() -1){
 					aux += (i + 1) + "º,";
 				}else{
 					aux += (i + 1) + "º.";
@@ -101,7 +101,7 @@ public class Application extends Controller {
 			}
 		}
 		
-		return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(),aux));
+		return badRequest(index.render(sistema.getAluno().getPeriodos(),sistema.getCatalogoDisc(),aux));
 	}
 }
 

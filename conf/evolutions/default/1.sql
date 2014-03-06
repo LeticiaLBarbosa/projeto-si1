@@ -3,8 +3,12 @@
 
 # --- !Ups
 
-create table spd)
+create table aluno (
+  id                        bigint not null,
+  constraint pk_aluno primary key (id))
 ;
+
+create sequence aluno_seq;
 
 
 
@@ -13,7 +17,9 @@ create table spd)
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists spd;
+drop table if exists aluno;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists aluno_seq;
 

@@ -30,66 +30,72 @@ public class Application extends Controller {
 		return redirect(routes.Application.index());
 	}
 	
-	public static Result disciplinaPeriodo() throws Exception {
+	public static Result disciplinaPeriodo(Integer periodo, String nomeDisciplina) throws Exception {
 
-		try {
-
-			DynamicForm formDisciplina = new DynamicForm();
-			
-			final DynamicForm form = formDisciplina.bindFromRequest();
-			final String nome = form.get("nome");
-			final int periodo = Integer.parseInt(form.get("periodo")) - 1;
-
-			sistema.addDisciplinasPeriodo(periodo, nome);
-			
-			String aux = "";
-			for(int i = 0; i < sistema.getPeriodos().size(); i++){
-				if(sistema.getPeriodos().get(i).getTotalCreditos() <= 14 ){
-					if( aux.equals("")){
-						aux += "Quantidade de créditos insuficientes no: ";
-					}
-					if(i != sistema.getPeriodos().size() -1){
-						aux += (i + 1) + "º,";
-					}else{
-						aux += (i + 1) + "º.";
-					}
-				}
-			}
-			
-			return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(),aux));
-			
-
-		} catch (LimitesExcedidosException e) {
-			return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(), e.getMessage()));
-		} catch (PreRequisitosInsuficientesException e) {
-			return badRequest(index.render(sistema.getPeriodos(), sistema.getCatalogoDisc(), e.getMessage()));
-		}
+		sistema.addDisciplinasPeriodo(periodo, nomeDisciplina);
+		return redirect("/");
+		
+//		try {
+//
+//			DynamicForm formDisciplina = new DynamicForm();
+//			
+//			final DynamicForm form = formDisciplina.bindFromRequest();
+//			final String nome = form.get("nome");
+//			final int periodo = Integer.parseInt(form.get("periodo")) - 1;
+//
+//			sistema.addDisciplinasPeriodo(periodo, nome);
+//			
+//			String aux = "";
+//			for(int i = 0; i < sistema.getPeriodos().size(); i++){
+//				if(sistema.getPeriodos().get(i).getTotalCreditos() <= 14 ){
+//					if( aux.equals("")){
+//						aux += "Quantidade de créditos insuficientes no: ";
+//					}
+//					if(i != sistema.getPeriodos().size() -1){
+//						aux += (i + 1) + "º,";
+//					}else{
+//						aux += (i + 1) + "º.";
+//					}
+//				}
+//			}
+//			
+//			return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(),aux));
+//			
+//
+//		} catch (LimitesExcedidosException e) {
+//			return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(), e.getMessage()));
+//		} catch (PreRequisitosInsuficientesException e) {
+//			return badRequest(index.render(sistema.getPeriodos(), sistema.getCatalogoDisc(), e.getMessage()));
+//		}
 	}
-
-	public static Result removeDisciplinaPeriodo(){
-
-		DynamicForm formDisciplina = new DynamicForm();
-
-		final DynamicForm form = formDisciplina.bindFromRequest();
-		final String nome = form.get("nome");
+	
+	public static Result removeDisciplinaPeriodo(String nomeDisciplina){
 		
-		sistema.removeDisciplinaPeriodo(nome);
-		
-		String aux = "";
-		for(int i = 0; i < sistema.getPeriodos().size(); i++){
-			if(sistema.getPeriodos().get(i).getTotalCreditos() <= 14 ){
-				if( aux.equals("")){
-					aux += "Quantidade de créditos insuficientes no: ";
-				}
-				if(i != sistema.getPeriodos().size() -1){
-					aux += (i + 1) + "º,";
-				}else{
-					aux += (i + 1) + "º.";
-				}
-			}
-		}
-		
-		return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(),aux));
+		sistema.removeDisciplinaPeriodo(nomeDisciplina);
+		return redirect("/");
+
+//		DynamicForm formDisciplina = new DynamicForm();
+//
+//		final DynamicForm form = formDisciplina.bindFromRequest();
+//		final String nome = form.get("nome");
+//		
+//		sistema.removeDisciplinaPeriodo(nome);
+//		
+//		String aux = "";
+//		for(int i = 0; i < sistema.getPeriodos().size(); i++){
+//			if(sistema.getPeriodos().get(i).getTotalCreditos() <= 14 ){
+//				if( aux.equals("")){
+//					aux += "Quantidade de créditos insuficientes no: ";
+//				}
+//				if(i != sistema.getPeriodos().size() -1){
+//					aux += (i + 1) + "º,";
+//				}else{
+//					aux += (i + 1) + "º.";
+//				}
+//			}
+//		}
+//		
+//		return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(),aux));
 	}
 }
 

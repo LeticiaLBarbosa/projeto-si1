@@ -8,8 +8,8 @@ GET     /                           controllers.Application.index()
 # Aplicacao
 
 GET		/reiniciar								controllers.Application.reiniciar()
-POST    /disciplinaPeriodo/:period/:name        controllers.Application.disciplinaPeriodo(period: Integer, name: String)
-POST   	/removerCadeira/name                    controllers.Application.removeDisciplinaPeriodo(name: String)
+POST    /disciplinaPeriodo                  	controllers.Application.disciplinaPeriodo()
+POST   	/removerCadeira                         controllers.Application.removeDisciplinaPeriodo()
 
 
 # Map static resources from the /public folder to the /assets URL path

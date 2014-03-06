@@ -6,6 +6,23 @@
 
 <head>
 <meta charset="UTF-8">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+  $(function() {
+    $( ".disciplina" ).draggable();
+    $( ".coluna" ).droppable({
+      drop: function( event, ui ) {
+    	var disciplina = ui.draggable[0].id;
+      	var periodo = event.target.id.replace('periodo_', '');
+      	
+        location.href = '/alocaDisciplina/' + periodo + '/' + disciplina
+      }
+    });
+  });
+</script>
+
 </head>
 
 <!--Inutil -->
@@ -26,6 +43,7 @@
     </div> 
 </header> 
 <!-- -->
+
 <div class="wrapper" style="height: 100%;">
         <div class="titulo">
                 <nome-principal>Meu Curso</nome-principal>

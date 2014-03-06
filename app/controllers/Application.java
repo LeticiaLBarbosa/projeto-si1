@@ -30,6 +30,17 @@ public class Application extends Controller {
 		return redirect(routes.Application.index());
 	}
 	
+	public static Result alocaDisciplina(Integer periodo, String nomeDaDisciplina) throws Exception {
+		sistema.removeDisciplinaPeriodo(nomeDaDisciplina);
+		sistema.addDisciplinasPeriodo(periodo - 1, nomeDaDisciplina);
+		
+		String aux = "";
+		
+		return badRequest(index.render(sistema.getPeriodos(),sistema.getCatalogoDisc(),aux));
+    	
+    	//return redirect("/");
+    }
+	/*
 	public static Result disciplinaPeriodo() throws Exception {
 
 		try {
@@ -65,7 +76,7 @@ public class Application extends Controller {
 			return badRequest(index.render(sistema.getPeriodos(), sistema.getCatalogoDisc(), e.getMessage()));
 		}
 	}
-
+	*/
 	public static Result removeDisciplinaPeriodo(){
 
 		DynamicForm formDisciplina = new DynamicForm();
@@ -74,6 +85,7 @@ public class Application extends Controller {
 		final String nome = form.get("nome");
 		
 		sistema.removeDisciplinaPeriodo(nome);
+		
 		
 		String aux = "";
 		for(int i = 0; i < sistema.getPeriodos().size(); i++){

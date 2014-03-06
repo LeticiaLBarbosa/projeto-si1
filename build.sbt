@@ -1,4 +1,4 @@
-name := "lab3"
+name := "ProjetoSI"
 
 version := "1.0-SNAPSHOT"
 

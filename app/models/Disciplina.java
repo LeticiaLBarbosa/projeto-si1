@@ -21,7 +21,6 @@ public class Disciplina {
 	// Information Expert: Cada disciplina é quem deve conhecer seus
 	// pre-requisitos.
 	private List<String> preRequisitos;
-	private boolean alocada;
 	private int dificuldade;
 
 	/**
@@ -38,7 +37,6 @@ public class Disciplina {
 	public Disciplina(String nome, int creditos, int dificuldade) {
 		setNome(nome);
 		setCreditos(creditos);
-		alocada = false;
 		this.dificuldade = dificuldade;
 		preRequisitos = new ArrayList<String>();
 	}
@@ -63,7 +61,6 @@ public class Disciplina {
 		this.nome = nome;
 		this.creditos = creditos;
 		this.dificuldade = dificuldade;
-		alocada = false;
 		this.preRequisitos = preRequesitos;
 	}
 
@@ -102,14 +99,6 @@ public class Disciplina {
 
 	/**
 	 * 
-	 * @return Retorna se a disciplina já está ou não alocada
-	 */
-	public boolean getAlocada() {
-		return alocada;
-	}
-
-	/**
-	 * 
 	 * @return Retorna a dificuldade da disciplina
 	 */
 	public int getDificuldade() {
@@ -137,13 +126,6 @@ public class Disciplina {
 	}
 
 	/**
-	 * Muda se a disciplina está alocada ou nao
-	 */
-	public void setAlocada() {
-		alocada = (alocada == false) ? true : false;
-	}
-
-	/**
 	 * 
 	 * @return Retorna o periodo que a disciplina foi alocado
 	 */
@@ -163,6 +145,7 @@ public class Disciplina {
 	/**
 	 * Compara duas disciplinas
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Disciplina) {
 			Disciplina compara = (Disciplina) obj;

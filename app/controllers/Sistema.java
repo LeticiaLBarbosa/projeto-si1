@@ -1,15 +1,9 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import play.db.ebean.Model.Finder;
-import Exceptions.PreRequisitosInsuficientesException;
 import models.Aluno;
-import models.CatalogoDisciplinas;
-import models.Disciplina;
 import models.Periodo;
+import models.Planejador;
 
 /**
  * Classe responsável pelo controle do sistema
@@ -22,7 +16,7 @@ public class Sistema {
 
 	// CREATOR: Ele eh formado por aluno.getPeriodos()
 	
-	static private CatalogoDisciplinas catalogo;
+	private Planejador planejador;
 	private Aluno aluno;
 	private Finder<Long, Aluno> finder = new Finder<Long, Aluno>(Long.class, Aluno.class);
 
@@ -31,23 +25,20 @@ public class Sistema {
 	 */
 	public Sistema() {
 		
-		catalogo = new CatalogoDisciplinas();
-		aluno = new Aluno();
-		
-		try {
-			setPeriodosInicial();
-		} catch (Exception e) {
-			//Default;
+		if (finder.all().isEmpty()) {
+			this.aluno = new Aluno();
+			this.aluno.save();
+		} else {
+			this.aluno = finder.all().get(0);
 		}
+		
+		planejador = new Planejador();
+		setPeriodosInicial();
 
-	}
-
-	public Aluno getAluno() {
-		return aluno;
 	}
 
 	// Nao trata a excessao pq o primeiro periodo eh sempre default
-	private void setPeriodosInicial() throws Exception {
+	private void setPeriodosInicial() {
 		setPrimeiroPeriodo();
 		setSegundoPeriodo();
 		setTerceiroPeriodo();
@@ -63,18 +54,18 @@ public class Sistema {
 
 	}
 
-	private void setPrimeiroPeriodo() throws Exception {
+	private void setPrimeiroPeriodo() {
 
 		String[] primeiro = { "Programação I", "Lab. de Programação I",
 				"Cálculo I", "Álgebra Vetorial e Geometria Analítica",
 				"Introdução a Computação", "Leitura e Produção de Textos" };
 
 		for (String disciplina : primeiro) {
-			this.addDisciplinasPeriodo(0, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina), 0);
 		}
 	}
 
-	private void setSegundoPeriodo() throws Exception {
+	private void setSegundoPeriodo(){
 
 		String[] segundo = { "Cálculo II", "Matemática Discreta",
 				"Programação II", "Teoria dos Grafos",
@@ -82,11 +73,11 @@ public class Sistema {
 				"Metodologia Científica" };
 
 		for (String disciplina : segundo) {
-			this.addDisciplinasPeriodo(1, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),1);
 		}
 	}
 
-	private void setTerceiroPeriodo() throws Exception {
+	private void setTerceiroPeriodo(){
 
 		String[] terceiro = { "Álgebra Linear", "Probabilidade e Estatística",
 				"Teoria da Computação", "Estruturas de Dados e Algoritmos",
@@ -94,11 +85,11 @@ public class Sistema {
 				"Lab. de Estruturas de Dados e Algoritmos" };
 
 		for (String disciplina : terceiro) {
-			this.addDisciplinasPeriodo(2, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),2);
 		}
 	}
 
-	private void setQuartoPeriodo() throws Exception {
+	private void setQuartoPeriodo(){
 
 		String[] quarto = { "Métodos Estatísticos",
 				"Paradigmas de Linguagem de Programação", "Lógica Matemática",
@@ -107,11 +98,11 @@ public class Sistema {
 				"Engenharia de Software I", "Sistemas de Informação I" };
 
 		for (String disciplina : quarto) {
-			this.addDisciplinasPeriodo(3, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),3);
 		}
 	}
 
-	private void setQuintoPeriodo() throws Exception {
+	private void setQuintoPeriodo(){
 
 		String[] quinto = { "Informática e Sociedade",
 				"Analises e Tecnicas de Algoritmos", "Compiladores",
@@ -119,11 +110,11 @@ public class Sistema {
 				"Sistemas de Informação II", "Lab. de Engenharia de Software" };
 
 		for (String disciplina : quinto) {
-			this.addDisciplinasPeriodo(4, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),4);
 		}
 	}
 
-	private void setSextoPeriodo() throws Exception {
+	private void setSextoPeriodo(){
 
 		String[] sexto = { "Sistemas Operacionais",
 				"Interconexão de Redes de Computadores",
@@ -132,11 +123,11 @@ public class Sistema {
 				"Direito e Cidadania", "Optativa 1", "Optativa 2" };
 
 		for (String disciplina : sexto) {
-			this.addDisciplinasPeriodo(5, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),5);
 		}
 	}
 
-	private void setSetimoPeriodo() throws Exception {
+	private void setSetimoPeriodo(){
 
 		String[] setimo = { "Métodos e Software Numéricos",
 				"Avaliação de Desempenho de Sistemas Discretos",
@@ -144,148 +135,31 @@ public class Sistema {
 				"Optativa 5", "Optativa 6" };
 
 		for (String disciplina : setimo) {
-			this.addDisciplinasPeriodo(6, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),6);
 		}
 	}
 
-	private void setOitavoPeriodo() throws Exception {
+	private void setOitavoPeriodo(){
 		
 		String[] oitavo = { "Projeto em Computação II", "Optativa 7",
 				"Optativa 8", "Optativa 9", "Optativa 10", "Optativa 11" };
 
 		for (String disciplina : oitavo) {
-			this.addDisciplinasPeriodo(7, disciplina);
+			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),7);
 		}
 	}
-
-	/**
-	 * 
-	 * @return Retorna a lista de disciplinas do curso
-	 */
-	public List<Disciplina> getCatalogoDisc() {
-		return catalogo.getCatalogo();
+	
+	public Aluno getAluno() {
+		return aluno;
 	}
 
-	// INFORMATION EXPERT: Sistema possui a lista de aluno.getPeriodos() e conhece o
-	// catalogo
-	/**
-	 * Adiciona uma disciplina em um periodo pelo nome
-	 * 
-	 * @param periodo
-	 *            Numero do periodo
-	 * @param nome
-	 *            Nome da disciplina
-	 * @throws Exception
-	 * 
-	 */
-	public void addDisciplinasPeriodo(int periodo, String nome)
-			throws Exception {
-		int i = catalogo.disciplinaIndice(nome);
-
-		addDisciplinasPeriodo(periodo, catalogo.getDisciplinaPorIndice(i));
+	public Planejador getPlanejador(){
+		return planejador;
 	}
-
-	/**
-	 * Adiciona uma disciplina em um periodo pelo disciplina já criada
-	 * 
-	 * @param periodo
-	 *            Numero do periodo
-	 * @param nome
-	 *            Nome da disciplina
-	 * @throws Exception
-	 * 
-	 */
-	public void addDisciplinasPeriodo(int periodo, Disciplina disc)
-			throws Exception {
-		if (aluno.getPeriodos().size() <= periodo) {
-			Periodo novoPerido = new Periodo();
-			aluno.getPeriodos().add(novoPerido);
-			addDisciplinasPeriodo(periodo, disc);
-		} else {
-			int numPr = disc.getNumPreRequisitos();
-			for (int i = 0; i < periodo; i++) {
-				for (int j = 0; j < aluno.getPeriodos().get(i).numeroDisciplinas(); j++) {
-					if (disc.getPreRequisitos().contains(
-							aluno.getPeriodos().get(i).indiceDisciplina(j).getNome())) {
-						numPr--;
-					}
-				}
-			}
-
-			if (numPr == 0) {
-				aluno.getPeriodos().get(periodo).addDisciplina(disc);
-				disc.setAlocada();
-			} else {
-				throw new PreRequisitosInsuficientesException();
-			}
-		}
-	}
-
-	// INFORMATION EXPERT: Sistema possui a lista de aluno.getPeriodos() e conhece o
-	// catalogo
-	/**
-	 * Remove disciplina e seus preRequisitos
-	 * 
-	 * @param nome
-	 *            Nome da disciplina a ser removida
-	 */
-	public void removeDisciplinaPeriodo(String nome) {
-		int i = catalogo.disciplinaIndice(nome);
-
-		if (catalogo.getDisciplina(nome).getAlocada()) {
-
-			catalogo.getCatalogo().get(i).setAlocada();
-
-			Disciplina disc;
-			Periodo periodo;
-
-			for (int j = 0; j < aluno.getPeriodos().size(); j++) {
-				periodo = aluno.getPeriodos().get(j);
-
-				for (int k = 0; k < periodo.numeroDisciplinas(); k++) {
-
-					disc = periodo.indiceDisciplina(k);
-
-					if (disc.getNome().equals(nome)) {
-						periodo.rmDisciplina(nome);
-
-						// Zera o contador ao remover uma disciplina.
-						j = 0;
-						k = 0;
-						rmDisciplinaPreRequisitos(nome);
-					}
-				}
-
-			}
-		}
-	}
-
-	/**
-	 * Verifica se a disciplina e prerequisito de alguma, se sim a remove usando
-	 * o metodo removeDisciplinaPeriodo
-	 * 
-	 * @param nome
-	 *            Nome da disciplina
-	 */
-	private void rmDisciplinaPreRequisitos(String nome) {
-		Periodo periodo;
-		Disciplina disc;
-
-		for (int j = 0; j < aluno.getPeriodos().size(); j++) {
-			periodo = aluno.getPeriodos().get(j);
-
-			for (int i = 0; i < periodo.numeroDisciplinas(); i++) {
-
-				disc = periodo.indiceDisciplina(i);
-
-				if (disc.getPreRequisitos().contains(nome)) {
-					j = 0;
-					i = 0;
-					removeDisciplinaPeriodo(disc.getNome());
-
-				}
-			}
-		}
+	
+	public void alocaDisciplina(int periodo, String nomeDisciplina){
+		planejador.removeDisciplina(aluno, nomeDisciplina);
+		planejador.adicionaDisciplina(aluno, planejador.getDisciplina(nomeDisciplina), periodo);
 	}
 
 }

@@ -13,32 +13,26 @@ public class Application extends Controller {
 
 	// CONTROLER: Sistema eh a classe responsavel por controlar o sistema
 
-	static Sistema sistema;
+	static Sistema sistema = new Sistema();;
 
 	private static String erro = "";
 
-	static Form<Disciplina> disciplinaForm = Form.form(Disciplina.class);
-
 	public static Result index() {
-		sistema = new Sistema();
 		
-		return ok(index.render(sistema.getAluno().getPeriodos(),
-				sistema.getCatalogoDisc(), erro));
+		return ok(index.render(sistema.getAluno().getPeriodos(), erro));
 	}
 
 	public static Result reiniciar(){
 		return redirect(routes.Application.index());
 	}
 	
-	public static Result alocaDisciplina(Integer periodo, String nomeDaDisciplina) throws Exception {
-		sistema.removeDisciplinaPeriodo(nomeDaDisciplina);
-		sistema.addDisciplinasPeriodo(periodo - 1, nomeDaDisciplina);
+	public static Result alocaDisciplina(Integer periodo, String nomeDisciplina) throws Exception {
+		sistema.alocaDisciplina(periodo - 1, nomeDisciplina);
 		
 		String aux = "";
 		
-		return badRequest(index.render(sistema.getAluno().getPeriodos(),sistema.getCatalogoDisc(),aux));
+		return ok(index.render(sistema.getAluno().getPeriodos(),aux));
     	
-    	//return redirect("/");
     }
 	/*
 	public static Result disciplinaPeriodo() throws Exception {
@@ -77,31 +71,31 @@ public class Application extends Controller {
 		}
 	}
 	*/
-	public static Result removeDisciplinaPeriodo(){
-
-		DynamicForm formDisciplina = new DynamicForm();
-
-		final DynamicForm form = formDisciplina.bindFromRequest();
-		final String nome = form.get("nome");
-		
-		sistema.removeDisciplinaPeriodo(nome);
-		
-		
-		String aux = "";
-		for(int i = 0; i < sistema.getAluno().getPeriodos().size(); i++){
-			if(sistema.getAluno().getPeriodos().get(i).getTotalCreditos() <= 14 ){
-				if( aux.equals("")){
-					aux += "Quantidade de créditos insuficientes no: ";
-				}
-				if(i != sistema.getAluno().getPeriodos().size() -1){
-					aux += (i + 1) + "º,";
-				}else{
-					aux += (i + 1) + "º.";
-				}
-			}
-		}
-		
-		return badRequest(index.render(sistema.getAluno().getPeriodos(),sistema.getCatalogoDisc(),aux));
-	}
+//	public static Result removeDisciplinaPeriodo(){
+//
+//		DynamicForm formDisciplina = new DynamicForm();
+//
+//		final DynamicForm form = formDisciplina.bindFromRequest();
+//		final String nome = form.get("nome");
+//		
+//		sistema.removeDisciplinaPeriodo(nome);
+//		
+//		
+//		String aux = "";
+//		for(int i = 0; i < sistema.getAluno().getPeriodos().size(); i++){
+//			if(sistema.getAluno().getPeriodos().get(i).getTotalCreditos() <= 14 ){
+//				if( aux.equals("")){
+//					aux += "Quantidade de créditos insuficientes no: ";
+//				}
+//				if(i != sistema.getAluno().getPeriodos().size() -1){
+//					aux += (i + 1) + "º,";
+//				}else{
+//					aux += (i + 1) + "º.";
+//				}
+//			}
+//		}
+//		
+//		return badRequest(index.render(sistema.getAluno().getPeriodos(),sistema.getCatalogoDisc(),aux));
+//	}
 }
 

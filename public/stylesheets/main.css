@@ -47,7 +47,7 @@ mensagem-erro {
 	margin: auto;
 	margin-top: 50px;
 	margin-bottom: 10px;
-	height: 660px;
+	height: 1100px;
 	width: 1280px;
 	display: inherit;
 	border-radius: 10px;
@@ -85,7 +85,7 @@ mensagem-erro {
 
 
 .disciplinaNaoAlocada{
-	background-color: #FF0000;
+	background-color: #CD3333;
 	margin: auto;
 	margin-top: 6px;
 	width: 138px;

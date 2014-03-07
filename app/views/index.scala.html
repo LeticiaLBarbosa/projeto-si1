@@ -57,42 +57,76 @@
 
 	<mensagem-erro> @erro </mensagem-erro>
 
-	<div id="colunas">
-
 
 		@for((periodo, i) <- periodos.zipWithIndex) {
-
-		<div id="periodo_@(i + 1)" class="coluna" align='center'>
+		
+			@if(i < 7){
+			<div id="colunas">
+			<div id="periodo_@(i + 1)" class="coluna" align='center'>
 			<nome-periodo>Período @(1 + periodos.indexOf(periodo))</nome-periodo>
 
-			@for(disciplina <- periodo.getDisciplinas()){
-				@if(disciplina.isAlocadaCorretamente()){
-					<div class="disciplina" id="@disciplina.getNome()">
+				@for(disciplina <- periodo.getDisciplinas()){
+					@if(disciplina.isAlocadaCorretamente()){
+						<div class="disciplina" id="@disciplina.getNome()">
 						<nome>@disciplina.getNome()</nome>
 						<br />
 						<descricao>@disciplina.getCreditos() créditos <br>
 						Dificuldade: @disciplina.getDificuldade()</descricao>
-					</div>
-				}else{
-					<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+						</div>
+					}else{
+						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
 						<nome>@disciplina.getNome()</nome>
 						<br />
 						<descricao>@disciplina.getCreditos() créditos <br>
 						Dificuldade: @disciplina.getDificuldade()</descricao>
-					</div>
+						</div>
+					}
 				}
-				
-				 
-			}
-			<div class="periodo">
+				<div class="periodo">
 				<nome> Total de créditos</nome>
 				<br />
 				<descricao>@periodo.getTotalCreditos() créditos <br>
 				<nome>Dificuldade Total <br>
 				</nome>@periodo.getDificuldadeTotal()</descricao>
-			</div>
+				</div>
 
-		</div>
+			</div>
+				@if(i == 6){
+				</div>
+				}
+			}else{
+				<div id="colunas">
+				<div id="periodo_@(i + 1)" class="coluna" align='center'>
+				<nome-periodo>Período @(1 + periodos.indexOf(periodo))</nome-periodo>
+
+				@for(disciplina <- periodo.getDisciplinas()){
+					@if(disciplina.isAlocadaCorretamente()){
+						<div class="disciplina" id="@disciplina.getNome()">
+						<nome>@disciplina.getNome()</nome>
+						<br />
+						<descricao>@disciplina.getCreditos() créditos <br>
+						Dificuldade: @disciplina.getDificuldade()</descricao>
+						</div>
+					}else{
+						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+						<nome>@disciplina.getNome()</nome>
+						<br />
+						<descricao>@disciplina.getCreditos() créditos <br>
+						Dificuldade: @disciplina.getDificuldade()</descricao>
+						</div>
+					}
+				}
+				<div class="periodo">
+				<nome> Total de créditos</nome>
+				<br />
+				<descricao>@periodo.getTotalCreditos() créditos <br>
+				<nome>Dificuldade Total <br>
+				</nome>@periodo.getDificuldadeTotal()</descricao>
+				</div>
+
+			</div>
+			}
+		
 		}
 	</div>
 

@@ -17,6 +17,8 @@ public class Disciplina {
 	@Required
 	private int periodo;
 	private int creditos;
+	
+	private boolean alocadaCorretamente = true;
 
 	// Information Expert: Cada disciplina é quem deve conhecer seus
 	// pre-requisitos.
@@ -62,6 +64,21 @@ public class Disciplina {
 		this.creditos = creditos;
 		this.dificuldade = dificuldade;
 		this.preRequisitos = preRequesitos;
+	}
+	
+	/**
+	 * @return the alocadaCorretamente
+	 */
+	public boolean isAlocadaCorretamente() {
+		return alocadaCorretamente;
+	}
+
+	/**
+	 * @param alocadaCorretamente the alocadaCorretamente to set
+	 */
+	public void setAlocadaCorretamente(boolean alocadaCorretamente) {
+		this.alocadaCorretamente = alocadaCorretamente;
+		
 	}
 
 	/**

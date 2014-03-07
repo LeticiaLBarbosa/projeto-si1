@@ -1,6 +1,4 @@
-@(periodos: List[Periodo], erro: String)
-
-@import helper._ 
+@(periodos: List[Periodo], erro: String) @import helper._
 
 @main("Planejamento de curso") {
 
@@ -12,6 +10,7 @@
 <script>
   $(function() {
     $( ".disciplina" ).draggable();
+    $( ".disciplinaNaoAlocada" ).draggable();
     $( ".coluna" ).droppable({
       drop: function( event, ui ) {
     	var disciplina = ui.draggable[0].id;
@@ -27,59 +26,75 @@
 
 <!--Inutil -->
 <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav"
-    role="banner">
-    <div class="navbar-inverse">
-        <div class="container">
-            <div class="navbar-header" >
-                <a href="/" class="navbar-brand">Home</a>
-            </div>
-            <nav class="collapse navbar-collapse bs-navbar-collapse"
-                role="navigation">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/reiniciar">Reiniciar</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div> 
-</header> 
+	role="banner">
+	<div class="navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="/" class="navbar-brand">Home</a>
+			</div>
+			<nav class="collapse navbar-collapse bs-navbar-collapse"
+				role="navigation">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/reiniciar">Reiniciar</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</header>
 <!-- -->
 
 <div class="wrapper" style="height: 100%;">
-        <div class="titulo">
-                <nome-principal>Meu Curso</nome-principal>
-        </div>
-        <br/> 
-               
-        <div class="titulo">
-                        <nome-principal>Planejamento</nome-principal>
-        </div>
-        
-        
-           
-         <mensagem-erro> @erro  </mensagem-erro>
-          
-        <div id="colunas">
-        	
-        		
-                @for((periodo, i) <- periodos.zipWithIndex) {
-                	
-           			 <div id="periodo_@(i + 1)" class="coluna" align='center'>
-           			 <nome-periodo>Período @(1 + periodos.indexOf(periodo))</nome-periodo>
-           			 
-			            @for(disciplina <- periodo.getDisciplinas()){
-			                <div class="disciplina" id="@disciplina.getNome()">
-			                    <nome>@disciplina.getNome()</nome><br/>
-	                                        <descricao>@disciplina.getCreditos() créditos <br>
-	                                        Dificuldade: @disciplina.getDificuldade()</descricao>
-			                </div>
-	            		}
-	            		<div class ="periodo"><nome> Total de créditos</nome><br/>
-                        	<descricao>@periodo.getTotalCreditos() créditos <br>
-                        	 <nome>Dificuldade Total <br></nome>@periodo.getDificuldadeTotal()</descricao></div>
-                        
-                        </div>
-                }        
-        </div>
-               
+	<div class="titulo">
+		<nome-principal>Meu Curso</nome-principal>
+	</div>
+	<br />
+
+	<div class="titulo">
+		<nome-principal>Planejamento</nome-principal>
+	</div>
+
+
+
+	<mensagem-erro> @erro </mensagem-erro>
+
+	<div id="colunas">
+
+
+		@for((periodo, i) <- periodos.zipWithIndex) {
+
+		<div id="periodo_@(i + 1)" class="coluna" align='center'>
+			<nome-periodo>Período @(1 + periodos.indexOf(periodo))</nome-periodo>
+
+			@for(disciplina <- periodo.getDisciplinas()){
+				@if(disciplina.isAlocadaCorretamente()){
+					<div class="disciplina" id="@disciplina.getNome()">
+						<nome>@disciplina.getNome()</nome>
+						<br />
+						<descricao>@disciplina.getCreditos() créditos <br>
+						Dificuldade: @disciplina.getDificuldade()</descricao>
+					</div>
+				}else{
+					<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+						<nome>@disciplina.getNome()</nome>
+						<br />
+						<descricao>@disciplina.getCreditos() créditos <br>
+						Dificuldade: @disciplina.getDificuldade()</descricao>
+					</div>
+				}
+				
+				 
+			}
+			<div class="periodo">
+				<nome> Total de créditos</nome>
+				<br />
+				<descricao>@periodo.getTotalCreditos() créditos <br>
+				<nome>Dificuldade Total <br>
+				</nome>@periodo.getDificuldadeTotal()</descricao>
+			</div>
+
+		</div>
+		}
+	</div>
+
 </div>
 }

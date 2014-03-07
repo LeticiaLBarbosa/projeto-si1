@@ -83,6 +83,18 @@ mensagem-erro {
 	text-align: center;
 }
 
+
+.disciplinaNaoAlocada{
+	background-color: #FF0000;
+	margin: auto;
+	margin-top: 6px;
+	width: 138px;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
 .disciplina:hover {
 	background-color: #b2cfe9;
 }

@@ -160,6 +160,7 @@ public class Sistema {
 	public void alocaDisciplina(int periodo, String nomeDisciplina){
 		planejador.removeDisciplina(aluno, nomeDisciplina);
 		planejador.adicionaDisciplina(aluno, planejador.getDisciplina(nomeDisciplina), periodo);
+		planejador.verificaTodasDisciplinas(aluno);
 	}
 
 }

@@ -51,13 +51,13 @@ public class DisciplinaTest {
 	}
 
 	
-	@Test
-	public void Alocação(){
-		d1.setAlocada();
-		assertTrue(d1.getAlocada());
-		assertFalse(d2.getAlocada());
-		d3.setAlocada();
-		d3.setAlocada();
-		assertFalse(d3.getAlocada());
-	}
+//	@Test
+//	public void Alocação(){
+//		d1.setAlocada();
+//		assertTrue(d1.getAlocada());
+//		assertFalse(d2.getAlocada());
+//		d3.setAlocada();
+//		d3.setAlocada();
+//		assertFalse(d3.getAlocada());
+//	}
 }

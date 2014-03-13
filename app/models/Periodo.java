@@ -7,24 +7,23 @@ import java.util.List;
  * Classe que representa os períodos que o aluno irá alocar disciplinas
  * 
  */
-public class Periodo {
+
+public class Periodo{
 
 	private List<Disciplina> disciplinas;
 
-	/**
-	 * Construtor
-	 */
 	public Periodo() {
 		disciplinas = new ArrayList<Disciplina>();
 	}
-
-	/**
-	 * Retorna a disciplina da lista de disciplinas
-	 * 
-	 * @param i
-	 *            Disciplina a ser retornada
-	 */	
-	public Disciplina indiceDisciplina(int i){
+		
+	public void addDisciplina(Disciplina disciplina){
+		disciplinas.add(disciplina);
+	}
+	public void removeDisciplina(String disciplina){
+		disciplinas.remove(indiceDisciplina(disciplina));
+	}
+	
+	public Disciplina disciplinaIndice(int i){
 		return disciplinas.get(i);
 	}
 	
@@ -40,30 +39,14 @@ public class Periodo {
 		return result;
 	}
 
-	/**
-	 * @return Retorna a lista de disciplinas do período
-	 */
-
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}
-
-	/**
-	 * INFORMATION EXPERT: Periodo deve saber quantas disciplinas ele tem.
-	 * 
-	 * @return
-	 */
 
 	public int numeroDisciplinas() {
 		return disciplinas.size();
 	}
 
-	// INFORMATION EXPERT: Periodo tem todas as disciplinas, logo ele pode
-	// calcular a dificuldade total
-	/**
-	 * 
-	 * @return Retorna a soma de dificuldades do periodo
-	 */
 	public int getDificuldadeTotal() {
 		int soma = 0;
 		for (int i = 0; i < disciplinas.size(); i++) {
@@ -72,13 +55,6 @@ public class Periodo {
 		return soma;
 	}
 
-	// INFORMATION EXPERT: Periodo tem todas as disciplinas, logo ele pode
-	// calcular o total de creditos
-	/**
-	 * 
-	 * @return Retorna o total de creditos ja alocados do periodo
-	 */
-
 	public int getTotalCreditos() {
 		int totalCreditos = 0;
 		for (Disciplina disciplina : disciplinas) {
@@ -86,4 +62,5 @@ public class Periodo {
 		}
 		return totalCreditos;
 	}
+
 }

@@ -5,13 +5,30 @@ import java.util.List;
 
 import play.data.validation.Constraints.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import play.db.ebean.Model;
+
 /**
  * Classe que representa as disciplinas a serem alocadas
  * 
  */
+@Entity
+public class Disciplina extends Model{
 
-public class Disciplina {
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 871291622882752052L;
+	
+	@Id
+	public Long id; 
+	
 	@Required
 	private String nome;
 	@Required

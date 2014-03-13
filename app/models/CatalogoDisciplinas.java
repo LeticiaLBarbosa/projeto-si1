@@ -2,11 +2,24 @@ package models;
 
 import java.util.*;
 
-/**
- * Classe que guarda as disciplinas do curso.
- * 
- */
-public class CatalogoDisciplinas {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
+import play.db.ebean.Model;
+
+@Entity
+public class CatalogoDisciplinas extends Model{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 698669654840515979L;
+	
+	@Id
+	private String id;
+	
 	private List<Disciplina> todasDisciplinas = new ArrayList<Disciplina>();
 
 	// CREATOR: a classe CatalogoDisiciplina será a responsável por criar as

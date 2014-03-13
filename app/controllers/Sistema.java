@@ -5,40 +5,30 @@ import models.Aluno;
 import models.Periodo;
 import models.Planejador;
 
-/**
- * Classe responsável pelo controle do sistema
- * 
- */
 
-// Controller: classe principal do sistema, pois ela quem dá as coordenadas para
-// as outras.
 public class Sistema {
-
-	// CREATOR: Ele eh formado por aluno.getPeriodos()
 	
-	private Planejador planejador;
 	private Aluno aluno;
 	private Finder<Long, Aluno> finder = new Finder<Long, Aluno>(Long.class, Aluno.class);
 
-	/**
-	 * Construtor
-	 */
 	public Sistema() {
 		
 		if (finder.all().isEmpty()) {
-			this.aluno = new Aluno();
+			this.aluno = new Aluno("login","nome", "senha");
 			this.aluno.save();
 		} else {
 			this.aluno = finder.all().get(0);
 		}
-		
-		planejador = new Planejador();
 		setPeriodosInicial();
+		aluno.update();
 
 	}
 
-	// Nao trata a excessao pq o primeiro periodo eh sempre default
 	private void setPeriodosInicial() {
+		for (int i = 0; i < 14; i++){
+			Periodo periodo = new Periodo();
+			aluno.getPlanejador().getPeriodos().add(periodo);
+		}
 		setPrimeiroPeriodo();
 		setSegundoPeriodo();
 		setTerceiroPeriodo();
@@ -47,10 +37,7 @@ public class Sistema {
 		setSextoPeriodo();
 		setSetimoPeriodo();
 		setOitavoPeriodo();
-		for (int i = 0; i < 6; i++){
-			Periodo periodo = new Periodo();
-			aluno.getPeriodos().add(periodo);
-		}
+		
 
 	}
 
@@ -61,7 +48,7 @@ public class Sistema {
 				"Introdução a Computação", "Leitura e Produção de Textos" };
 
 		for (String disciplina : primeiro) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina), 0);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina), 0);
 		}
 	}
 
@@ -73,7 +60,7 @@ public class Sistema {
 				"Metodologia Científica" };
 
 		for (String disciplina : segundo) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),1);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina),1);
 		}
 	}
 
@@ -85,7 +72,7 @@ public class Sistema {
 				"Lab. de Estruturas de Dados e Algoritmos" };
 
 		for (String disciplina : terceiro) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),2);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina),2);
 		}
 	}
 
@@ -98,7 +85,7 @@ public class Sistema {
 				"Engenharia de Software I", "Sistemas de Informação I" };
 
 		for (String disciplina : quarto) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),3);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina),3);
 		}
 	}
 
@@ -110,7 +97,7 @@ public class Sistema {
 				"Sistemas de Informação II", "Lab. de Engenharia de Software" };
 
 		for (String disciplina : quinto) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),4);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina),4);
 		}
 	}
 
@@ -123,7 +110,7 @@ public class Sistema {
 				"Direito e Cidadania", "Optativa 1", "Optativa 2" };
 
 		for (String disciplina : sexto) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),5);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina),5);
 		}
 	}
 
@@ -135,7 +122,7 @@ public class Sistema {
 				"Optativa 5", "Optativa 6" };
 
 		for (String disciplina : setimo) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),6);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina),6);
 		}
 	}
 
@@ -145,22 +132,19 @@ public class Sistema {
 				"Optativa 8", "Optativa 9", "Optativa 10", "Optativa 11" };
 
 		for (String disciplina : oitavo) {
-			planejador.adicionaDisciplina(aluno, planejador.getDisciplina(disciplina),7);
+			aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(disciplina),7);
 		}
 	}
 	
 	public Aluno getAluno() {
 		return aluno;
 	}
-
-	public Planejador getPlanejador(){
-		return planejador;
-	}
 	
 	public void alocaDisciplina(int periodo, String nomeDisciplina){
-		planejador.removeDisciplina(aluno, nomeDisciplina);
-		planejador.adicionaDisciplina(aluno, planejador.getDisciplina(nomeDisciplina), periodo);
-		planejador.verificaTodasDisciplinas(aluno);
+		aluno.getPlanejador().removeDisciplina(nomeDisciplina);
+		aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(nomeDisciplina), periodo);
+		aluno.getPlanejador().verificaTodasDisciplinas();
+		aluno.update();
 	}
 
 }

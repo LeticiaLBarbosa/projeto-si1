@@ -1,10 +1,12 @@
 package models;
 
-import java.util.*;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-import play.db.ebean.*;
+import play.db.ebean.Model;
 
 @Entity
 public class Aluno extends Model {
@@ -13,35 +15,43 @@ public class Aluno extends Model {
 	 * 
 	 */
 	private static final long serialVersionUID = -778429165364114973L;
+	
 	@Id
-	public Long id;
-	static private List<Periodo> periodos;
+	private String id;
 	
-	public Aluno(){
-		periodos = new ArrayList<Periodo>();
+	public static Finder<Long,Aluno> find = new Finder<Long,Aluno>(Long.class, Aluno.class);
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private Planejador planejador;
+	
+	private String nome, senha;
+	
+	public Aluno(String login, String nome, String senha){
+		planejador = new Planejador();
+		id = login;
+		this.setNome(nome);
+		this.setSenha(senha);
+	
+	}		
+
+	public String getNome() {
+		return nome;
 	}
-	
-	public List<Periodo> getPeriodos(){
-		return periodos;
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	
-	public void adicionaDisciplina(Disciplina disciplina, int periodo){
-		if(periodos.size() <= periodo){
-			periodos.add(new Periodo());
-			this.adicionaDisciplina(disciplina, periodo);
-		}else{
-			periodos.get(periodo).getDisciplinas().add(disciplina);
-		}
+
+	public String getSenha() {
+		return senha;
 	}
-	
-	public void removeDisciplina(String disciplina){
-		for (Periodo periodo : periodos) {
-			if(periodo.indiceDisciplina(disciplina) != -1){
-				periodo.getDisciplinas().remove(periodo.indiceDisciplina(disciplina));
-			}
-		}
-		
-		
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Planejador getPlanejador() {
+		return planejador;
 	}
 
 }

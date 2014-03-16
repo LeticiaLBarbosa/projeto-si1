@@ -17,35 +17,26 @@ public class Aluno extends Model {
 	private static final long serialVersionUID = -778429165364114973L;
 	
 	@Id
-	public String id;
+	public Long id;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Planejador planejador;
 	
-	private String nome, senha;
+	
+	private String login, nome, senha;
 	
 	public Aluno(String login, String nome, String senha){
 		planejador = new Planejador();
-		id = login;
+		this.setLogin(login);
 		this.setNome(nome);
 		this.setSenha(senha);
 	
-	}		
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public void setPlanejador(Planejador planejador) {
 		this.planejador = planejador;
 	}
 
-
-	
 	public String getNome() {
 		return nome;
 	}
@@ -64,6 +55,14 @@ public class Aluno extends Model {
 
 	public Planejador getPlanejador() {
 		return planejador;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
@@ -85,12 +86,7 @@ public class Planejador extends Model{
 	}
 
 	public void adicionaDisciplina(Disciplina disciplina, int periodo){
-//		if(periodos.size() <= periodo){
-//			periodos.add(new Periodo());
-//			this.adicionaDisciplina(disciplina, periodo);
-//		}else{
 			periodos.get(periodo).addDisciplina(disciplina);
-		//}
 	}
 	
 	public void removeDisciplina(String disciplina){

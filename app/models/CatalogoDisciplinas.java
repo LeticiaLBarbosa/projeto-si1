@@ -2,9 +2,17 @@ package models;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-public class CatalogoDisciplinas{
-		
+import play.db.ebean.Model;
+
+
+public class CatalogoDisciplinas extends Model{
+	
 	private List<Disciplina> todasDisciplinas = new ArrayList<Disciplina>();
 
 	public CatalogoDisciplinas() {

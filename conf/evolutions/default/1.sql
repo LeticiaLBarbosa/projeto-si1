@@ -4,8 +4,9 @@
 # --- !Ups
 
 create table aluno (
-  id                        varchar(255) not null,
+  id                        bigint not null,
   planejador_id             bigint,
+  login                     varchar(255),
   nome                      varchar(255),
   senha                     varchar(255),
   constraint pk_aluno primary key (id))
@@ -31,12 +32,6 @@ create table planejador (
   constraint pk_planejador primary key (id))
 ;
 
-
-create table periodo_disciplina (
-  periodo_id                     bigint not null,
-  disciplina_id                  bigint not null,
-  constraint pk_periodo_disciplina primary key (periodo_id, disciplina_id))
-;
 create sequence aluno_seq;
 
 create sequence disciplina_seq;
@@ -50,10 +45,6 @@ create index ix_aluno_planejador_1 on aluno (planejador_id);
 
 
 
-alter table periodo_disciplina add constraint fk_periodo_disciplina_periodo_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
-
-alter table periodo_disciplina add constraint fk_periodo_disciplina_discipl_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
-
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
@@ -63,8 +54,6 @@ drop table if exists aluno;
 drop table if exists disciplina;
 
 drop table if exists periodo;
-
-drop table if exists periodo_disciplina;
 
 drop table if exists planejador;
 

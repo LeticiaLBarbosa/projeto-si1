@@ -34,9 +34,6 @@ public class Disciplina extends Model{
 	
 	private boolean alocadaCorretamente = true;
 	
-	// Information Expert: Cada disciplina é quem deve conhecer seus
-	// pre-requisitos.
-	
 	private List<String> preRequisitos;
 	private int dificuldade;
 

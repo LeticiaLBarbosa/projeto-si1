@@ -8,18 +8,17 @@ import models.Periodo;
 public class Sistema {
 	
 	private Aluno aluno;
+
 	private Finder<Long, Aluno> finder = new Finder<Long, Aluno>(Long.class, Aluno.class);
 
 	public Sistema() {
-		
 		if (finder.all().isEmpty()) {
-			this.aluno = new Aluno("login","nome", "senha");
-
+			aluno = new Aluno("login","nome", "senha");
 			setPeriodosInicial();
-
-			this.aluno.save();
+			aluno.save();
+			
 		} else {
-			this.aluno = finder.all().get(0);
+			aluno = finder.all().get(0);
 		}
 	}
 
@@ -37,8 +36,6 @@ public class Sistema {
 		setSextoPeriodo();
 		setSetimoPeriodo();
 		setOitavoPeriodo();
-		
-		aluno.update();
 
 	}
 
@@ -152,7 +149,7 @@ public class Sistema {
 	}
 
 	public void reset() {
-		setPeriodosInicial();		
+		
 	}
 	
 

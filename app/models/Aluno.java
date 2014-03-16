@@ -10,10 +10,7 @@ import play.db.ebean.Model;
 
 @Entity
 public class Aluno extends Model {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -778429165364114973L;
 	
 	@Id

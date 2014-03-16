@@ -3,28 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-
-import play.db.ebean.Model;
-
-
 /**
  * Classe que representa os períodos que o aluno irá alocar disciplinas
  * 
  */
-@Entity
-public class Periodo extends Model{
 
-	private static final long serialVersionUID = -6369592821032714859L;
-	
-	@Id
-	public Long id;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+public class Periodo{
+
 	private List<Disciplina> disciplinas;
 
 	public Periodo() {
@@ -77,4 +62,5 @@ public class Periodo extends Model{
 		}
 		return totalCreditos;
 	}
+
 }

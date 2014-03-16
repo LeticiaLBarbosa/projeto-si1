@@ -26,6 +26,7 @@ public class Disciplina extends Model{
 	private String nome;
 	@Required
 	private int periodo;
+	@Required
 	private int creditos;
 	
 	private boolean alocadaCorretamente = true;

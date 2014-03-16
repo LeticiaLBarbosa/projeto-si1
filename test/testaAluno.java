@@ -19,8 +19,7 @@ public class testaAluno {
 	@Test
 	public void deveConseguirRecuperarDoBD() {
 		
-		Finder<Long, Aluno> finder = new Finder<Long, Aluno>(Long.class,
-				Aluno.class);
+		Finder<Long, Aluno> finder = new Finder<Long, Aluno>(Long.class, Aluno.class);
 
 		List<Aluno> resultado = finder.all();
 		Assert.assertTrue(resultado.isEmpty());
@@ -28,5 +27,8 @@ public class testaAluno {
 		umAluno.save();
 		resultado = finder.all();
 		Assert.assertEquals(1, resultado.size());
+	
+	
 	}
+	
 }

@@ -6,33 +6,31 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
 @Entity
 public class Planejador extends Model{
-	
+
 	private static final long serialVersionUID = -4109330281933663818L;
 
 	@Id
 	public Long id;
-	
-	@OneToOne
+
 	private CatalogoDisciplinas catalogo = new CatalogoDisciplinas();
-	
+
 	private static final int MAX_CREDITOS = 28;
 	private static final int MIN_CREDITOS = 14;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	static private List<Periodo> periodos;
 
 	public  Planejador(){
 		periodos = new ArrayList<Periodo>();
 		setPeriodosInicial();
 	}
-	
+
 	private void setPeriodosInicial() {
 		for (int i = 0; i < 14; i++){
 			Periodo periodo = new Periodo();
@@ -46,7 +44,7 @@ public class Planejador extends Model{
 		setSextoPeriodo();
 		setSetimoPeriodo();
 		setOitavoPeriodo();
-		
+
 	}
 
 	private void setPrimeiroPeriodo() {
@@ -135,7 +133,7 @@ public class Planejador extends Model{
 	}
 
 	private void setOitavoPeriodo(){
-		
+
 		String[] oitavo = { "Projeto em Computação II", "Optativa 7",
 				"Optativa 8", "Optativa 9", "Optativa 10", "Optativa 11" };
 
@@ -143,12 +141,8 @@ public class Planejador extends Model{
 			adicionaDisciplina(getDisciplina(disciplina), 7);
 		}
 	}
-	
-	public List<Periodo> getPeriodos(){
-		return periodos;
-	}
 
-	public void verificaTodasDisciplinas(){
+	private void verificaTodasDisciplinas(){
 		int i = 0;
 		for (Periodo periodoAnalisado : periodos) {
 			for(Disciplina disciplinaAnalisada : periodoAnalisado.getDisciplinas()){
@@ -182,7 +176,7 @@ public class Planejador extends Model{
 		if (numeroPreRequisitos == 0) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -194,27 +188,24 @@ public class Planejador extends Model{
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
 	public void adicionaDisciplina(Disciplina disciplina, int periodo){
-//		if(periodos.size() <= periodo){
-//			periodos.add(new Periodo());
-//			this.adicionaDisciplina(disciplina, periodo);
-//		}else{
 			periodos.get(periodo).addDisciplina(disciplina);
-		//}
+			verificaTodasDisciplinas();
 	}
-	
+
 	public void removeDisciplina(String disciplina){
 		for (Periodo periodo : periodos) {
 			if(periodo.indiceDisciplina(disciplina) != -1){
 				periodo.removeDisciplina(disciplina);
 			}
 		}
+		verificaTodasDisciplinas();
 	}
-	
+
 	public boolean verificaMaximoCreditos(int periodo){
 		return periodos.get(periodo).getTotalCreditos() <= MAX_CREDITOS;
 	}
@@ -241,5 +232,9 @@ public class Planejador extends Model{
 
 	public Disciplina getDisciplina(String nomeDisciplina){
 		return catalogo.getDisciplina(nomeDisciplina);
+	}
+	
+	public List<Periodo> getPeriodos(){
+		return periodos;
 	}
 }

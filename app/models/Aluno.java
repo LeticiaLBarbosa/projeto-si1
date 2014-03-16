@@ -17,9 +17,7 @@ public class Aluno extends Model {
 	private static final long serialVersionUID = -778429165364114973L;
 	
 	@Id
-	private String id;
-	
-	public static Finder<Long,Aluno> find = new Finder<Long,Aluno>(Long.class, Aluno.class);
+	public String id;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Planejador planejador;
@@ -34,6 +32,20 @@ public class Aluno extends Model {
 	
 	}		
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setPlanejador(Planejador planejador) {
+		this.planejador = planejador;
+	}
+
+
+	
 	public String getNome() {
 		return nome;
 	}

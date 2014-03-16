@@ -2,32 +2,11 @@ package models;
 
 import java.util.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
-import play.db.ebean.Model;
-
-@Entity
-public class CatalogoDisciplinas extends Model{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 698669654840515979L;
-	
-	@Id
-	private String id;
-	
+public class CatalogoDisciplinas{
+		
 	private List<Disciplina> todasDisciplinas = new ArrayList<Disciplina>();
 
-	// CREATOR: a classe CatalogoDisiciplina será a responsável por criar as
-	// disciplinas e guarda-las. Pois é ela que deve conter as informações para
-	// essa criação.
-	/**
-	 * Construtor
-	 */
 	public CatalogoDisciplinas() {
 		todasDisciplinas.add(new Disciplina("Programação I", 4, 2));
 		todasDisciplinas.add(new Disciplina("Lab. de Programação I", 4, 1));
@@ -283,5 +262,4 @@ public class CatalogoDisciplinas extends Model{
 	public Disciplina getDisciplinaPorIndice(int i) {
 		return todasDisciplinas.get(i);
 	}
-
 }

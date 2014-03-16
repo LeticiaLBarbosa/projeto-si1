@@ -15,6 +15,7 @@ public class Application extends Controller {
 	}
 
 	public static Result reiniciar(){
+		sistema.reset();
 		return redirect(routes.Application.index());
 	}
 	

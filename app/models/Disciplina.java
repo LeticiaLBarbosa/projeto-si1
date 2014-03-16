@@ -5,12 +5,8 @@ import java.util.List;
 
 import play.data.validation.Constraints.*;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 import play.db.ebean.Model;
 
@@ -33,12 +29,14 @@ public class Disciplina extends Model{
 	private String nome;
 	@Required
 	private int periodo;
+	
 	private int creditos;
 	
 	private boolean alocadaCorretamente = true;
-
+	
 	// Information Expert: Cada disciplina é quem deve conhecer seus
 	// pre-requisitos.
+	
 	private List<String> preRequisitos;
 	private int dificuldade;
 

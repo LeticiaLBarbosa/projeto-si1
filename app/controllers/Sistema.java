@@ -3,7 +3,6 @@ package controllers;
 import play.db.ebean.Model.Finder;
 import models.Aluno;
 import models.Periodo;
-import models.Planejador;
 
 
 public class Sistema {
@@ -15,13 +14,13 @@ public class Sistema {
 		
 		if (finder.all().isEmpty()) {
 			this.aluno = new Aluno("login","nome", "senha");
+
+			setPeriodosInicial();
+
 			this.aluno.save();
 		} else {
 			this.aluno = finder.all().get(0);
 		}
-		setPeriodosInicial();
-		aluno.update();
-
 	}
 
 	private void setPeriodosInicial() {
@@ -29,6 +28,7 @@ public class Sistema {
 			Periodo periodo = new Periodo();
 			aluno.getPlanejador().getPeriodos().add(periodo);
 		}
+		
 		setPrimeiroPeriodo();
 		setSegundoPeriodo();
 		setTerceiroPeriodo();
@@ -38,6 +38,7 @@ public class Sistema {
 		setSetimoPeriodo();
 		setOitavoPeriodo();
 		
+		aluno.update();
 
 	}
 
@@ -142,9 +143,17 @@ public class Sistema {
 	
 	public void alocaDisciplina(int periodo, String nomeDisciplina){
 		aluno.getPlanejador().removeDisciplina(nomeDisciplina);
+		
 		aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(nomeDisciplina), periodo);
+		
 		aluno.getPlanejador().verificaTodasDisciplinas();
+		
 		aluno.update();
 	}
+
+	public void reset() {
+		setPeriodosInicial();		
+	}
+	
 
 }

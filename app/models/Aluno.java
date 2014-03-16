@@ -10,10 +10,7 @@ import play.db.ebean.Model;
 
 @Entity
 public class Aluno extends Model {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -778429165364114973L;
 	
 	@Id
@@ -65,4 +62,7 @@ public class Aluno extends Model {
 		this.login = login;
 	}
 
+	public void reiniciaPlanejador(){
+		planejador = new Planejador();
+	}
 }

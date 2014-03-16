@@ -2,211 +2,101 @@ package models;
 
 import java.util.*;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
-
+@Entity
 public class CatalogoDisciplinas extends Model{
+
+	private static final long serialVersionUID = 698669654840515979L;
+	
+	@Id
+	private String id;
 	
 	private List<Disciplina> todasDisciplinas = new ArrayList<Disciplina>();
+	private static final int DOIS_CREDITOS = 2;
+	private static final int QUATRO_CREDITOS = 4;
+	private static final int SEIS_CREDITOS = 6;
+	private static final int FACIL = 1;
+	private static final int MEDIO = 2;
+	private static final int DIFICIL = 3;
+
+	// CREATOR: a classe CatalogoDisiciplina será a responsável por criar as
+	// disciplinas e guarda-las. Pois é ela que deve conter as informações para
+	// essa criação.
 
 	public CatalogoDisciplinas() {
-		todasDisciplinas.add(new Disciplina("Programação I", 4, 2));
-		todasDisciplinas.add(new Disciplina("Lab. de Programação I", 4, 1));
-		todasDisciplinas.add(new Disciplina("Introdução a Computação", 4, 2));
-		todasDisciplinas.add(new Disciplina("Leitura e Produção de Textos", 4,
-				1));
-		todasDisciplinas.add(new Disciplina("Cálculo I", 4, 3));
-		todasDisciplinas.add(new Disciplina(
-				"Álgebra Vetorial e Geometria Analítica", 4, 2));
+		todasDisciplinas.add(new Disciplina("Programação I", QUATRO_CREDITOS, MEDIO));
+		todasDisciplinas.add(new Disciplina("Lab. de Programação I", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Introdução a Computação", QUATRO_CREDITOS, MEDIO));
+		todasDisciplinas.add(new Disciplina("Leitura e Produção de Textos", QUATRO_CREDITOS,FACIL));
+		todasDisciplinas.add(new Disciplina("Cálculo I", QUATRO_CREDITOS, MEDIO));
+		todasDisciplinas.add(new Disciplina("Álgebra Vetorial e Geometria Analítica", QUATRO_CREDITOS, MEDIO));
 
 		// 2periodo
-		todasDisciplinas.add(new Disciplina("Cálculo II", 4,
-				listaDePreRequisitos("Cálculo I"), 3));
-		todasDisciplinas.add(new Disciplina("Matemática Discreta", 4, 2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Programação II",
-						4,
-						listaDePreRequisitos("Programação I, Lab. de Programação I, Introdução a Computação"),
-						1));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Teoria dos Grafos",
-						2,
-						listaDePreRequisitos("Programação I, Lab. de Programação I"),
-						2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Fund. de Física Clássica",
-						4,
-						listaDePreRequisitos("Cálculo I, Álgebra Vetorial e Geometria Analítica"),
-						2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Lab. de Programação II",
-						4,
-						listaDePreRequisitos("Programação I, Lab. de Programação I, Introdução a Computação"),
-						1));
+		todasDisciplinas.add(new Disciplina("Cálculo II", QUATRO_CREDITOS, listaDePreRequisitos("Cálculo I"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Matemática Discreta", QUATRO_CREDITOS, MEDIO));
+		todasDisciplinas.add(new Disciplina("Programação II", QUATRO_CREDITOS, listaDePreRequisitos("Programação I, Lab. de Programação I, Introdução a Computação"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Teoria dos Grafos", DOIS_CREDITOS, listaDePreRequisitos("Programação I, Lab. de Programação I"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Fund. de Física Clássica", QUATRO_CREDITOS, listaDePreRequisitos("Cálculo I, Álgebra Vetorial e Geometria Analítica"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Lab. de Programação II", QUATRO_CREDITOS, listaDePreRequisitos("Programação I, Lab. de Programação I, Introdução a Computação"), MEDIO));
 
 		// 3periodo
-		todasDisciplinas.add(new Disciplina("Álgebra Linear", 4,
-				listaDePreRequisitos("Álgebra Vetorial e Geometria Analítica"),
-				3));
-		todasDisciplinas.add(new Disciplina("Probabilidade e Estatística", 4,
-				listaDePreRequisitos("Cálculo II"), 2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Teoria da Computação",
-						4,
-						listaDePreRequisitos("Teoria dos Grafos, Introdução a Computação, Matemática Discreta"),
-						3));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Estruturas de Dados e Algoritmos",
-						4,
-						listaDePreRequisitos("Teoria dos Grafos, Programação II, Lab. de Programação II"),
-						2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Fund. de Física Moderna",
-						4,
-						listaDePreRequisitos("Cálculo II, Fund. de Física Clássica"),
-						3));
-		todasDisciplinas.add(new Disciplina("Gerência da Informação", 4, 1));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Lab. de Estruturas de Dados e Algoritmos",
-						4,
-						listaDePreRequisitos("Teoria dos Grafos, Programação II, Lab. de Programação II"),
-						2));
+		todasDisciplinas.add(new Disciplina("Álgebra Linear", QUATRO_CREDITOS, listaDePreRequisitos("Álgebra Vetorial e Geometria Analítica"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Probabilidade e Estatística", QUATRO_CREDITOS, listaDePreRequisitos("Cálculo II"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Teoria da Computação", QUATRO_CREDITOS, listaDePreRequisitos("Teoria dos Grafos, Introdução a Computação, Matemática Discreta"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Estruturas de Dados e Algoritmos", QUATRO_CREDITOS, listaDePreRequisitos("Teoria dos Grafos, Programação II, Lab. de Programação II"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Fund. de Física Moderna", QUATRO_CREDITOS, listaDePreRequisitos("Cálculo II, Fund. de Física Clássica"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Gerência da Informação", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Lab. de Estruturas de Dados e Algoritmos", QUATRO_CREDITOS, listaDePreRequisitos("Teoria dos Grafos, Programação II, Lab. de Programação II"),MEDIO));
 
 		// 4periodo
-		todasDisciplinas
-				.add(new Disciplina(
-						"Métodos Estatísticos",
-						4,
-						listaDePreRequisitos("Álgebra Linear, Probabilidade e Estatística"),
-						2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Paradigmas de Linguagem de Programação",
-						2,
-						listaDePreRequisitos("Teoria da Computação, Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos"),
-						2));
-		todasDisciplinas.add(new Disciplina("Lógica Matemática", 4,
-				listaDePreRequisitos("Teoria da Computação"), 2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Organização e Arquitetura de Computadores I",
-						4,
-						listaDePreRequisitos("Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos, Fund. de Física Moderna"),
-						3));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Lab. de Organização e Arquitetura de Computadores I",
-						4,
-						listaDePreRequisitos("Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos, Fund. de Física Moderna"),
-						3));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Engenharia de Software I",
-						4,
-						listaDePreRequisitos("Programação II, Lab. de Programação II, Probabilidade e Estatística"),
-						3));
-		todasDisciplinas.add(new Disciplina("Sistemas de Informação I", 4,
-				listaDePreRequisitos("Gerência da Informação"), 2));
+		todasDisciplinas.add(new Disciplina("Métodos Estatísticos", QUATRO_CREDITOS, listaDePreRequisitos("Álgebra Linear, Probabilidade e Estatística"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Paradigmas de Linguagem de Programação", DOIS_CREDITOS, listaDePreRequisitos("Teoria da Computação, Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Lógica Matemática", QUATRO_CREDITOS, listaDePreRequisitos("Teoria da Computação"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Organização e Arquitetura de Computadores I", QUATRO_CREDITOS, listaDePreRequisitos("Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos, Fund. de Física Moderna"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Lab. de Organização e Arquitetura de Computadores I", QUATRO_CREDITOS, listaDePreRequisitos("Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos, Fund. de Física Moderna"),DIFICIL));
+		todasDisciplinas.add(new Disciplina("Engenharia de Software I", QUATRO_CREDITOS, listaDePreRequisitos("Programação II, Lab. de Programação II, Probabilidade e Estatística"),DIFICIL));
+		todasDisciplinas.add(new Disciplina("Sistemas de Informação I", QUATRO_CREDITOS, listaDePreRequisitos("Gerência da Informação"), MEDIO));
 
 		// 5periodo
-		todasDisciplinas.add(new Disciplina("Informática e Sociedade", 2, 1));
-		todasDisciplinas.add(new Disciplina("Metodologia Científica", 4, 2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Analises e Tecnicas de Algoritmos",
-						4,
-						listaDePreRequisitos("Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos, Cálculo II, Lógica Matemática"),
-						3));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Compiladores",
-						4,
-						listaDePreRequisitos("Paradigmas de Linguagem de Programação, Organização e Arquitetura de Computadores I, Lab. de Organização e Arquitetura de Computadores I"),
-						3));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Redes de Computadores",
-						4,
-						listaDePreRequisitos("Organização e Arquitetura de Computadores I, Lab. de Organização e Arquitetura de Computadores I"),
-						2));
-		todasDisciplinas.add(new Disciplina("Banco de Dados I", 4,
-				listaDePreRequisitos("Sistemas de Informação I"), 2));
-		todasDisciplinas.add(new Disciplina("Sistemas de Informação II", 4,
-				listaDePreRequisitos("Sistemas de Informação I"), 2));
-		todasDisciplinas.add(new Disciplina("Lab. de Engenharia de Software",
-				2, listaDePreRequisitos("Engenharia de Software I"), 3));
+		todasDisciplinas.add(new Disciplina("Informática e Sociedade", DOIS_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Metodologia Científica", QUATRO_CREDITOS, MEDIO));
+		todasDisciplinas.add(new Disciplina("Analises e Tecnicas de Algoritmos", QUATRO_CREDITOS, listaDePreRequisitos("Estruturas de Dados e Algoritmos, Lab. de Estruturas de Dados e Algoritmos, Cálculo II, Lógica Matemática"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Compiladores", QUATRO_CREDITOS, listaDePreRequisitos("Paradigmas de Linguagem de Programação, Organização e Arquitetura de Computadores I, Lab. de Organização e Arquitetura de Computadores I"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Redes de Computadores", QUATRO_CREDITOS, listaDePreRequisitos("Organização e Arquitetura de Computadores I, Lab. de Organização e Arquitetura de Computadores I"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Banco de Dados I", QUATRO_CREDITOS, listaDePreRequisitos("Sistemas de Informação I"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Sistemas de Informação II", QUATRO_CREDITOS, listaDePreRequisitos("Sistemas de Informação I"), FACIL));
+		todasDisciplinas.add(new Disciplina("Lab. de Engenharia de Software", DOIS_CREDITOS, listaDePreRequisitos("Engenharia de Software I"), MEDIO));
 
 		// 6periodo
-		todasDisciplinas
-				.add(new Disciplina(
-						"Sistemas Operacionais",
-						4,
-						listaDePreRequisitos("Organização e Arquitetura de Computadores I, Lab. de Organização e Arquitetura de Computadores I"),
-						3));
-		todasDisciplinas.add(new Disciplina(
-				"Interconexão de Redes de Computadores", 2,
-				listaDePreRequisitos("Redes de Computadores"), 2));
-		todasDisciplinas.add(new Disciplina(
-				"Lab. de Interconexão de Redes de Computadores", 2,
-				listaDePreRequisitos("Redes de Computadores"), 2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Inteligencia Artificial I",
-						4,
-						listaDePreRequisitos("Analises e Tecnicas de Algoritmos, Paradigmas de Linguagem de Programação, Métodos Estatísticos"),
-						3));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Banco de Dados II",
-						4,
-						listaDePreRequisitos("Banco de Dados I, Sistemas de Informação II"),
-						3));
-		todasDisciplinas.add(new Disciplina("Direito e Cidadania", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 1", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 2", 4, 1));
+		todasDisciplinas.add(new Disciplina("Sistemas Operacionais", QUATRO_CREDITOS, listaDePreRequisitos("Organização e Arquitetura de Computadores I, Lab. de Organização e Arquitetura de Computadores I"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Interconexão de Redes de Computadores", DOIS_CREDITOS, listaDePreRequisitos("Redes de Computadores"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Lab. de Interconexão de Redes de Computadores", DOIS_CREDITOS, listaDePreRequisitos("Redes de Computadores"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Inteligencia Artificial I", QUATRO_CREDITOS, listaDePreRequisitos("Analises e Tecnicas de Algoritmos, Paradigmas de Linguagem de Programação, Métodos Estatísticos"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Banco de Dados II", QUATRO_CREDITOS, listaDePreRequisitos("Banco de Dados I, Sistemas de Informação II"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Direito e Cidadania", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 1", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 2", QUATRO_CREDITOS, FACIL));
 
 		// 7periodo
-		todasDisciplinas
-				.add(new Disciplina(
-						"Métodos e Software Numéricos",
-						4,
-						listaDePreRequisitos("Álgebra Linear, Analises e Tecnicas de Algoritmos"),
-						3));
-		todasDisciplinas.add(new Disciplina(
-				"Avaliação de Desempenho de Sistemas Discretos", 4,
-				listaDePreRequisitos("Probabilidade e Estatística"), 2));
-		todasDisciplinas
-				.add(new Disciplina(
-						"Projeto em Computação I",
-						4,
-						listaDePreRequisitos("Lab. de Engenharia de Software, Metodologia Científica"),
-						3));
-		todasDisciplinas.add(new Disciplina("Optativa 3", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 4", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 5", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 6", 4, 1));
+		todasDisciplinas.add(new Disciplina("Métodos e Software Numéricos",QUATRO_CREDITOS, listaDePreRequisitos("Álgebra Linear, Analises e Tecnicas de Algoritmos"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Avaliação de Desempenho de Sistemas Discretos", QUATRO_CREDITOS, listaDePreRequisitos("Probabilidade e Estatística"), MEDIO));
+		todasDisciplinas.add(new Disciplina("Projeto em Computação I", QUATRO_CREDITOS, listaDePreRequisitos("Lab. de Engenharia de Software, Metodologia Científica"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Optativa 3", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 4", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 5", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 6", QUATRO_CREDITOS, FACIL));
+		
 		// 8periodo
-		todasDisciplinas.add(new Disciplina("Projeto em Computação II", 6,
-				listaDePreRequisitos("Projeto em Computação I"), 3));
-		todasDisciplinas.add(new Disciplina("Optativa 7", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 8", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 9", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 10", 4, 1));
-		todasDisciplinas.add(new Disciplina("Optativa 11", 4, 1));
+		todasDisciplinas.add(new Disciplina("Projeto em Computação II", SEIS_CREDITOS, listaDePreRequisitos("Projeto em Computação I"), DIFICIL));
+		todasDisciplinas.add(new Disciplina("Optativa 7", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 8", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 9", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 10", QUATRO_CREDITOS, FACIL));
+		todasDisciplinas.add(new Disciplina("Optativa 11", QUATRO_CREDITOS, FACIL));
 
 	}
 
@@ -219,13 +109,6 @@ public class CatalogoDisciplinas extends Model{
 		return listaDePreRequisitos;
 	}
 
-	/**
-	 * Retorna o índice da disciplina
-	 * 
-	 * @param nome
-	 *            Nome da disciplina
-	 * @return Retorna o índice dessa disciplina
-	 */
 	public int disciplinaIndice(String nome) {
 		int result = -1;
 		for (int i = 0; i < todasDisciplinas.size(); i++) {
@@ -237,21 +120,11 @@ public class CatalogoDisciplinas extends Model{
 		return result;
 	}
 
-	/**
-	 * 
-	 * @return Retorna a lista de disciplinas do curso
-	 */
 	public List<Disciplina> getCatalogo() {
 		return todasDisciplinas;
 	}
 
-	/**
-	 * Recupera a disciplina como objeto a partir do nome
-	 * 
-	 * @param nome
-	 *            Nome da disciplina
-	 * @return A disciplina como objeto
-	 */
+
 	public Disciplina getDisciplina(String nome) {
 		for (int i = 0; i < todasDisciplinas.size(); i++) {
 			if (todasDisciplinas.get(i).getNome().equals(nome)) {
@@ -262,12 +135,8 @@ public class CatalogoDisciplinas extends Model{
 
 	}
 
-	/**
-	 * 
-	 * @param i
-	 * @return Retorna a disciplina com indice i do catalogo
-	 */
 	public Disciplina getDisciplinaPorIndice(int i) {
 		return todasDisciplinas.get(i);
 	}
+
 }

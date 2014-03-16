@@ -149,7 +149,8 @@ public class Sistema {
 	}
 
 	public void reset() {
-		
+		aluno.reiniciaPlanejador();
+		this.setPeriodosInicial();
 	}
 	
 

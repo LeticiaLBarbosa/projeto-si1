@@ -65,4 +65,7 @@ public class Aluno extends Model {
 		this.login = login;
 	}
 
+	public void reiniciaPlanejador(){
+		planejador = new Planejador();
+	}
 }

@@ -2,20 +2,11 @@ package models;
 
 import java.util.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import play.db.ebean.Model;
-
-@Entity
-public class CatalogoDisciplinas extends Model{
-
-	private static final long serialVersionUID = 698669654840515979L;
-	
-	@Id
-	private String id;
+public class CatalogoDisciplinas{
 	
 	private List<Disciplina> todasDisciplinas = new ArrayList<Disciplina>();
+	private List<String[]> periodosDefault = new ArrayList<String[]>();
+	
 	private static final int DOIS_CREDITOS = 2;
 	private static final int QUATRO_CREDITOS = 4;
 	private static final int SEIS_CREDITOS = 6;
@@ -93,9 +84,68 @@ public class CatalogoDisciplinas extends Model{
 		todasDisciplinas.add(new Disciplina("Optativa 9", QUATRO_CREDITOS, FACIL));
 		todasDisciplinas.add(new Disciplina("Optativa 10", QUATRO_CREDITOS, FACIL));
 		todasDisciplinas.add(new Disciplina("Optativa 11", QUATRO_CREDITOS, FACIL));
+		
+		setPeriodosDefault();
 
 	}
 
+	private void setPeriodosDefault(){
+		String[] primeiro = { "Programação I", "Lab. de Programação I",
+				"Cálculo I", "Álgebra Vetorial e Geometria Analítica",
+				"Introdução a Computação", "Leitura e Produção de Textos" };
+		
+		String[] segundo = { "Cálculo II", "Matemática Discreta",
+				"Programação II", "Teoria dos Grafos",
+				"Fund. de Física Clássica", "Lab. de Programação II",
+				"Metodologia Científica" };
+		
+		String[] terceiro = { "Álgebra Linear", "Probabilidade e Estatística",
+				"Teoria da Computação", "Estruturas de Dados e Algoritmos",
+				"Fund. de Física Moderna", "Gerência da Informação",
+				"Lab. de Estruturas de Dados e Algoritmos" };
+		
+		String[] quarto = { "Métodos Estatísticos",
+				"Paradigmas de Linguagem de Programação", "Lógica Matemática",
+				"Organização e Arquitetura de Computadores I",
+				"Lab. de Organização e Arquitetura de Computadores I",
+				"Engenharia de Software I", "Sistemas de Informação I" };
+
+		String[] quinto = { "Informática e Sociedade",
+				"Analises e Tecnicas de Algoritmos", "Compiladores",
+				"Redes de Computadores", "Banco de Dados I",
+				"Sistemas de Informação II", "Lab. de Engenharia de Software" };
+
+	
+		String[] sexto = { "Sistemas Operacionais",
+				"Interconexão de Redes de Computadores",
+				"Lab. de Interconexão de Redes de Computadores",
+				"Inteligencia Artificial I", "Banco de Dados II",
+				"Direito e Cidadania", "Optativa 1", "Optativa 2" };
+
+		String[] setimo = { "Métodos e Software Numéricos",
+				"Avaliação de Desempenho de Sistemas Discretos",
+				"Projeto em Computação I", "Optativa 3", "Optativa 4",
+				"Optativa 5", "Optativa 6" };
+		
+		String[] oitavo = { "Projeto em Computação II", "Optativa 7",
+				"Optativa 8", "Optativa 9", "Optativa 10", "Optativa 11" };
+		
+		periodosDefault.add(primeiro);
+		periodosDefault.add(segundo);
+		periodosDefault.add(terceiro);
+		periodosDefault.add(quarto);
+		periodosDefault.add(quinto);
+		periodosDefault.add(sexto);
+		periodosDefault.add(setimo);
+		periodosDefault.add(oitavo);
+
+		
+	}
+	
+	public List<String[]> getPeriodosDefault(){
+		return periodosDefault;
+	}
+	
 	private List<String> listaDePreRequisitos(String disciplinas) {
 		List<String> listaDePreRequisitos = new ArrayList<String>();
 		String[] aux = disciplinas.split(", ");

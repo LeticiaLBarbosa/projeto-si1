@@ -7,7 +7,7 @@ import play.db.ebean.Model.Finder;
 import static play.test.Helpers.*;
 import models.Disciplina;
 
-public class testInicia {
+public class testaDisciplina {
 	
 	@Test
 	 public void deveConseguirRecuperarDoBD() {

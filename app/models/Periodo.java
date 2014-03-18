@@ -3,13 +3,22 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Classe que representa os períodos que o aluno irá alocar disciplinas
- * 
- */
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-public class Periodo{
+import play.db.ebean.Model;
 
+@Entity
+public class Periodo extends Model{
+	
+	private static final long serialVersionUID = -5914811766264214424L;
+
+	@Id
+	private Long id;
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	private List<Disciplina> disciplinas;
 
 	public Periodo() {
@@ -19,6 +28,7 @@ public class Periodo{
 	public void addDisciplina(Disciplina disciplina){
 		disciplinas.add(disciplina);
 	}
+
 	public void removeDisciplina(String disciplina){
 		disciplinas.remove(indiceDisciplina(disciplina));
 	}
@@ -61,6 +71,15 @@ public class Periodo{
 			totalCreditos += disciplina.getCreditos();
 		}
 		return totalCreditos;
+	}
+
+	public Disciplina getDisciplinaPorNome(String nome){
+		for (Disciplina disc: disciplinas){
+			if(disc.getNome().equals(nome)){
+				return disc;
+			}
+		}
+		return null;
 	}
 
 }

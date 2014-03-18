@@ -38,6 +38,7 @@ public class Planejador extends Model{
 			Periodo periodo = new Periodo();
 			periodos.add(periodo);
 		}
+		
 		setPrimeiroPeriodo();
 		setSegundoPeriodo();
 		setTerceiroPeriodo();
@@ -199,12 +200,7 @@ public class Planejador extends Model{
 	}
 
 	public void adicionaDisciplina(Disciplina disciplina, int periodo){
-//		if(periodos.size() <= periodo){
-//			periodos.add(new Periodo());
-//			this.adicionaDisciplina(disciplina, periodo);
-//		}else{
-			periodos.get(periodo).addDisciplina(disciplina);
-		//}
+		periodos.get(periodo).addDisciplina(disciplina);
 	}
 	
 	public void removeDisciplina(String disciplina){

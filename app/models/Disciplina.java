@@ -26,32 +26,29 @@ public class Disciplina extends Model{
 	private String nome;
 	@Required
 	private int periodo;
+	
 	private int creditos;
 	
 	private boolean alocadaCorretamente = true;
-
-	// Information Expert: Cada disciplina é quem deve conhecer seus
-	// pre-requisitos.
 	private List<String> preRequisitos;
 	private int dificuldade;
-
 	
 	public Disciplina(String nome, int creditos, int dificuldade) {
 		setNome(nome);
 		setCreditos(creditos);
-		this.dificuldade = dificuldade;
+		setDificuladade(dificuldade);
+		
 		preRequisitos = new ArrayList<String>();
 	}
 
 	public Disciplina(String nome, int creditos, List<String> preRequesitos,
 			int dificuldade) {
-		this.nome = nome;
-		this.creditos = creditos;
-		this.dificuldade = dificuldade;
-		this.preRequisitos = preRequesitos;
+		setNome(nome);
+		setCreditos(creditos);
+		setDificuladade(dificuldade);
+		setPreRequisitos(preRequesitos);
 	}
 	
-
 	public boolean isAlocadaCorretamente() {
 		return alocadaCorretamente;
 	}
@@ -60,7 +57,12 @@ public class Disciplina extends Model{
 		this.alocadaCorretamente = alocadaCorretamente;
 		
 	}
-
+	
+	public void setPreRequisitos(List<String> preRequisitos){
+		if(preRequisitos != null){
+			this.preRequisitos = preRequisitos;
+		}
+	}
 
 	public String getNome() {
 		return nome;
@@ -69,7 +71,6 @@ public class Disciplina extends Model{
 	public int getCreditos() {
 		return creditos;
 	}
-
 
 	public List<String> getPreRequisitos() {
 		return preRequisitos;
@@ -84,19 +85,21 @@ public class Disciplina extends Model{
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		if(nome != null && !nome.equals("")){
+			this.nome = nome;			
+		}
 	}
 
 	public void setCreditos(int creditos) {
-		this.creditos = creditos;
+		if(creditos >= 0){
+			this.creditos = creditos;
+		}
 	}
 
-	public int getPeriodo() {
-		return periodo;
-	}
-
-	public void setPeriodo(int periodo) {
-		this.periodo = periodo;
+	public void setDificuladade(int dificuldade){
+		if(dificuldade > 0 && dificuldade < 4 ){
+			this.dificuldade = dificuldade;
+		}
 	}
 
 	@Override

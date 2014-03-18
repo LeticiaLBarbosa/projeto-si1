@@ -23,10 +23,6 @@ public class CatalogoDisciplinas extends Model{
 	private static final int MEDIO = 2;
 	private static final int DIFICIL = 3;
 
-	// CREATOR: a classe CatalogoDisiciplina será a responsável por criar as
-	// disciplinas e guarda-las. Pois é ela que deve conter as informações para
-	// essa criação.
-
 	public CatalogoDisciplinas() {
 		todasDisciplinas.add(new Disciplina("Programação I", QUATRO_CREDITOS, MEDIO));
 		todasDisciplinas.add(new Disciplina("Lab. de Programação I", QUATRO_CREDITOS, FACIL));

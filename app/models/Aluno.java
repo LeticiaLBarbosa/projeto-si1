@@ -23,31 +23,26 @@ public class Aluno extends Model {
 	private String login, nome, senha;
 	
 	public Aluno(String login, String nome, String senha){
-		planejador = new Planejador();
+	
+		this.setPlanejador(new Planejador());
 		this.setLogin(login);
 		this.setNome(nome);
 		this.setSenha(senha);
-	
+		
 	}
 
 	public void setPlanejador(Planejador planejador) {
-		this.planejador = planejador;
+		if(planejador != null){
+			this.planejador = planejador;
+		}
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getSenha() {
 		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 	public Planejador getPlanejador() {
@@ -58,8 +53,22 @@ public class Aluno extends Model {
 		return login;
 	}
 
+	public void setSenha(String senha) {
+		if(senha != null){
+			this.senha = senha;
+		}
+	}
+	
+	public void setNome(String nome) {
+		if(nome != null){
+			this.nome = nome;
+		}
+	}
+	
 	public void setLogin(String login) {
-		this.login = login;
+		if(login != null){
+			this.login = login;
+		}
 	}
 
 	public void reiniciaPlanejador(){

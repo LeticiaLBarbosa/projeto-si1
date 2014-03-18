@@ -11,6 +11,8 @@ GET     /alocaDisciplina/:periodo/:nome			controllers.Application.alocaDisciplin
 GET		/reiniciar								controllers.Application.reiniciar()
 #POST    /disciplinaPeriodo                  	controllers.Application.disciplinaPeriodo()
 #POST   	/removerCadeira                     controllers.Application.removeDisciplinaPeriodo()
+GET     /login                  controllers.Application.login()
+POST    /login                      controllers.Application.authenticate()
 
 
 # Map static resources from the /public folder to the /assets URL path

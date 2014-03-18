@@ -4,12 +4,11 @@
 # --- !Ups
 
 create table aluno (
-  id                        bigint not null,
-  planejador_id             bigint,
-  login                     varchar(255),
+  login                     varchar(255) not null,
   nome                      varchar(255),
   senha                     varchar(255),
-  constraint pk_aluno primary key (id))
+  planejador_id             bigint,
+  constraint pk_aluno primary key (login))
 ;
 
 create table disciplina (

@@ -4,11 +4,8 @@
 # --- !Ups
 
 create table aluno (
-  login                     varchar(255) not null,
   nome                      varchar(255),
-  senha                     varchar(255),
-  planejador_id             bigint,
-  constraint pk_aluno primary key (login))
+  planejador_id             bigint)
 ;
 
 create table disciplina (
@@ -30,8 +27,6 @@ create table planejador (
   id                        bigint not null,
   constraint pk_planejador primary key (id))
 ;
-
-create sequence aluno_seq;
 
 create sequence disciplina_seq;
 
@@ -57,8 +52,6 @@ drop table if exists periodo;
 drop table if exists planejador;
 
 SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists aluno_seq;
 
 drop sequence if exists disciplina_seq;
 

@@ -25,7 +25,9 @@ public class Sistema {
 
 	public void alocaDisciplina(int periodo, String nomeDisciplina){
 		aluno.getPlanejador().removeDisciplina(nomeDisciplina);
-
+		
+		aluno.update();
+		
 		aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(nomeDisciplina), periodo);
 
 		aluno.update();

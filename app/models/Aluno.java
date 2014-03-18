@@ -15,14 +15,17 @@ import play.db.ebean.Model;
 public class Aluno extends Model {
 
 	private static final long serialVersionUID = -778429165364114973L;
+	
 	@Id
 	@Required
 	@Email
-	private static String login;
+	private String login;
 	@Required
 	private String nome;
+
 	@Required
-	private static String senha;
+	private String senha;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Planejador planejador;
 

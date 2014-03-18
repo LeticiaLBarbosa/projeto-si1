@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import play.db.ebean.Model;
 
 @Entity
-public class Planejador extends Model{
+public class Planejador extends Model {
 
 	private static final long serialVersionUID = -4109330281933663818L;
 
@@ -26,7 +26,7 @@ public class Planejador extends Model{
 	@OneToOne(cascade = CascadeType.ALL)
 	static private List<Periodo> periodos;
 
-	public  Planejador(){
+	public Planejador() {
 		periodos = new ArrayList<Periodo>();
 		setPeriodosInicial();
 	}
@@ -34,7 +34,7 @@ public class Planejador extends Model{
 	private void setPeriodosInicial() {
 		List<String[]> periodosDefault = catalogo.getPeriodosDefault();
 
-		for (int i = 0; i < 14; i++){
+		for (int i = 0; i < 14; i++) {
 			Periodo periodo = new Periodo();
 			periodos.add(periodo);
 		}
@@ -47,18 +47,18 @@ public class Planejador extends Model{
 			}
 		}
 
-
 	}
 
-
-	private void verificaTodasDisciplinas(){
+	private void verificaTodasDisciplinas() {
 		int i = 0;
 		for (Periodo periodoAnalisado : periodos) {
-			for(Disciplina disciplinaAnalisada : periodoAnalisado.getDisciplinas()){
-				if(!verificaPreRequisitos(disciplinaAnalisada, i	) ||
-						verificaPeriodoDiferentePreRequisitos(disciplinaAnalisada, i)){
+			for (Disciplina disciplinaAnalisada : periodoAnalisado
+					.getDisciplinas()) {
+				if (!verificaPreRequisitos(disciplinaAnalisada, i)
+						|| verificaPeriodoDiferentePreRequisitos(
+								disciplinaAnalisada, i)) {
 					disciplinaAnalisada.setAlocadaCorretamente(false);
-				}else{
+				} else {
 					disciplinaAnalisada.setAlocadaCorretamente(true);
 				}
 
@@ -68,14 +68,15 @@ public class Planejador extends Model{
 		}
 	}
 
-	private boolean verificaPreRequisitos(Disciplina disciplina, int periodo){
+	private boolean verificaPreRequisitos(Disciplina disciplina, int periodo) {
 		int numeroPreRequisitos = disciplina.getNumPreRequisitos();
 
 		for (int i = 0; i < periodo; i++) {
 			for (int j = 0; j < periodos.get(i).numeroDisciplinas(); j++) {
 				if (disciplina.getPreRequisitos().contains(
 						periodos.get(i).disciplinaIndice(j).getNome())) {
-					if(periodos.get(i).disciplinaIndice(j).isAlocadaCorretamente()){
+					if (periodos.get(i).disciplinaIndice(j)
+							.isAlocadaCorretamente()) {
 						numeroPreRequisitos--;
 					}
 				}
@@ -89,10 +90,14 @@ public class Planejador extends Model{
 		return false;
 	}
 
-	private boolean verificaPeriodoDiferentePreRequisitos(Disciplina disciplina, int periodo){
+	private boolean verificaPeriodoDiferentePreRequisitos(
+			Disciplina disciplina, int periodo) {
 		for (int i = 0; i < periodos.size(); i++) {
-			for (Disciplina disciplinaAnalisada : periodos.get(i).getDisciplinas()){
-				if(disciplina.getPreRequisitos().contains(disciplinaAnalisada.getNome()) && i >= periodo){
+			for (Disciplina disciplinaAnalisada : periodos.get(i)
+					.getDisciplinas()) {
+				if (disciplina.getPreRequisitos().contains(
+						disciplinaAnalisada.getNome())
+						&& i >= periodo) {
 					return true;
 				}
 			}
@@ -101,34 +106,33 @@ public class Planejador extends Model{
 		return false;
 	}
 
-	public void adicionaDisciplina(Disciplina disciplina, int periodo){
-
+	public void adicionaDisciplina(Disciplina disciplina, int periodo) {
 		periodos.get(periodo).addDisciplina(disciplina);
 		verificaTodasDisciplinas();
 	}
 
-	public void removeDisciplina(String disciplina){
+	public void removeDisciplina(String disciplina) {
 		for (Periodo periodo : periodos) {
-			if(periodo.indiceDisciplina(disciplina) != -1){
+			if (periodo.indiceDisciplina(disciplina) != -1) {
 				periodo.removeDisciplina(disciplina);
 			}
 		}
 		verificaTodasDisciplinas();
 	}
 
-	public boolean verificaMaximoCreditos(int periodo){
+	public boolean verificaMaximoCreditos(int periodo) {
 		return periodos.get(periodo).getTotalCreditos() <= MAX_CREDITOS;
 	}
 
-	public boolean verificaMinimoCreditos(int periodo){
+	public boolean verificaMinimoCreditos(int periodo) {
 		return periodos.get(periodo).getTotalCreditos() >= MIN_CREDITOS;
 	}
 
-	public CatalogoDisciplinas getCatalogo(){
+	public CatalogoDisciplinas getCatalogo() {
 		return catalogo;
 	}
 
-	public List<Disciplina> getDisciplinasAluno(Aluno aluno){
+	public List<Disciplina> getDisciplinasAluno(Aluno aluno) {
 		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 		for (Periodo periodo : periodos) {
 			disciplinas.addAll(periodo.getDisciplinas());
@@ -136,15 +140,15 @@ public class Planejador extends Model{
 		return disciplinas;
 	}
 
-	public List<Disciplina> getDisciplinasPeriodo(int periodo){
+	public List<Disciplina> getDisciplinasPeriodo(int periodo) {
 		return periodos.get(periodo).getDisciplinas();
 	}
 
-	public Disciplina getDisciplina(String nomeDisciplina){
+	public Disciplina getDisciplina(String nomeDisciplina) {
 		return catalogo.getDisciplina(nomeDisciplina);
 	}
 
-	public List<Periodo> getPeriodos(){
+	public List<Periodo> getPeriodos() {
 		return periodos;
 	}
 }

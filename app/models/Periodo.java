@@ -6,7 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import play.db.ebean.Model;
 
@@ -18,7 +19,8 @@ public class Periodo extends Model{
 	@Id
 	private Long id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="disciplinas_periodo")
 	private List<Disciplina> disciplinas;
 
 	public Periodo() {

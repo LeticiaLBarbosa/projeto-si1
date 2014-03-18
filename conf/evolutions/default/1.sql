@@ -4,14 +4,16 @@
 # --- !Ups
 
 create table aluno (
+  login                     varchar(255) not null,
   nome                      varchar(255),
-  planejador_id             bigint)
+  senha                     varchar(255),
+  planejador_id             bigint,
+  constraint pk_aluno primary key (login))
 ;
 
 create table disciplina (
   id                        bigint not null,
   nome                      varchar(255),
-  periodo                   integer,
   creditos                  integer,
   alocada_corretamente      boolean,
   dificuldade               integer,
@@ -28,6 +30,14 @@ create table planejador (
   constraint pk_planejador primary key (id))
 ;
 
+
+create table disciplinas_periodo (
+  periodo_id                     bigint not null,
+  disciplina_id                  bigint not null,
+  constraint pk_disciplinas_periodo primary key (periodo_id, disciplina_id))
+;
+create sequence aluno_seq;
+
 create sequence disciplina_seq;
 
 create sequence periodo_seq;
@@ -39,6 +49,10 @@ create index ix_aluno_planejador_1 on aluno (planejador_id);
 
 
 
+alter table disciplinas_periodo add constraint fk_disciplinas_periodo_period_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
+
+alter table disciplinas_periodo add constraint fk_disciplinas_periodo_discip_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
+
 # --- !Downs
 
 SET REFERENTIAL_INTEGRITY FALSE;
@@ -49,9 +63,13 @@ drop table if exists disciplina;
 
 drop table if exists periodo;
 
+drop table if exists disciplinas_periodo;
+
 drop table if exists planejador;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists aluno_seq;
 
 drop sequence if exists disciplina_seq;
 

@@ -47,6 +47,9 @@ public class DisciplinaTest {
 
 		resultado = finder.all();
 		Assert.assertEquals(1, resultado.size());
+		
+		Assert.assertEquals(resultado.get(0).getNome(), "SI 1");
+		
 	}
 
 	@Test

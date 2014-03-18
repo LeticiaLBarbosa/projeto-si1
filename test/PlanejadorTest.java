@@ -32,9 +32,11 @@ public class PlanejadorTest {
 	@Test
 	public void verificaMudancaDeStatusTest() {
 		planner.removeDisciplina("Cálculo I");
-		assertFalse(planner.getDisciplinasPeriodo(1).contains(new Disciplina("Cálculo I", 4, 3)));
+		assertFalse(planner.getDisciplinasPeriodo(0).contains(new Disciplina("Cálculo I", 4, 3)));
+		
 		planner.adicionaDisciplina(new Disciplina("Cálculo I", 4, 3), 7);
 		assertTrue(planner.getDisciplinasPeriodo(7).contains(new Disciplina("Cálculo I", 4, 3)));
+		
 		assertFalse(planner.getDisciplinasPeriodo(0).contains(new Disciplina("Cálculo I", 4, 3)));
 		assertFalse(planner.getPeriodos().get(1).getDisciplinaPorNome("Cálculo II").isAlocadaCorretamente());
 	}
@@ -48,10 +50,7 @@ public class PlanejadorTest {
 		Planejador plano = new Planejador();
 		plano.save();
 		resultado = finder.all();
-		Assert.assertEquals(1, resultado.size());
-	
-	
-		
+		Assert.assertEquals(1, resultado.size());		
 	}
 
 }

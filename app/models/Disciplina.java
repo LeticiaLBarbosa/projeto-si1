@@ -20,7 +20,7 @@ public class Disciplina extends Model{
 	private static final long serialVersionUID = 871291622882752052L;
 	
 	@Id
-	public Long id; 
+	public Long id;
 	
 	@Required
 	private String nome;
@@ -75,6 +75,11 @@ public class Disciplina extends Model{
 		return preRequisitos;
 	}
 
+	/*@Id
+	public Long getId(){
+		return id;
+	}*/
+	
 	public int getNumPreRequisitos(){
 		return preRequisitos.size();
 	}
@@ -83,6 +88,11 @@ public class Disciplina extends Model{
 		return dificuldade;
 	}
 
+	/*@Id
+	public void setId(Long id){
+		this.id = id;
+	}*/
+	
 	public void setNome(String nome) {
 		if(nome != null && !nome.equals("")){
 			this.nome = nome;			

@@ -24,7 +24,7 @@ public class Planejador extends Model {
 	private static final int MAX_CREDITOS = 28;
 	private static final int MIN_CREDITOS = 14;
 
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	static private List<Periodo> periodos;
 
 	public Planejador() {

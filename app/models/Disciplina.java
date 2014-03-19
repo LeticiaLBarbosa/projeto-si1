@@ -33,7 +33,6 @@ public class Disciplina extends Model{
 	private int creditos;
 	
 	private boolean alocadaCorretamente = true;
-	@OneToMany(cascade = CascadeType.ALL)
 	private List<Disciplina> preRequisitos;
 	private int dificuldade;
 	

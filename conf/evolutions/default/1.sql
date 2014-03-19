@@ -13,7 +13,6 @@ create table aluno (
 
 create table disciplina (
   id                        bigint not null,
-  disciplina_id             bigint not null,
   nome                      varchar(255),
   creditos                  integer,
   alocada_corretamente      boolean,
@@ -47,8 +46,6 @@ create sequence planejador_seq;
 
 alter table aluno add constraint fk_aluno_planejador_1 foreign key (planejador_id) references planejador (id) on delete restrict on update restrict;
 create index ix_aluno_planejador_1 on aluno (planejador_id);
-alter table disciplina add constraint fk_disciplina_disciplina_2 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
-create index ix_disciplina_disciplina_2 on disciplina (disciplina_id);
 
 
 

@@ -33,8 +33,13 @@ public class Disciplina extends Model{
 	private int creditos;
 	
 	private boolean alocadaCorretamente = true;
+	@ManyToMany
+	@JoinTable(name = "dependencias", joinColumns = @JoinColumn(name = "dependente"), inverseJoinColumns = @JoinColumn(name = "requisito"))
 	private List<Disciplina> preRequisitos;
 	private int dificuldade;
+	
+	public static Model.Finder<String, Disciplina> find = new Model.Finder<String, Disciplina>(
+			String.class, Disciplina.class);
 	
 	public Disciplina(String nome, int creditos, int dificuldade) {
 		setNome(nome);

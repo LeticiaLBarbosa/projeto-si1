@@ -95,19 +95,6 @@ public class Aluno extends Model {
 		return autenticado;
 	}
 
-	public static List<Aluno> findAll() {
-		return find.all();
-	}
-
-	public static Aluno findByEmail(String email) {
-		return find.where().eq("email", email).findUnique();
-	}
-
-	public static Aluno authenticate(String email, String password) {
-		return find.where().eq("email", email).eq("password", password)
-				.findUnique();
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

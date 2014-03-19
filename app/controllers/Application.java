@@ -42,13 +42,6 @@ public class Application extends Controller {
 		public String email;
 		public String password;
 
-		public String validate() {
-			if (Aluno.authenticate(email, password) == null) {
-				return "Invalid user or password";
-			}
-			return null;
-		}
-
 	}
 
 	public static Result authenticate() {

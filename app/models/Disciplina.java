@@ -31,7 +31,7 @@ public class Disciplina extends Model{
 	
 	private boolean alocadaCorretamente = true;
 	
-	@JoinTable(name = "dependencias", joinColumns = @JoinColumn(name = "dependente"), inverseJoinColumns = @JoinColumn(name = "requisito"))
+	@JoinTable(name = "Disciplina_Disciplina")
 	private List<Disciplina> preRequisitos;
 	private int dificuldade;
 	

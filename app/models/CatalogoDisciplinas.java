@@ -290,11 +290,15 @@ public class CatalogoDisciplinas {
 		return periodosDefault;
 	}
 
-	private List<String> listaDePreRequisitos(String disciplinas) {
-		List<String> listaDePreRequisitos = new ArrayList<String>();
+	private List<Disciplina> listaDePreRequisitos(String disciplinas) {
+		List<Disciplina> listaDePreRequisitos = new ArrayList<Disciplina>();
 		String[] aux = disciplinas.split(", ");
-		for (String disciplina : aux) {
-			listaDePreRequisitos.add(disciplina);
+		for (String disciplinaNome : aux) {
+			for (Disciplina disciplina : todasDisciplinas){
+				if (disciplina.getNome().equals(disciplinaNome)){
+					listaDePreRequisitos.add(disciplina);
+				}
+			}
 		}
 		return listaDePreRequisitos;
 	}

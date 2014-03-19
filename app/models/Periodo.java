@@ -20,7 +20,8 @@ public class Periodo extends Model{
 	private Long id;
 	
 	@ManyToMany
-	@JoinTable(name="Disciplinas_Periodo")
+
+	@JoinTable(name = "Periodo_Disciplina")
 	private List<Disciplina> disciplinas;
 
 	public Periodo() {

@@ -31,10 +31,17 @@ create table planejador (
 ;
 
 
+<<<<<<< HEAD
 create table Disciplinas_Periodo (
   periodo_id                     bigint not null,
   disciplina_id                  bigint not null,
   constraint pk_Disciplinas_Periodo primary key (periodo_id, disciplina_id))
+=======
+create table periodo_disciplina (
+  periodo_id                     bigint not null,
+  disciplina_id                  bigint not null,
+  constraint pk_periodo_disciplina primary key (periodo_id, disciplina_id))
+>>>>>>> 1d2b766d14f8db305274a66f85987eefac4fcd03
 ;
 create sequence aluno_seq;
 
@@ -49,9 +56,15 @@ create index ix_aluno_planejador_1 on aluno (planejador_id);
 
 
 
+<<<<<<< HEAD
 alter table Disciplinas_Periodo add constraint fk_Disciplinas_Periodo_period_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
 
 alter table Disciplinas_Periodo add constraint fk_Disciplinas_Periodo_discip_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
+=======
+alter table periodo_disciplina add constraint fk_periodo_disciplina_periodo_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
+
+alter table periodo_disciplina add constraint fk_periodo_disciplina_discipl_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
+>>>>>>> 1d2b766d14f8db305274a66f85987eefac4fcd03
 
 # --- !Downs
 
@@ -63,7 +76,11 @@ drop table if exists disciplina;
 
 drop table if exists periodo;
 
+<<<<<<< HEAD
 drop table if exists Disciplinas_Periodo;
+=======
+drop table if exists periodo_disciplina;
+>>>>>>> 1d2b766d14f8db305274a66f85987eefac4fcd03
 
 drop table if exists planejador;
 

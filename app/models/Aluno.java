@@ -1,7 +1,5 @@
 package models;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -93,19 +91,6 @@ public class Aluno extends Model {
 		}
 
 		return autenticado;
-	}
-
-	public static List<Aluno> findAll() {
-		return find.all();
-	}
-
-	public static Aluno findByEmail(String email) {
-		return find.where().eq("email", email).findUnique();
-	}
-
-	public static Aluno authenticate(String email, String password) {
-		return find.where().eq("email", email).eq("password", password)
-				.findUnique();
 	}
 
 	@Override

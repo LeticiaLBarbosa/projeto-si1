@@ -3,11 +3,12 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-import play.data.validation.Constraints.*;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 /**
@@ -29,23 +30,28 @@ public class Disciplina extends Model{
 	private int creditos;
 	
 	private boolean alocadaCorretamente = true;
-	private List<String> preRequisitos;
+	
+	@JoinTable(name = "dependencias", joinColumns = @JoinColumn(name = "dependente"), inverseJoinColumns = @JoinColumn(name = "requisito"))
+	private List<Disciplina> preRequisitos;
 	private int dificuldade;
+	
+	public static Model.Finder<String, Disciplina> find = new Model.Finder<String, Disciplina>(
+			String.class, Disciplina.class);
 	
 	public Disciplina(String nome, int creditos, int dificuldade) {
 		setNome(nome);
 		setCreditos(creditos);
 		setDificuladade(dificuldade);
 		
-		preRequisitos = new ArrayList<String>();
+		preRequisitos = new ArrayList<Disciplina>();
 	}
 
-	public Disciplina(String nome, int creditos, List<String> preRequesitos,
+	public Disciplina(String nome, int creditos, List<Disciplina> list,
 			int dificuldade) {
 		setNome(nome);
 		setCreditos(creditos);
 		setDificuladade(dificuldade);
-		setPreRequisitos(preRequesitos);
+		setPreRequisitos(list);
 	}
 	
 	public boolean isAlocadaCorretamente() {
@@ -57,9 +63,9 @@ public class Disciplina extends Model{
 		
 	}
 	
-	public void setPreRequisitos(List<String> preRequisitos){
-		if(preRequisitos != null){
-			this.preRequisitos = preRequisitos;
+	public void setPreRequisitos(List<Disciplina> list){
+		if(list != null){
+			this.preRequisitos = list;
 		}
 	}
 
@@ -71,14 +77,9 @@ public class Disciplina extends Model{
 		return creditos;
 	}
 
-	public List<String> getPreRequisitos() {
+	public List<Disciplina> getPreRequisitos() {
 		return preRequisitos;
 	}
-
-	/*@Id
-	public Long getId(){
-		return id;
-	}*/
 	
 	public int getNumPreRequisitos(){
 		return preRequisitos.size();
@@ -87,11 +88,6 @@ public class Disciplina extends Model{
 	public int getDificuldade() {
 		return dificuldade;
 	}
-
-	/*@Id
-	public void setId(Long id){
-		this.id = id;
-	}*/
 	
 	public void setNome(String nome) {
 		if(nome != null && !nome.equals("")){

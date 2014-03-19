@@ -19,7 +19,7 @@ import play.db.ebean.Model.Finder;
 public class DisciplinaTest {
 	CatalogoDisciplinas catalogo;
 	Disciplina d1, d2, d3, d4, d5;
-	List<String> list = new ArrayList<String>();
+	List<Disciplina> list = new ArrayList<Disciplina>();
 
 	@Before
 	public void setUp() {
@@ -85,16 +85,17 @@ public class DisciplinaTest {
 
 	@Test
 	public void Prerequisito() {
-		assertTrue(d1.getPreRequisitos().contains("Cálculo I"));
+		Disciplina d6 = catalogo.getDisciplina("Cálculo I");
+		assertTrue(d1.getPreRequisitos().contains(d6));
 
 		list.clear();
-		list.add("Programação I");
-		list.add("Lab. de Programação I");
-		list.add("Introdução a Computação");
+		list.add(catalogo.getDisciplina("Programação I"));
+		list.add(catalogo.getDisciplina("Lab. de Programação I"));
+		list.add(catalogo.getDisciplina("Introdução a Computação"));
 		assertEquals(list, d2.getPreRequisitos());
 
 		list.clear();
-		list.add("Álgebra Vetorial e Geometria Analítica");
+		list.add(catalogo.getDisciplina("Álgebra Vetorial e Geometria Analítica"));
 		assertEquals(list, d3.getPreRequisitos());
 
 		list.clear();

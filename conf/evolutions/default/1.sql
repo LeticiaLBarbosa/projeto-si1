@@ -31,10 +31,10 @@ create table planejador (
 ;
 
 
-create table disciplinas_periodo (
+create table Disciplinas_Periodo (
   periodo_id                     bigint not null,
   disciplina_id                  bigint not null,
-  constraint pk_disciplinas_periodo primary key (periodo_id, disciplina_id))
+  constraint pk_Disciplinas_Periodo primary key (periodo_id, disciplina_id))
 ;
 create sequence aluno_seq;
 
@@ -49,9 +49,9 @@ create index ix_aluno_planejador_1 on aluno (planejador_id);
 
 
 
-alter table disciplinas_periodo add constraint fk_disciplinas_periodo_period_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
+alter table Disciplinas_Periodo add constraint fk_Disciplinas_Periodo_period_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
 
-alter table disciplinas_periodo add constraint fk_disciplinas_periodo_discip_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
+alter table Disciplinas_Periodo add constraint fk_Disciplinas_Periodo_discip_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -63,7 +63,7 @@ drop table if exists disciplina;
 
 drop table if exists periodo;
 
-drop table if exists disciplinas_periodo;
+drop table if exists Disciplinas_Periodo;
 
 drop table if exists planejador;
 

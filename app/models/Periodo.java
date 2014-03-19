@@ -19,8 +19,8 @@ public class Periodo extends Model{
 	@Id
 	private Long id;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="disciplinas_periodo")
+	@ManyToMany
+	@JoinTable(name="Disciplinas_Periodo")
 	private List<Disciplina> disciplinas;
 
 	public Periodo() {

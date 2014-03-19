@@ -13,6 +13,7 @@ create table aluno (
 
 create table disciplina (
   id                        bigint not null,
+  disciplina_id             bigint not null,
   nome                      varchar(255),
   creditos                  integer,
   alocada_corretamente      boolean,
@@ -31,10 +32,10 @@ create table planejador (
 ;
 
 
-create table disciplinas_periodo (
+create table periodo_disciplina (
   periodo_id                     bigint not null,
   disciplina_id                  bigint not null,
-  constraint pk_disciplinas_periodo primary key (periodo_id, disciplina_id))
+  constraint pk_periodo_disciplina primary key (periodo_id, disciplina_id))
 ;
 create sequence aluno_seq;
 
@@ -46,12 +47,14 @@ create sequence planejador_seq;
 
 alter table aluno add constraint fk_aluno_planejador_1 foreign key (planejador_id) references planejador (id) on delete restrict on update restrict;
 create index ix_aluno_planejador_1 on aluno (planejador_id);
+alter table disciplina add constraint fk_disciplina_disciplina_2 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
+create index ix_disciplina_disciplina_2 on disciplina (disciplina_id);
 
 
 
-alter table disciplinas_periodo add constraint fk_disciplinas_periodo_period_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
+alter table periodo_disciplina add constraint fk_periodo_disciplina_periodo_01 foreign key (periodo_id) references periodo (id) on delete restrict on update restrict;
 
-alter table disciplinas_periodo add constraint fk_disciplinas_periodo_discip_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
+alter table periodo_disciplina add constraint fk_periodo_disciplina_discipl_02 foreign key (disciplina_id) references disciplina (id) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -63,7 +66,7 @@ drop table if exists disciplina;
 
 drop table if exists periodo;
 
-drop table if exists disciplinas_periodo;
+drop table if exists periodo_disciplina;
 
 drop table if exists planejador;
 

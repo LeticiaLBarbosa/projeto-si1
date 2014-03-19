@@ -24,8 +24,7 @@ public class Planejador extends Model {
 	private static final int MAX_CREDITOS = 28;
 	private static final int MIN_CREDITOS = 14;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "periodos")
+	@ManyToMany
 	static private List<Periodo> periodos;
 
 	public Planejador() {
@@ -76,7 +75,7 @@ public class Planejador extends Model {
 		for (int i = 0; i < periodo; i++) {
 			for (int j = 0; j < periodos.get(i).numeroDisciplinas(); j++) {
 				if (disciplina.getPreRequisitos().contains(
-						periodos.get(i).disciplinaIndice(j).getNome())) {
+						periodos.get(i).disciplinaIndice(j))) {
 					if (periodos.get(i).disciplinaIndice(j)
 							.isAlocadaCorretamente()) {
 						numeroPreRequisitos--;
@@ -98,7 +97,7 @@ public class Planejador extends Model {
 			for (Disciplina disciplinaAnalisada : periodos.get(i)
 					.getDisciplinas()) {
 				if (disciplina.getPreRequisitos().contains(
-						disciplinaAnalisada.getNome())
+						disciplinaAnalisada)
 						&& i >= periodo) {
 					return true;
 				}

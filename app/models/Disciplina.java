@@ -5,8 +5,12 @@ import java.util.List;
 
 import play.data.validation.Constraints.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import play.db.ebean.Model;
 
@@ -29,7 +33,8 @@ public class Disciplina extends Model{
 	private int creditos;
 	
 	private boolean alocadaCorretamente = true;
-	private List<String> preRequisitos;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Disciplina> preRequisitos;
 	private int dificuldade;
 	
 	public Disciplina(String nome, int creditos, int dificuldade) {
@@ -37,15 +42,15 @@ public class Disciplina extends Model{
 		setCreditos(creditos);
 		setDificuladade(dificuldade);
 		
-		preRequisitos = new ArrayList<String>();
+		preRequisitos = new ArrayList<Disciplina>();
 	}
 
-	public Disciplina(String nome, int creditos, List<String> preRequesitos,
+	public Disciplina(String nome, int creditos, List<Disciplina> list,
 			int dificuldade) {
 		setNome(nome);
 		setCreditos(creditos);
 		setDificuladade(dificuldade);
-		setPreRequisitos(preRequesitos);
+		setPreRequisitos(list);
 	}
 	
 	public boolean isAlocadaCorretamente() {
@@ -57,9 +62,9 @@ public class Disciplina extends Model{
 		
 	}
 	
-	public void setPreRequisitos(List<String> preRequisitos){
-		if(preRequisitos != null){
-			this.preRequisitos = preRequisitos;
+	public void setPreRequisitos(List<Disciplina> list){
+		if(list != null){
+			this.preRequisitos = list;
 		}
 	}
 
@@ -71,7 +76,7 @@ public class Disciplina extends Model{
 		return creditos;
 	}
 
-	public List<String> getPreRequisitos() {
+	public List<Disciplina> getPreRequisitos() {
 		return preRequisitos;
 	}
 	

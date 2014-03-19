@@ -6,7 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import play.db.ebean.Model;
 
@@ -23,7 +24,8 @@ public class Planejador extends Model {
 	private static final int MAX_CREDITOS = 28;
 	private static final int MIN_CREDITOS = 14;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "periodos")
 	static private List<Periodo> periodos;
 
 	public Planejador() {

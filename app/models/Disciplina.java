@@ -74,11 +74,6 @@ public class Disciplina extends Model{
 	public List<String> getPreRequisitos() {
 		return preRequisitos;
 	}
-
-	/*@Id
-	public Long getId(){
-		return id;
-	}*/
 	
 	public int getNumPreRequisitos(){
 		return preRequisitos.size();
@@ -87,11 +82,6 @@ public class Disciplina extends Model{
 	public int getDificuldade() {
 		return dificuldade;
 	}
-
-	/*@Id
-	public void setId(Long id){
-		this.id = id;
-	}*/
 	
 	public void setNome(String nome) {
 		if(nome != null && !nome.equals("")){

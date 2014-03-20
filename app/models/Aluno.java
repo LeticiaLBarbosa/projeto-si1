@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -84,15 +86,20 @@ public class Aluno extends Model {
 		planejador = new Planejador();
 	}
 
-	public boolean autenticar(String senha) {
-		boolean autenticado = false;
+	public static List<Aluno> findAll() {
+        return find.all();
+    }
 
-		if (getSenha().equals(senha)) {
-			autenticado = true;
-		}
-
-		return autenticado;
-	}
+    public static Aluno findByEmail(String email) {
+        return find.where().eq("login", email).findUnique();
+    }
+    
+    public static Aluno authenticate(String email, String password) {
+        return find.where()
+            .eq("login", email)
+            .eq("senha", password)
+            .findUnique();
+    }
 
 	@Override
 	public boolean equals(Object obj) {

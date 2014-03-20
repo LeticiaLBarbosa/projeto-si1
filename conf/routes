@@ -11,7 +11,6 @@ GET     /alocaDisciplina/:periodo/:nome			controllers.Application.alocaDisciplin
 GET     /deletaDisciplina/:nome					controllers.Application.alocaDisciplinaDisponivel(nome: String)
 GET		/reiniciar								controllers.Application.reiniciar()
 #POST   /disciplinaPeriodo                  	controllers.Application.disciplinaPeriodo()
-#POST   /removerCadeira                     	controllers.Application.removeDisciplinaPeriodo()
 GET     /login                  				controllers.Application.login()
 POST    /login                      			controllers.Application.authenticate()
 

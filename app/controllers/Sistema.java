@@ -24,9 +24,13 @@ public class Sistema {
 	}
 
 	public void alocaDisciplina(int periodo, String nomeDisciplina){
-		aluno.getPlanejador().removeDisciplina(nomeDisciplina);
+		aluno.getPlanejador().alocaDisciplinaPeriodo(nomeDisciplina, periodo);
 		
-		aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(nomeDisciplina), periodo);
+		aluno.save();
+	}
+	
+	public void alocaDisciplinaDisponivel(String nomeDisciplina){
+		aluno.getPlanejador().alocaDisciplinaEmDisponivel(nomeDisciplina);
 		
 		aluno.save();
 	}

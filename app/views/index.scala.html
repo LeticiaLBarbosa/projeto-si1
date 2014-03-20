@@ -1,4 +1,4 @@
-@(periodos: List[Periodo], erro: String) @import helper._
+@(periodos: List[Periodo],disponiveis: List[Disciplina], erro: String) @import helper._
 
 @main("Planejamento de curso") {
 
@@ -20,6 +20,13 @@
       }
     });
   });
+  
+  function deletaComClick(disciplinaNome){
+	  
+	  location.href = '/deletaDisciplina/' + disciplinaNome;
+  }
+  
+  
 </script>
 
 </head>
@@ -67,7 +74,7 @@
 
 				@for(disciplina <- periodo.getDisciplinas()){
 					@if(disciplina.isAlocadaCorretamente()){
-						<div class="disciplina" id="@disciplina.getNome()">
+						<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
 						<nome>@disciplina.getNome()</nome>
 						<br />
 						<descricao>@disciplina.getCreditos() créditos <br>
@@ -92,7 +99,30 @@
 
 			</div>
 				@if(i == 6){
-				</div>
+					
+					<div id="periodo_15" class="colunaDisponiveis" align='right'>
+					<nome-periodo>Disciplinas Disponíveis:</nome-periodo>
+		
+						@for(disciplina <- disponiveis){
+							@if(disciplina.isAlocadaCorretamente()){
+								<div class="disciplina" id="@disciplina.getNome()">
+								<nome>@disciplina.getNome()</nome>
+								<br />
+								<descricao>@disciplina.getCreditos() créditos <br>
+								Dificuldade: @disciplina.getDificuldade()</descricao>
+								</div>
+							}else{
+								<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+								<nome>@disciplina.getNome()</nome>
+								<br />
+								<descricao>@disciplina.getCreditos() créditos <br>
+								Dificuldade: @disciplina.getDificuldade()</descricao>
+								</div>
+							}
+						}
+					</div>
+							
+					</div>
 				}
 			}else{
 				<div id="colunas">

@@ -14,7 +14,7 @@ public class Application extends Controller {
 	public static Result index() {
 
 		return ok(index.render(
-				sistema.getAluno().getPlanejador().getPeriodos(), erro));
+				sistema.getAluno().getPlanejador().getPeriodos(), sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),erro));
 	}
 
 	public static Result reiniciar() {
@@ -29,8 +29,15 @@ public class Application extends Controller {
 		String aux = "";
 
 		return ok(index.render(
-				sistema.getAluno().getPlanejador().getPeriodos(), aux));
+				sistema.getAluno().getPlanejador().getPeriodos(), sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(), aux));
 
+	}
+	
+	public static Result alocaDisciplinaDisponivel(String nomeDisciplina){
+		
+		sistema.alocaDisciplinaDisponivel(nomeDisciplina);
+		
+		return index();
 	}
 
 	public static Result login() {

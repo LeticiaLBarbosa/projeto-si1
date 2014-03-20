@@ -64,6 +64,17 @@ mensagem-erro {
 	padding-top: 2px;
 }
 
+.colunaDisponiveis {
+	background-color: #d8e2eb;
+	float: left;
+	height: 1050x;
+	width: 148px;
+	margin-left: 10.5px;
+	margin-top: 10px;
+	border-radius: 10px;
+	padding-top: 2px;
+}
+
 #disciplinas {
 	background-color: #c0c0c0;
 	margin: auto;

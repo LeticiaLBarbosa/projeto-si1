@@ -28,8 +28,12 @@ public class Planejador extends Model {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Periodo> periodos;
 
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Disciplina> disciplinasDisponiveis;
+
 	public Planejador() {
 		periodos = new ArrayList<Periodo>();
+		disciplinasDisponiveis = new ArrayList<Disciplina>();
 		setPeriodosInicial();
 	}
 
@@ -38,9 +42,9 @@ public class Planejador extends Model {
 
 		for (int i = 0; i < 14; i++) {
 			Periodo periodo = new Periodo();
-		
+
 			periodos.add(periodo);
-			
+
 		}
 
 		for (int i = 0; i < 8; i++) {
@@ -50,7 +54,6 @@ public class Planejador extends Model {
 				adicionaDisciplina(getDisciplina(disciplina), i);
 			}
 		}
-		
 
 	}
 
@@ -100,8 +103,7 @@ public class Planejador extends Model {
 		for (int i = 0; i < periodos.size(); i++) {
 			for (Disciplina disciplinaAnalisada : periodos.get(i)
 					.getDisciplinas()) {
-				if (disciplina.getPreRequisitos().contains(
-						disciplinaAnalisada)
+				if (disciplina.getPreRequisitos().contains(disciplinaAnalisada)
 						&& i >= periodo) {
 					return true;
 				}
@@ -116,12 +118,34 @@ public class Planejador extends Model {
 		verificaTodasDisciplinas();
 	}
 
+	public void alocaDisciplinaPeriodo(String nomeDisciplina, int periodo) {
+		removeDisciplina(nomeDisciplina);
+		adicionaDisciplina(getDisciplina(nomeDisciplina), periodo);
+
+	}
+
+	public void alocaDisciplinaEmDisponivel(String nomeDisciplina) {
+		removeDisciplina(nomeDisciplina);
+
+		disciplinasDisponiveis.add(getDisciplina(nomeDisciplina));
+		verificaTodasDisciplinas();
+	}
+
 	public void removeDisciplina(String disciplina) {
 		for (Periodo periodo : periodos) {
 			if (periodo.indiceDisciplina(disciplina) != -1) {
 				periodo.removeDisciplina(disciplina);
+				break;
 			}
 		}
+		
+		for (int i = 0; i < disciplinasDisponiveis.size(); i++) {
+			if(disciplinasDisponiveis.get(i).getNome().equals(disciplina)){
+				disciplinasDisponiveis.remove(i);
+				break;
+			}
+		}
+		
 		verificaTodasDisciplinas();
 	}
 
@@ -133,16 +157,16 @@ public class Planejador extends Model {
 		return periodos.get(periodo).getTotalCreditos() >= MIN_CREDITOS;
 	}
 
-	public CatalogoDisciplinas getCatalogo() {
-		return catalogo;
-	}
+	// private List<Disciplina> getDisciplinasAluno(Aluno aluno) {
+	// List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	// for (Periodo periodo : periodos) {
+	// disciplinas.addAll(periodo.getDisciplinas());
+	// }
+	// return disciplinas;
+	// }
 
-	public List<Disciplina> getDisciplinasAluno(Aluno aluno) {
-		List<Disciplina> disciplinas = new ArrayList<Disciplina>();
-		for (Periodo periodo : periodos) {
-			disciplinas.addAll(periodo.getDisciplinas());
-		}
-		return disciplinas;
+	public List<Disciplina> getDisciplinasDisponiveis() {
+		return disciplinasDisponiveis;
 	}
 
 	public List<Disciplina> getDisciplinasPeriodo(int periodo) {

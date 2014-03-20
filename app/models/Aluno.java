@@ -42,6 +42,7 @@ public class Aluno extends Model {
 	public void setPlanejador(Planejador planejador) {
 		if (planejador != null) {
 			this.planejador = planejador;
+			//planejador.save();
 		}
 	}
 

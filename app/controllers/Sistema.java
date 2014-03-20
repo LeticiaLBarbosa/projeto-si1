@@ -27,12 +27,14 @@ public class Sistema {
 		aluno.getPlanejador().removeDisciplina(nomeDisciplina);
 		
 		aluno.getPlanejador().adicionaDisciplina(aluno.getPlanejador().getDisciplina(nomeDisciplina), periodo);
-
+		
 		aluno.save();
 	}
 
 	public void reset() {
 		aluno.reiniciaPlanejador();
+		
+		aluno.save();
 	}
 
 

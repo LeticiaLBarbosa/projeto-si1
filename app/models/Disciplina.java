@@ -3,10 +3,12 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -31,8 +33,11 @@ public class Disciplina extends Model{
 	
 	private boolean alocadaCorretamente = true;
 	
-	@JoinTable(name = "Disciplina_Disciplina")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "dependencias",
+	joinColumns = @JoinColumn(name = "disciplina"), inverseJoinColumns = @JoinColumn(name = "preRequisito"))
 	private List<Disciplina> preRequisitos;
+	
 	private int dificuldade;
 	
 	public static Model.Finder<String, Disciplina> find = new Model.Finder<String, Disciplina>(

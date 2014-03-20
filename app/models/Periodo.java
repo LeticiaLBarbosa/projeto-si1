@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
@@ -19,9 +20,9 @@ public class Periodo extends Model{
 	@Id
 	private Long id;
 	
-	@ManyToMany
-
-	@JoinTable(name = "Periodo_Disciplina")
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "dependenciasPeriodo",
+			joinColumns = @JoinColumn(name = "periodo"), inverseJoinColumns = @JoinColumn(name = "disciplinas"))
 	private List<Disciplina> disciplinas;
 
 	public Periodo() {

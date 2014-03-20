@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
@@ -25,7 +26,7 @@ public class Planejador extends Model {
 	private static final int MIN_CREDITOS = 14;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	static private List<Periodo> periodos;
+	private List<Periodo> periodos;
 
 	public Planejador() {
 		periodos = new ArrayList<Periodo>();
@@ -37,7 +38,9 @@ public class Planejador extends Model {
 
 		for (int i = 0; i < 14; i++) {
 			Periodo periodo = new Periodo();
+		
 			periodos.add(periodo);
+			
 		}
 
 		for (int i = 0; i < 8; i++) {
@@ -47,6 +50,7 @@ public class Planejador extends Model {
 				adicionaDisciplina(getDisciplina(disciplina), i);
 			}
 		}
+		
 
 	}
 

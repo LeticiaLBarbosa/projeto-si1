@@ -1,14 +1,14 @@
 package controllers;
 
-import models.Aluno;
 import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
+import play.mvc.*;
 import views.html.*;
 
 public class Application extends Controller {
-
+	
 	static Sistema sistema  = new Sistema();
+
+	private static String erro = "";
 	
 	public static class Login {
 
@@ -17,7 +17,7 @@ public class Application extends Controller {
 
 		public String validate() {
 			if (Sistema.authenticate(email, password) == null) {
-				return "Invalid user or password";
+				return "Usuário ou senha inválido";
 			}
 			return null;
 		}
@@ -35,32 +35,37 @@ public class Application extends Controller {
 		} else {
 			session().clear();
 			session("email", loginForm.get().email);
+			
+			sistema.setAluno(Sistema.findByEmail(loginForm.get().email));
+			
 			return redirect(routes.Application.index());
 		}
 	}
 
-	private static String erro = "";
-
+	public static Result logout() {
+		session().clear();
+		flash("success", "You've been logged out");
+		return redirect(routes.Application.login());
+	}
+	
+	@Security.Authenticated(Secured.class)
 	public static Result index() {
 
-//		if(session().get("email") == null){
-//			return login();
-//		}
-//		sistema.setAluno(Sistema.finder.byId(request().username()));
-//		
-//		return ok(index.render(sistema.getAluno().getPlanejador().getPeriodos(),
-//				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),
-//				erro));
+		if(session().get("email") == null){
+			return login();
+		}
 		
 		return ok(index.render(sistema.getAluno().getPlanejador().getPeriodos(),
 				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),erro));
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result reiniciar() {
 		sistema.reset();
 		return redirect(routes.Application.index());
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result alocaDisciplina(Integer periodo, String nomeDisciplina)
 			throws Exception {
 		sistema.alocaDisciplina(periodo - 1, nomeDisciplina);
@@ -74,6 +79,7 @@ public class Application extends Controller {
 
 	}
 
+	@Security.Authenticated(Secured.class)
 	public static Result removeDisciplina(String nomeDisciplina) {
 
 		sistema.removeDisciplina(nomeDisciplina);

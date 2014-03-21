@@ -43,6 +43,7 @@
 				role="navigation">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/reiniciar">Reiniciar</a></li>
+					<li><a href="@routes.Application.logout()">Logout</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -81,7 +82,7 @@
 						Dificuldade: @disciplina.getDificuldade()</descricao>
 						</div>
 					}else{
-						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
 						<nome>@disciplina.getNome()</nome>
 						<br />
 						<descricao>@disciplina.getCreditos() créditos <br>
@@ -131,14 +132,14 @@
 
 				@for(disciplina <- periodo.getDisciplinas()){
 					@if(disciplina.isAlocadaCorretamente()){
-						<div class="disciplina" id="@disciplina.getNome()">
+						<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
 						<nome>@disciplina.getNome()</nome>
 						<br />
 						<descricao>@disciplina.getCreditos() créditos <br>
 						Dificuldade: @disciplina.getDificuldade()</descricao>
 						</div>
 					}else{
-						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
 						<nome>@disciplina.getNome()</nome>
 						<br />
 						<descricao>@disciplina.getCreditos() créditos <br>

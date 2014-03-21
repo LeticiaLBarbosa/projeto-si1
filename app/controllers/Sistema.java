@@ -11,19 +11,8 @@ public class Sistema {
 
 	public static Finder<String, Aluno> finder = new Finder<String, Aluno>(String.class, Aluno.class);
 
-	public Sistema() {
-		if (finder.all().isEmpty()) {
-			aluno = new Aluno("login","nome", "senha");
-			aluno.save();
-
-		} else {
-			aluno = finder.all().get(0);
-		}
-	}
-	
 	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
-		
+		this.aluno = aluno;		
 	}
 
 	public Aluno getAluno() {
@@ -57,10 +46,7 @@ public class Sistema {
     }
     
     public static Aluno authenticate(String email, String password) {
-        return finder.where()
-            .eq("email", email)
-            .eq("senha", password)
-            .findUnique();
+        return finder.where().eq("email", email).eq("senha", password).findUnique();
     }
 
 	public static void create(Aluno aluno) {

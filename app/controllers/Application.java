@@ -1,9 +1,7 @@
 package controllers;
 
-import models.Aluno;
 import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
+import play.mvc.*;
 import views.html.*;
 
 public class Application extends Controller {
@@ -15,7 +13,7 @@ public class Application extends Controller {
 
 		public String validate() {
 			if (Sistema.authenticate(email, password) == null) {
-				return "Invalid user or password";
+				return "Usuário ou senha inválido";
 			}
 			return null;
 		}
@@ -46,10 +44,11 @@ public class Application extends Controller {
 	static Sistema sistema  = new Sistema();
 
 	private static String erro = "";
-
+	
+	@Security.Authenticated(Secured.class)
 	public static Result index() {
 
-		if(!session().get("email").equals(null)){
+		if(session().get("email") != null){
 			return login();
 		}
 		sistema.setAluno(Sistema.finder.byId(request().username()));

@@ -47,10 +47,7 @@ public class Sistema {
     }
     
     public static Aluno authenticate(String email, String password) {
-        return finder.where()
-            .eq("email", email)
-            .eq("senha", password)
-            .findUnique();
+        return finder.where().eq("email", email).eq("senha", password).findUnique();
     }
 
 	public static void create(Aluno aluno) {

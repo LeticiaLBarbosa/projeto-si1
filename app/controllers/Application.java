@@ -35,11 +35,11 @@ public class Application extends Controller {
 		}
 	}
 
-//	public static Result logout() {
-//		session().clear();
-//		flash("success", "You've been logged out");
-//		return redirect(routes.Application.login());
-//	}
+	public static Result logout() {
+		session().clear();
+		flash("success", "You've been logged out");
+		return redirect(routes.Application.login());
+	}
 
 	static Sistema sistema  = new Sistema();
 
@@ -48,7 +48,7 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
 	public static Result index() {
 
-		if(session().get("email") != null){
+		if(session().get("email") == null){
 			return login();
 		}
 		sistema.setAluno(Sistema.finder.byId(request().username()));

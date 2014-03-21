@@ -3,7 +3,9 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                           		controllers.Application.login()
+GET		/home								controllers.Application.index()
+
 
 # Aplicacao
 
@@ -15,6 +17,7 @@ GET     /login                  				controllers.Application.login()
 POST    /login                      			controllers.Application.authenticate()
 GET		/cadastro								controllers.CadastroAlunos.cadastro()
 POST	/cadastro								controllers.CadastroAlunos.efetuaCadastroAlunos()
+GET		 /logout							    controllers.Application.logout()
 
 
 

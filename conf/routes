@@ -8,7 +8,7 @@ GET     /                           controllers.Application.index()
 # Aplicacao
 
 GET     /alocaDisciplina/:periodo/:nome			controllers.Application.alocaDisciplina(periodo: Integer, nome: String)
-GET     /deletaDisciplina/:nome					controllers.Application.alocaDisciplinaDisponivel(nome: String)
+GET     /deletaDisciplina/:nome					controllers.Application.removeDisciplina(nome: String)
 GET		/reiniciar								controllers.Application.reiniciar()
 #POST   /disciplinaPeriodo                  	controllers.Application.disciplinaPeriodo()
 GET     /login                  				controllers.Application.login()

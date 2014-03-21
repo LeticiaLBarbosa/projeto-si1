@@ -34,7 +34,11 @@ public class Periodo extends Model{
 	}
 
 	public void removeDisciplina(String disciplina){
-		disciplinas.remove(indiceDisciplina(disciplina));
+		int i = indiceDisciplina(disciplina);
+		
+		if(i >= 0){
+			disciplinas.remove(indiceDisciplina(disciplina));
+		}
 	}
 	
 	public Disciplina disciplinaIndice(int i){

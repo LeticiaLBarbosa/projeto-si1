@@ -11,6 +11,16 @@ public class Sistema {
 
 	public static Finder<String, Aluno> finder = new Finder<String, Aluno>(String.class, Aluno.class);
 
+	public Sistema() {
+		if (finder.all().isEmpty()) {
+			aluno = new Aluno("login","nome", "senha");
+			aluno.save();
+
+		} else {
+			aluno = finder.all().get(0);
+		}
+	}
+	
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 		
@@ -26,8 +36,8 @@ public class Sistema {
 		aluno.save();
 	}
 	
-	public void alocaDisciplinaDisponivel(String nomeDisciplina){
-		aluno.getPlanejador().alocaDisciplinaEmDisponivel(nomeDisciplina);
+	public void removeDisciplina(String nomeDisciplina){
+		aluno.getPlanejador().removeDisciplinaEDependentes(nomeDisciplina);
 		
 		aluno.save();
 	}

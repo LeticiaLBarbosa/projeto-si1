@@ -124,11 +124,11 @@ public class Planejador extends Model {
 
 	}
 
-	public void alocaDisciplinaEmDisponivel(String nomeDisciplina) {
-		removeDisciplina(nomeDisciplina);
+	private void alocaDisciplinaEmDisponivel(String nomeDisciplina) {
+		//removeDisciplina(nomeDisciplina);
 
 		disciplinasDisponiveis.add(getDisciplina(nomeDisciplina));
-		verificaTodasDisciplinas();
+		//verificaTodasDisciplinas();
 	}
 
 	public void removeDisciplina(String disciplina) {
@@ -138,17 +138,37 @@ public class Planejador extends Model {
 				break;
 			}
 		}
-		
+
 		for (int i = 0; i < disciplinasDisponiveis.size(); i++) {
-			if(disciplinasDisponiveis.get(i).getNome().equals(disciplina)){
+			if (disciplinasDisponiveis.get(i).getNome().equals(disciplina)) {
 				disciplinasDisponiveis.remove(i);
 				break;
 			}
 		}
-		
+
 		verificaTodasDisciplinas();
 	}
 
+	public void removeDisciplinaEDependentes(String nomeDisciplina){
+		for (Periodo periodo : periodos) {
+			if(periodo.indiceDisciplina(nomeDisciplina) != -1){
+				alocaDisciplinaEmDisponivel(nomeDisciplina);
+				periodo.removeDisciplina(nomeDisciplina);
+				break;
+			}
+		}
+		
+		String temp;
+		for (Periodo periodo : periodos) {		
+			for(int i = periodo.getDisciplinas().size() - 1; i >= 0 ; i--){
+				 if(periodo.getDisciplinas().get(i).verificaPreRequisitos(nomeDisciplina)){
+					 temp = periodo.getDisciplinas().get(i).getNome();
+					 removeDisciplinaEDependentes(temp);
+				 }
+			}
+		}
+	}
+	
 	public boolean verificaMaximoCreditos(int periodo) {
 		return periodos.get(periodo).getTotalCreditos() <= MAX_CREDITOS;
 	}
@@ -156,14 +176,6 @@ public class Planejador extends Model {
 	public boolean verificaMinimoCreditos(int periodo) {
 		return periodos.get(periodo).getTotalCreditos() >= MIN_CREDITOS;
 	}
-
-	// private List<Disciplina> getDisciplinasAluno(Aluno aluno) {
-	// List<Disciplina> disciplinas = new ArrayList<Disciplina>();
-	// for (Periodo periodo : periodos) {
-	// disciplinas.addAll(periodo.getDisciplinas());
-	// }
-	// return disciplinas;
-	// }
 
 	public List<Disciplina> getDisciplinasDisponiveis() {
 		return disciplinasDisponiveis;

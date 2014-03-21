@@ -112,6 +112,19 @@ public class Disciplina extends Model{
 		}
 	}
 
+	public boolean verificaPreRequisitos(String nomeDisciplina){
+		boolean result =  false;
+		
+		for (Disciplina disciplina : preRequisitos) {
+			if(disciplina.getNome().equals(nomeDisciplina)){
+				result = true;
+				break;
+			}
+		}
+			
+		return result;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Disciplina) {

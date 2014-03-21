@@ -8,6 +8,8 @@ import views.html.*;
 
 public class Application extends Controller {
 
+	static Sistema sistema  = new Sistema();
+	
 	public static class Login {
 
 		public String email;
@@ -37,26 +39,21 @@ public class Application extends Controller {
 		}
 	}
 
-//	public static Result logout() {
-//		session().clear();
-//		flash("success", "You've been logged out");
-//		return redirect(routes.Application.login());
-//	}
-
-	static Sistema sistema  = new Sistema();
-
 	private static String erro = "";
 
 	public static Result index() {
 
-		if(!session().get("email").equals(null)){
-			return login();
-		}
-		sistema.setAluno(Sistema.finder.byId(request().username()));
+//		if(session().get("email") == null){
+//			return login();
+//		}
+//		sistema.setAluno(Sistema.finder.byId(request().username()));
+//		
+//		return ok(index.render(sistema.getAluno().getPlanejador().getPeriodos(),
+//				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),
+//				erro));
 		
 		return ok(index.render(sistema.getAluno().getPlanejador().getPeriodos(),
-				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),
-				erro));
+				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),erro));
 	}
 
 	public static Result reiniciar() {
@@ -77,9 +74,9 @@ public class Application extends Controller {
 
 	}
 
-	public static Result alocaDisciplinaDisponivel(String nomeDisciplina) {
+	public static Result removeDisciplina(String nomeDisciplina) {
 
-		sistema.alocaDisciplinaDisponivel(nomeDisciplina);
+		sistema.removeDisciplina(nomeDisciplina);
 
 		return index();
 	}

@@ -37,25 +37,25 @@ public class testaAluno {
 		Aluno umAluno = new Aluno("leticia", "leticia", "senha");
 
 		Assert.assertEquals("leticia", umAluno.getNome());
-		Assert.assertEquals("leticia", umAluno.getLogin());
+		Assert.assertEquals("leticia", umAluno.getEmail());
 		Assert.assertEquals("senha", umAluno.getSenha());
 
 		umAluno.setNome("FelipeNome");
-		umAluno.setLogin("FelipeLogin");
+		umAluno.setEmail("FelipeEmail");
 		umAluno.setSenha("Senha");
 
 		Assert.assertEquals("FelipeNome", umAluno.getNome());
-		Assert.assertEquals("FelipeLogin", umAluno.getLogin());
+		Assert.assertEquals("FelipeEmail", umAluno.getEmail());
 		Assert.assertEquals("Senha", umAluno.getSenha());
 
 		// Testa configura com null
 
 		umAluno.setNome(null);
-		umAluno.setLogin(null);
+		umAluno.setEmail(null);
 		umAluno.setSenha(null);
 
 		Assert.assertEquals("FelipeNome", umAluno.getNome());
-		Assert.assertEquals("FelipeLogin", umAluno.getLogin());
+		Assert.assertEquals("FelipeEmail", umAluno.getEmail());
 		Assert.assertEquals("Senha", umAluno.getSenha());
 
 	}

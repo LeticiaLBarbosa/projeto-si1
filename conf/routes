@@ -13,6 +13,9 @@ GET		/reiniciar								controllers.Application.reiniciar()
 #POST   /disciplinaPeriodo                  	controllers.Application.disciplinaPeriodo()
 GET     /login                  				controllers.Application.login()
 POST    /login                      			controllers.Application.authenticate()
+GET		/cadastro								controllers.CadastroAlunos.cadastro()
+POST	/cadastro								controllers.CadastroAlunos.efetuaCadastroAlunos()
+
 
 
 # Map static resources from the /public folder to the /assets URL path

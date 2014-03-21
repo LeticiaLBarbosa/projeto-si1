@@ -14,7 +14,7 @@ public class Application extends Controller {
 		public String password;
 
 		public String validate() {
-			if (Aluno.authenticate(email, password) == null) {
+			if (Sistema.authenticate(email, password) == null) {
 				return "Invalid user or password";
 			}
 			return null;
@@ -37,20 +37,24 @@ public class Application extends Controller {
 		}
 	}
 
-	public static Result logout() {
-		session().clear();
-		flash("success", "You've been logged out");
-		return redirect(routes.Application.login());
-	}
+//	public static Result logout() {
+//		session().clear();
+//		flash("success", "You've been logged out");
+//		return redirect(routes.Application.login());
+//	}
 
-	static Sistema sistema = new Sistema();
+	static Sistema sistema  = new Sistema();
 
 	private static String erro = "";
 
 	public static Result index() {
 
-		return ok(index.render(
-				sistema.getAluno().getPlanejador().getPeriodos(),
+		if(!session().get("email").equals(null)){
+			return login();
+		}
+		sistema.setAluno(Sistema.finder.byId(request().username()));
+		
+		return ok(index.render(sistema.getAluno().getPlanejador().getPeriodos(),
 				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),
 				erro));
 	}
@@ -80,87 +84,4 @@ public class Application extends Controller {
 		return index();
 	}
 
-	// public class Cadastro {
-	// private String email;
-	// private String password;
-	// private String repassword;
-	// private String nome;
-	//
-	// public void setEmail(String email) {
-	// this.email = email;
-	// }
-	//
-	// public void setPassword(String password) {
-	// this.password = password;
-	// }
-	//
-	// public void setRepassword(String repassword) {
-	// this.repassword = repassword;
-	// }
-	//
-	// public void setNome(String nome) {
-	// this.nome = nome;
-	// }
-	//
-	// public String getEmail(){
-	// return this.email;
-	// }
-	//
-	// public String getPassword(){
-	// return this.password;
-	// }
-	//
-	// public String getRepassword(){
-	// return this.repassword;
-	// }
-	//
-	// public String getNome(){
-	// return this.nome;
-	// }
-	//
-	// /**
-	// * Validação dos dados inseridos para o cadastro.
-	// *
-	// * @return Null se o cadastro foi concluído com sucesso ou string de
-	// * erro caso contrário.
-	// */
-	// public String validate() {
-	// String erro = null;
-	// if (!getPassword().equals(getRepassword())) {
-	// erro = "Confirmação de senha incorreta!";
-	// }
-	// if (getPassword().length() < 8) {
-	// erro = "Senha deve ter no mínimo 8 caracteres";
-	// }
-	// if (getEmail() == null || getEmail().trim().equals("")) {
-	// return "Insira um email";
-	// } else if (Aluno.find.where().eq("email", getEmail()).findUnique() !=
-	// null) {
-	// erro = "Usuario já cadastrado";
-	// }
-	// if (erro != null) {
-	// flash("erro", erro);
-	// }
-	// return erro;
-	// }
-	// }
-	//
-	// public Result cadastro() {
-	// return ok(cadastro.render(Form.form(Cadastro.class)));
-	// }
-	//
-	// public static Result efetuaCadastro(){
-	// Form<Cadastro> cadastroForm =
-	// Form.form(Cadastro.class).bindFromRequest();
-	// if (cadastroForm.hasErrors()) {
-	// return badRequest(cadastro.render(cadastroForm));
-	// } else if(cadastroForm.get().validate() == null) {
-	// Cadastro novoC = cadastroForm.get();
-	// Aluno.create(new Aluno(novoC.getEmail(), novoC.getNome(),
-	// novoC.getPassword()));
-	// }else{
-	// return redirect(routes.Application.cadastro());
-	// }
-	// return redirect(routes.Application.login());
-	// }
 }

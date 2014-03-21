@@ -19,7 +19,7 @@ public class Aluno extends Model {
 	@Id
 	@Required
 	@Email
-	private String login;
+	private String email;
 	@Required
 	private String nome;
 
@@ -29,13 +29,10 @@ public class Aluno extends Model {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Planejador planejador;
 
-	public static Model.Finder<String, Aluno> find = new Model.Finder<String, Aluno>(
-			String.class, Aluno.class);
-
-	public Aluno(String login, String nome, String senha) {
+	public Aluno(String email, String nome, String senha) {
 
 		this.setPlanejador(new Planejador());
-		this.setLogin(login);
+		this.setEmail(email);
 		this.setNome(nome);
 		this.setSenha(senha);
 
@@ -44,7 +41,6 @@ public class Aluno extends Model {
 	public void setPlanejador(Planejador planejador) {
 		if (planejador != null) {
 			this.planejador = planejador;
-			//planejador.save();
 		}
 	}
 
@@ -60,8 +56,8 @@ public class Aluno extends Model {
 		return planejador;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getEmail() {
+		return email;
 	}
 
 	public void setSenha(String senha) {
@@ -76,30 +72,15 @@ public class Aluno extends Model {
 		}
 	}
 
-	public void setLogin(String login) {
-		if (login != null) {
-			this.login = login;
+	public void setEmail(String email) {
+		if (email != null) {
+			this.email = email;
 		}
 	}
 
 	public void reiniciaPlanejador() {
 		planejador = new Planejador();
 	}
-
-	public static List<Aluno> findAll() {
-        return find.all();
-    }
-
-    public static Aluno findByEmail(String email) {
-        return find.where().eq("login", email).findUnique();
-    }
-    
-    public static Aluno authenticate(String email, String password) {
-        return find.where()
-            .eq("login", email)
-            .eq("senha", password)
-            .findUnique();
-    }
 
 	@Override
 	public boolean equals(Object obj) {
@@ -110,10 +91,10 @@ public class Aluno extends Model {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
-		if (login == null) {
-			if (other.login != null)
+		if (email == null) {
+			if (other.email != null)
 				return false;
-		} else if (!login.equals(other.login))
+		} else if (!email.equals(other.email))
 			return false;
 
 		return true;

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Aluno;
 import play.data.Form;
 import play.mvc.*;
 import views.html.*;
@@ -14,14 +15,6 @@ public class Application extends Controller {
 
 		public String email;
 		public String password;
-
-		public String validate() {
-			if (Sistema.authenticate(email, password) == null) {
-				return "Usuário ou senha inválido";
-			}
-			return null;
-		}
-
 	}
 
 	public static Result login() {
@@ -33,18 +26,28 @@ public class Application extends Controller {
 		if (loginForm.hasErrors()) {
 			return badRequest(login.render(loginForm));
 		} else {
-			session().clear();
-			session("email", loginForm.get().email);
 			
-			sistema.setAluno(Sistema.findByEmail(loginForm.get().email));
+			Aluno aluno = Sistema.authenticate(loginForm.get().email,loginForm.get().password);
 			
-			return redirect(routes.Application.index());
+			if(aluno != null){
+				session().clear();
+				session("email", loginForm.get().email);
+				
+				sistema.setAluno(Sistema.findByEmail(loginForm.get().email));
+				
+				return redirect(routes.Application.index());
+			}else{
+				
+				flash("erro", "Usuário ou senha inválidos");
+				return badRequest(login.render(loginForm));
+				
+			}
 		}
 	}
 
 	public static Result logout() {
 		session().clear();
-		flash("success", "You've been logged out");
+		flash("success", "Deslogado com sucesso!");
 		return redirect(routes.Application.login());
 	}
 	
@@ -60,7 +63,7 @@ public class Application extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result reiniciar() {
+	public static Result reiniciar(){
 		sistema.reset();
 		return redirect(routes.Application.index());
 	}
@@ -80,7 +83,7 @@ public class Application extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result removeDisciplina(String nomeDisciplina) {
+	public static Result removeDisciplina(String nomeDisciplina){
 
 		sistema.removeDisciplina(nomeDisciplina);
 

@@ -5337,6 +5337,13 @@ a.thumbnail.active {
   border-color: #d6e9c6;
 }
 
+
+.alert-erro {
+  color: #000080;
+  background-color: #FA8072;
+  border-color: #d6e9c6;
+}
+
 .alert-success hr {
   border-top-color: #c9e2b3;
 }

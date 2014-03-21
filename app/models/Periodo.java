@@ -17,6 +17,8 @@ public class Periodo extends Model{
 	
 	private static final long serialVersionUID = -5914811766264214424L;
 
+	ValidadorDeAlocacao validador;
+	
 	@Id
 	private Long id;
 	
@@ -27,13 +29,34 @@ public class Periodo extends Model{
 
 	public Periodo() {
 		disciplinas = new ArrayList<Disciplina>();
+		validador = new MaximoMinimoCreditos();
 	}
+	
+	public void setValidador(ValidadorDeAlocacao validador){
+		this.validador = validador;
+	}
+	
+	public ValidadorDeAlocacao getValidador(){
+		return validador;
+	}	
 		
 	public void addDisciplina(Disciplina disciplina){
-		disciplinas.add(disciplina);
+	//	if(validador.podeAdicionar(this, disciplina)){
+			disciplinas.add(disciplina);
+		//}
 	}
 
-	public void removeDisciplina(String disciplina){
+	public void removeDisciplina(String disciplina){	
+		//if(validador.podeRemover(this, getDisciplinaPorNome(disciplina))){
+			int i = indiceDisciplina(disciplina);
+			
+			if(i >= 0){
+				disciplinas.remove(indiceDisciplina(disciplina));
+			}
+		//}
+	}
+	
+	public void removeSemVerificar(String disciplina){
 		int i = indiceDisciplina(disciplina);
 		
 		if(i >= 0){

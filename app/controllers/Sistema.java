@@ -4,34 +4,38 @@ import java.util.List;
 
 import play.db.ebean.Model.Finder;
 import models.Aluno;
+import models.Planejador;
 
 public class Sistema {
 
 	private Aluno aluno;
-
+	private Planejador plano;
+	
 	public static Finder<String, Aluno> finder = new Finder<String, Aluno>(String.class, Aluno.class);
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;		
+		
+		plano = aluno.getPlanejador();
 	}
 
 	public Aluno getAluno() {
 		return aluno;
 	}
 
-	public void alocaDisciplina(int periodo, String nomeDisciplina){
-		aluno.getPlanejador().alocaDisciplinaPeriodo(nomeDisciplina, periodo);
+	public void alocaDisciplina(int periodo, String nomeDisciplina) {
+		plano.alocaDisciplinaPeriodo(nomeDisciplina, periodo);
 		
 		aluno.save();
 	}
 	
 	public void removeDisciplina(String nomeDisciplina){
-		aluno.getPlanejador().removeDisciplinaEDependentes(nomeDisciplina);
+		plano.removeDisciplinaEDependentes(nomeDisciplina);
 		
 		aluno.save();
 	}
 
-	public void reset() {
+	public void reset(){
 		aluno.reiniciaPlanejador();
 		
 		aluno.save();
@@ -52,6 +56,4 @@ public class Sistema {
 	public static void create(Aluno aluno) {
 		aluno.save();
 	}
-
-
 }

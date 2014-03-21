@@ -6,8 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import play.db.ebean.Model;
@@ -30,12 +28,12 @@ public class Planejador extends Model {
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Disciplina> disciplinasDisponiveis;
-
+	
 	public Planejador() {
 		periodos = new ArrayList<Periodo>();
 		disciplinasDisponiveis = new ArrayList<Disciplina>();
 		setPeriodosInicial();
-	}
+	}	
 
 	private void setPeriodosInicial() {
 		List<String[]> periodosDefault = catalogo.getPeriodosDefault();
@@ -125,10 +123,7 @@ public class Planejador extends Model {
 	}
 
 	private void alocaDisciplinaEmDisponivel(String nomeDisciplina) {
-		//removeDisciplina(nomeDisciplina);
-
 		disciplinasDisponiveis.add(getDisciplina(nomeDisciplina));
-		//verificaTodasDisciplinas();
 	}
 
 	public void removeDisciplina(String disciplina) {

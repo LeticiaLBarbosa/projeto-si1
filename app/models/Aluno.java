@@ -23,7 +23,7 @@ public class Aluno extends Model {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Planejador planejador;
 
-	public Aluno(String email, String nome, String senha) {
+	public Aluno(String email, String nome, String senha){
 
 		this.setPlanejador(new Planejador());
 		this.setEmail(email);
@@ -72,7 +72,7 @@ public class Aluno extends Model {
 		}
 	}
 
-	public void reiniciaPlanejador() {
+	public void reiniciaPlanejador(){
 		planejador = new Planejador();
 	}
 

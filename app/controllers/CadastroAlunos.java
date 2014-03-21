@@ -50,20 +50,21 @@ public class CadastroAlunos extends Controller{
 	 }
 	
 	 public String validate() {
-		 String erro = "";
+		 String erro = null;
+
 		 if (!getPassword().equals(getRepassword())) {
 			 erro = "Confirmação de senha incorreta!";
 		 }
-		 if (getPassword().length() < 8) {
-			 erro = "Senha deve ter no mínimo 8 caracteres";
+		 if (getPassword().length() < 6) {
+			 erro = "Senha deve ter no mínimo 6 caracteres";
 		 }
 		 if (getEmail() == null || getEmail().trim().equals("")) {
 			 return "Insira um email";
-		 } else if (Sistema.finder.where().eq("email", getEmail()).findUnique() !=
-				 null) {
+
+		 } else if (Sistema.finder.where().eq("email", getEmail()).findUnique() != null) {
 			 erro = "Usuario já cadastrado";
 		 }
-		 if (!erro.equals("")) {
+		 if (erro != null) {
 			 flash("erro", erro);
 		 }
 		 return erro;
@@ -75,16 +76,13 @@ public class CadastroAlunos extends Controller{
 	
 	 public static Result efetuaCadastroAlunos(){
 		 Form<CadastroAlunos> cadastroForm = Form.form(CadastroAlunos.class).bindFromRequest();
-		 System.out.println("entrou");
+		 
 		 if (cadastroForm.hasErrors()) {
-			 System.out.println("entrou if 2");
 			 return badRequest(cadastro.render(cadastroForm));
-		 } else if(cadastroForm.get().validate().equals("")) {
-			 System.out.println("entrou if 3");
+		 } else if(cadastroForm.get().validate() == null) {
 			 CadastroAlunos novoCadastro = cadastroForm.get();
 			 Sistema.create(new Aluno(novoCadastro.getEmail(), novoCadastro.getNome(),novoCadastro.getPassword()));
 		 }else{
-			 System.out.println("entrou else");
 			 return redirect(routes.CadastroAlunos.cadastro());
 		 }
 		 return redirect(routes.Application.login());

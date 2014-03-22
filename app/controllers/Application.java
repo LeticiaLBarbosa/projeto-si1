@@ -1,5 +1,6 @@
 package controllers;
 
+import Exceptions.TotalDeCreditosInvalidoException;
 import models.Aluno;
 import play.data.Form;
 import play.mvc.Controller;
@@ -88,7 +89,12 @@ public class Application extends Controller {
 	@Security.Authenticated(Secured.class)
 	public static Result removeDisciplina(String nomeDisciplina){
 
-		sistema.removeDisciplina(nomeDisciplina);
+		try {
+			sistema.removeDisciplina(nomeDisciplina);
+		} catch (TotalDeCreditosInvalidoException e) {
+			
+			flash("erro", e.getMessage());
+		}
 
 		return index();
 	}

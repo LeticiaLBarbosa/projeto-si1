@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import Exceptions.TotalDeCreditosInvalidoException;
 import play.db.ebean.Model;
 
 @Entity
@@ -20,21 +21,18 @@ public class Planejador extends Model {
 
 	private CatalogoDisciplinas catalogo = new CatalogoDisciplinas();
 
-	private static final int MAX_CREDITOS = 28;
-	private static final int MIN_CREDITOS = 14;
-
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Periodo> periodos;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Disciplina> disciplinasDisponiveis;
-	
+
 	public Planejador() {
 		periodos = new ArrayList<Periodo>();
 		disciplinasDisponiveis = new ArrayList<Disciplina>();
 		setPeriodosInicial();
-	}	
-
+	}
+	
 	private void setPeriodosInicial() {
 		List<String[]> periodosDefault = catalogo.getPeriodosDefault();
 
@@ -52,8 +50,33 @@ public class Planejador extends Model {
 				adicionaDisciplina(getDisciplina(disciplina), i);
 			}
 		}
+		
+		//Inicia o primeiro como default
+		setPeriodoAtual(0);
 
 	}
+
+	private	void setPeriodoAtual(int periodoAtual){
+		
+		// Set para os que estao antes do periodo atual
+		for (int i = 0; i < periodoAtual; i++) {
+			periodos.get(i).setValidador(new MaximoCreditos());
+		}
+		
+		// Set para os que estao depois do periodo atual
+		for (int j = periodoAtual; j < periodos.size(); j++) {
+			periodos.get(j).setValidador(new MaximoMinimoCreditos());
+		}
+		
+		// Set ultimo periodo
+		for(int h = 0; h < periodos.size(); h++){
+			if(periodos.size() == 0){
+				periodos.get(h - 1).setValidador(new MinimoCreditos());
+				break;
+			}
+		}
+	}
+	
 
 	private void verificaTodasDisciplinas() {
 		int i = 0;
@@ -111,7 +134,7 @@ public class Planejador extends Model {
 		return false;
 	}
 
-	public void adicionaDisciplina(Disciplina disciplina, int periodo) {
+	private void adicionaDisciplina(Disciplina disciplina, int periodo) {
 		periodos.get(periodo).addDisciplina(disciplina);
 		verificaTodasDisciplinas();
 	}
@@ -122,14 +145,14 @@ public class Planejador extends Model {
 
 	}
 
-	private void alocaDisciplinaEmDisponivel(String nomeDisciplina) {
+	private void addDisciplinaEmDisponivel(String nomeDisciplina) {
 		disciplinasDisponiveis.add(getDisciplina(nomeDisciplina));
 	}
 
-	public void removeDisciplina(String disciplina) {
+	private void removeDisciplina(String disciplina) {
 		for (Periodo periodo : periodos) {
 			if (periodo.indiceDisciplina(disciplina) != -1) {
-				periodo.removeDisciplina(disciplina);
+				periodo.removeSemVerificar(disciplina);
 				break;
 			}
 		}
@@ -144,32 +167,46 @@ public class Planejador extends Model {
 		verificaTodasDisciplinas();
 	}
 
-	public void removeDisciplinaEDependentes(String nomeDisciplina){
+	
+	
+	private void auxRemoveDependentes(String nomeDisciplina) {
 		for (Periodo periodo : periodos) {
-			if(periodo.indiceDisciplina(nomeDisciplina) != -1){
-				alocaDisciplinaEmDisponivel(nomeDisciplina);
-				periodo.removeDisciplina(nomeDisciplina);
+			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {
+				addDisciplinaEmDisponivel(nomeDisciplina);
+				periodo.removeSemVerificar(nomeDisciplina);
 				break;
 			}
 		}
-		
+
 		String temp;
-		for (Periodo periodo : periodos) {		
-			for(int i = periodo.getDisciplinas().size() - 1; i >= 0 ; i--){
-				 if(periodo.getDisciplinas().get(i).verificaPreRequisitos(nomeDisciplina)){
-					 temp = periodo.getDisciplinas().get(i).getNome();
-					 removeDisciplinaEDependentes(temp);
-				 }
+		for (Periodo periodo : periodos) {
+			for (int i = periodo.getDisciplinas().size() - 1; i >= 0; i--) {
+				if (periodo.getDisciplinas().get(i).verificaPreRequisitos(nomeDisciplina)) {
+					temp = periodo.getDisciplinas().get(i).getNome();
+					auxRemoveDependentes(temp);
+				}
+			}
+		}		
+	}
+		
+	public void removeDisciplinaEDependentes(String nomeDisciplina) throws TotalDeCreditosInvalidoException {
+		for (Periodo periodo : periodos) {
+			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {
+				periodo.removeDisciplina(nomeDisciplina);
+				addDisciplinaEmDisponivel(nomeDisciplina);
+				break;
 			}
 		}
-	}
-	
-	public boolean verificaMaximoCreditos(int periodo) {
-		return periodos.get(periodo).getTotalCreditos() <= MAX_CREDITOS;
-	}
 
-	public boolean verificaMinimoCreditos(int periodo) {
-		return periodos.get(periodo).getTotalCreditos() >= MIN_CREDITOS;
+		String temp;
+		for (Periodo periodo : periodos) {
+			for (int i = periodo.getDisciplinas().size() - 1; i >= 0; i--) {
+				if (periodo.getDisciplinas().get(i).verificaPreRequisitos(nomeDisciplina)) {
+					temp = periodo.getDisciplinas().get(i).getNome();
+					auxRemoveDependentes(temp);
+				}
+			}
+		}
 	}
 
 	public List<Disciplina> getDisciplinasDisponiveis() {
@@ -187,11 +224,11 @@ public class Planejador extends Model {
 	public List<Periodo> getPeriodos() {
 		return periodos;
 	}
-	
-	public void reiniciaPlanejador(){
+
+	public void reiniciaPlanejador() {
 		periodos.clear();
 		disciplinasDisponiveis.clear();
-		
+
 		setPeriodosInicial();
 	}
 }

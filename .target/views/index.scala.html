@@ -60,8 +60,18 @@
 	</div>
 
 
-
-	<mensagem-erro> @erro </mensagem-erro>
+		<div class="form-actions">
+			@if(flash.containsKey("erro")){
+				<div class="alert alert-erro container">
+					@flash.get("erro")
+				</div>
+			}
+			@if(flash.containsKey("success")){
+				<div class="alert alert-success container">
+					@flash.get("success")
+				</div>
+			}
+		</div>
 
 
 		@for((periodo, i) <- periodos.zipWithIndex) {

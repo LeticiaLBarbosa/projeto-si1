@@ -11,6 +11,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
+import Exceptions.TotalDeCreditosInvalidoException;
 import play.db.ebean.Model;
 
 @Entity
@@ -41,8 +42,13 @@ public class Periodo extends Model {
 		disciplinas.add(disciplina);
 	}
 
-	public void removeDisciplina(String disciplina) {
-		disciplinas.remove(indiceDisciplina(disciplina));
+	public void removeDisciplina(String disciplina) throws TotalDeCreditosInvalidoException {
+		
+		if(podeRemover(disciplina)){
+			disciplinas.remove(indiceDisciplina(disciplina));
+		}else{
+			throw new TotalDeCreditosInvalidoException("Número de créditos insuficientes");
+		}
 	}
 
 	public void removeSemVerificar(String disciplina) {

@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import Exceptions.TotalDeCreditosInvalidoException;
 import play.db.ebean.Model.Finder;
 import models.Aluno;
 import models.Planejador;
@@ -29,7 +30,7 @@ public class Sistema {
 		aluno.save();
 	}
 	
-	public void removeDisciplina(String nomeDisciplina){
+	public void removeDisciplina(String nomeDisciplina) throws TotalDeCreditosInvalidoException{
 		plano.removeDisciplinaEDependentes(nomeDisciplina);
 		
 		aluno.save();

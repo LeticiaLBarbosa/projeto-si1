@@ -14,14 +14,15 @@ nome-principal {
 	font-weight: bold;
 }
 
+
 nome-secundario {
-	color: #FFFFFF;
-	font-size: 5px;
-	aling: center;
-	font-weight: bold;
-	position: absolute;
-	left: 39.5%;
-	top: 30%
+ 	color: #FFFFFF;
+ 	font-size: 5px;
+ 	aling: center;
+ 	font-weight: bold;
+ 	position: absolute;
+ 	left: 39.5%;
+ 	top: 30%
 }
 
 mensagem-erro {
@@ -104,7 +105,8 @@ mensagem-erro {
 	text-align: center;
 }
 
-.disciplinaNaoAlocada {
+
+.disciplinaNaoAlocada{
 	background-color: #CD3333;
 	margin: auto;
 	margin-top: 6px;

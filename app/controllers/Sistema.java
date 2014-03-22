@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 
+import Exceptions.TotalDeCreditosInvalidoException;
 import play.db.ebean.Model.Finder;
 import models.*;
 
@@ -21,12 +22,12 @@ public class Sistema {
 		return aluno;
 	}
 
-	public void alocaDisciplina(int periodo, String nomeDisciplina) {
+	public void alocaDisciplina(int periodo, String nomeDisciplina) throws TotalDeCreditosInvalidoException {
 		plano.alocaDisciplinaPeriodo(nomeDisciplina, periodo);
 		aluno.save();
 	}
 	
-	public void removeDisciplina(String nomeDisciplina){
+	public void removeDisciplina(String nomeDisciplina) throws TotalDeCreditosInvalidoException{
 		plano.removeDisciplinaEDependentes(nomeDisciplina);
 		aluno.save();
 	}

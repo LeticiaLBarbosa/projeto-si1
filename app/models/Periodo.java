@@ -9,56 +9,59 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import play.db.ebean.Model;
 
 @Entity
-public class Periodo extends Model{
-	
+public class Periodo extends Model {
+
 	private static final long serialVersionUID = -5914811766264214424L;
 
 	@Id
 	private Long id;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "dependenciasPeriodo",
-			joinColumns = @JoinColumn(name = "periodo"), inverseJoinColumns = @JoinColumn(name = "disciplinas"))
+	@JoinTable(name = "dependenciasPeriodo", joinColumns = @JoinColumn(name = "periodo"), inverseJoinColumns = @JoinColumn(name = "disciplinas"))
 	private List<Disciplina> disciplinas;
+
+	@Transient
+	private ValidadorDeAlocacao validador;
 
 	public Periodo() {
 		disciplinas = new ArrayList<Disciplina>();
-
-	}
-			
-	public void addDisciplina(Disciplina disciplina){
-	
-			disciplinas.add(disciplina);
-	
+		validador = new MaximoMinimoCreditos();
 	}
 
-	public void removeDisciplina(String disciplina){	
-	
-		disciplinas.remove(indiceDisciplina(disciplina));
-	
+	public void setValidador(ValidadorDeAlocacao validador) {
+		this.validador = validador;
 	}
-	
-	public void removeSemVerificar(String disciplina){
+
+	public void addDisciplina(Disciplina disciplina) {
+		disciplinas.add(disciplina);
+	}
+
+	public void removeDisciplina(String disciplina) {
 		disciplinas.remove(indiceDisciplina(disciplina));
 	}
-	
-	public Disciplina disciplinaIndice(int i){
+
+	public void removeSemVerificar(String disciplina) {
+		disciplinas.remove(indiceDisciplina(disciplina));
+	}
+
+	public Disciplina disciplinaIndice(int i) {
 		return disciplinas.get(i);
 	}
-	
-	public int indiceDisciplina(String nome){
+
+	public int indiceDisciplina(String nome) {
 		int result = -1;
-		
-		for(int i = 0; i < disciplinas.size(); i++){
-			if(disciplinas.get(i).getNome().equals(nome)){
+
+		for (int i = 0; i < disciplinas.size(); i++) {
+			if (disciplinas.get(i).getNome().equals(nome)) {
 				result = i;
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -86,13 +89,21 @@ public class Periodo extends Model{
 		return totalCreditos;
 	}
 
-	public Disciplina getDisciplinaPorNome(String nome){
-		for (Disciplina disc: disciplinas){
-			if(disc.getNome().equals(nome)){
+	public Disciplina getDisciplinaPorNome(String nome) {
+		for (Disciplina disc : disciplinas) {
+			if (disc.getNome().equals(nome)) {
 				return disc;
 			}
 		}
 		return null;
+	}
+	
+	public boolean podeAdicionar(Disciplina disciplina){
+		return validador.podeAdicionar(this, disciplina);
+	}
+	
+	public boolean podeRemover(String nomeDisciplina){
+		return validador.podeRemover(this, getDisciplinaPorNome(nomeDisciplina));	
 	}
 
 }

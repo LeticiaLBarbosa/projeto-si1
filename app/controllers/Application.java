@@ -2,11 +2,8 @@ package controllers;
 
 import models.Aluno;
 import play.data.Form;
-import play.mvc.Controller;
-import play.mvc.Result;
-import play.mvc.Security;
-import views.html.index;
-import views.html.login;
+import play.mvc.*;
+import views.html.*;
 
 public class Application extends Controller {
 	
@@ -20,7 +17,9 @@ public class Application extends Controller {
 		public String password;
 	}
 
+	@SuppressWarnings("static-access")
 	public static Result login() {
+		sistema.criaUsuarios();
 		return ok(login.render(Form.form(Login.class)));
 	}
 

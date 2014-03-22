@@ -3,8 +3,7 @@ package controllers;
 import java.util.List;
 
 import play.db.ebean.Model.Finder;
-import models.Aluno;
-import models.Planejador;
+import models.*;
 
 public class Sistema {
 
@@ -15,7 +14,6 @@ public class Sistema {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;		
-		
 		plano = aluno.getPlanejador();
 	}
 
@@ -25,19 +23,16 @@ public class Sistema {
 
 	public void alocaDisciplina(int periodo, String nomeDisciplina) {
 		plano.alocaDisciplinaPeriodo(nomeDisciplina, periodo);
-		
 		aluno.save();
 	}
 	
 	public void removeDisciplina(String nomeDisciplina){
 		plano.removeDisciplinaEDependentes(nomeDisciplina);
-		
 		aluno.save();
 	}
 
 	public void reset(){
 		aluno.reiniciaPlanejador();
-		
 		aluno.save();
 	}
 	
@@ -55,5 +50,21 @@ public class Sistema {
 
 	public static void create(Aluno aluno) {
 		aluno.save();
+	}
+	
+	protected static void criaUsuarios(){
+
+		if (findAll().isEmpty()) {
+			int num = 0;
+
+			while (num < 30){
+				String email = "aluno" + num + "@email.com"; 
+				String nome = "Aluno " + num;
+				String password = "aluno" + num;
+
+				Sistema.create(new Aluno(email, nome, password));
+				num ++;
+			}
+		}
 	}
 }

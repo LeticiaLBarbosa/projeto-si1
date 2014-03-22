@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.*;
-
 import play.data.validation.Constraints.*;
 import play.db.ebean.Model;
 
@@ -24,12 +23,10 @@ public class Aluno extends Model {
 	private Planejador planejador;
 
 	public Aluno(String email, String nome, String senha){
-
-		this.setPlanejador(new Planejador());
-		this.setEmail(email);
-		this.setNome(nome);
-		this.setSenha(senha);
-
+		setPlanejador(new Planejador());
+		setEmail(email);
+		setNome(nome);
+		setSenha(senha);
 	}
 
 	public void setPlanejador(Planejador planejador) {

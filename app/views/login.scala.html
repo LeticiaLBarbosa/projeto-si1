@@ -2,13 +2,23 @@
 @main("Planejamento de Curso"){
 
 <meta charset="utf-8">
-    
-<h1>Planejamento de Curso</h1>
+
+<div class="titulo">   
+<br><br>
+
+<nome-principal> Planejamento de Curso Online</nome-principal>
+
+</div>
+
 <div id="main">
     
 	<br><br>
+
+	
 	<h3>Faça o login ou cadastre-se</h3><br>	
- 		
+ 	
+ 	</div>
+ 	
 	<form class="form-signin" role="form" action="@routes.Application.authenticate()" method="post">
 		<div class="textBox">
 			<input type="email" class="form-control" name="email" placeholder="e-mail" value="@form("email").value" required>

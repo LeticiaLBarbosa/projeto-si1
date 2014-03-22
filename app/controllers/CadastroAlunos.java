@@ -82,9 +82,11 @@ public class CadastroAlunos extends Controller{
 		 } else if(cadastroForm.get().validate() == null) {
 			 CadastroAlunos novoCadastro = cadastroForm.get();
 			 Sistema.create(new Aluno(novoCadastro.getEmail(), novoCadastro.getNome(),novoCadastro.getPassword()));
+			 
+			 flash("success", "Cadastro efetuado com sucesso!");
 		 }else{
 			 return redirect(routes.CadastroAlunos.cadastro());
 		 }
-		 return redirect(routes.Application.login());
+		 return redirect("/");
 	 }
 }

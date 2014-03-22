@@ -13,11 +13,11 @@ GET     /alocaDisciplina/:periodo/:nome			controllers.Application.alocaDisciplin
 GET     /deletaDisciplina/:nome					controllers.Application.removeDisciplina(nome: String)
 GET		/reiniciar								controllers.Application.reiniciar()
 #POST   /disciplinaPeriodo                  	controllers.Application.disciplinaPeriodo()
-#GET     /login                  				controllers.Application.login()
+#GET    /login                  				controllers.Application.login()
 POST    /login                      			controllers.Application.authenticate()
 GET		/cadastro								controllers.CadastroAlunos.cadastro()
 POST	/cadastro								controllers.CadastroAlunos.efetuaCadastroAlunos()
-GET		 /logout							    controllers.Application.logout()
+GET		/logout							    	controllers.Application.logout()
 
 
 

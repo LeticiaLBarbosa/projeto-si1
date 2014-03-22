@@ -2,8 +2,11 @@ package controllers;
 
 import models.Aluno;
 import play.data.Form;
-import play.mvc.*;
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
+import views.html.index;
+import views.html.login;
 
 public class Application extends Controller {
 	
@@ -48,7 +51,7 @@ public class Application extends Controller {
 	public static Result logout() {
 		session().clear();
 		flash("success", "Deslogado com sucesso!");
-		return redirect(routes.Application.login());
+		return redirect("/");
 	}
 	
 	@Security.Authenticated(Secured.class)

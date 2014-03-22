@@ -69,6 +69,7 @@
 		<nome-principal>Planejamento de curso de CC</nome-principal>
 	</div>
 	<body_2>
+	<br><br>
 	<p align="center">Para alocar a disciplina em um novo período basta arrastá-la para o periodo desejado. Para remover dê um duplo clique sobre a disciplina desejada.</p>
 	</body_2>
 
@@ -86,9 +87,11 @@
 				</div>
 			}
 		</div>
+		<br><br>
 		
 		<body_2> Total de créditos cursados: @plano.getTotalCreditosCursados() | Dificuldade total: @plano.getTotalDificuldadeCursada() </body_2> 
-
+		
+		<br><br>
 		<form id="periodo" method="POST" action="@routes.Application.periodoAtual()">
         
            <label>Período:</label>

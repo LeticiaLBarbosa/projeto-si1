@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 
 <div class="titulo">   
-<br><br>
 
 <nome-principal> Planejamento de Curso Online</nome-principal>
 
@@ -13,10 +12,9 @@
 <br><br>
 
 <nome-secundario>
-<h3>Faça o login ou cadastre-se</h3><br>	
- 	
-</div>
- 	
+<h3 align="center">Faça o login ou cadastre-se</h3><br>	
+</nome-secundario> 
+
 	<form class="form-signin" role="form" action="@routes.Application.authenticate()" method="post">
 		<div class="textBox">
 			<input type="email" class="form-control" name="email" placeholder="e-mail" value="@form("email").value" required>

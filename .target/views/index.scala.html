@@ -11,6 +11,14 @@
   $(function() {
     $( ".disciplina" ).draggable();
     $( ".disciplinaNaoAlocada" ).draggable();
+    $( ".colunaPeriodoAtual" ).droppable({
+        drop: function( event, ui ) {
+      	var disciplina = ui.draggable[0].id;
+        	var periodo = event.target.id.replace('periodo_', '');
+        	
+          location.href = '/alocaDisciplina/' + periodo + '/' + disciplina
+        }
+      });
     $( ".coluna" ).droppable({
       drop: function( event, ui ) {
     	var disciplina = ui.draggable[0].id;
@@ -109,15 +117,15 @@
 			@if(i < 7){
 					
 				@if(i < plano.getPeriodoAtual()){
-					<div id="periodo_@(i + 1)" class="coluna" align='center'>
+					<div id="periodo_@(i + 1)" class="colunaNaoRemovivel" align='center'>
 					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
 		
 						@for(disciplina <- periodo.getDisciplinas()){
 							@if(disciplina.isAlocadaCorretamente()){
-								<div class="disciplina" id="@disciplina.getNome()">
+								<div class="disciplinaImovel" id="@disciplina.getNome()">
 			
 							}else{
-								<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+								<div class="disciplinaNaoAlocadaImovel" id="@disciplina.getNome()">
 							}
 							
 							<nome>@disciplina.getNome()</nome>
@@ -130,7 +138,13 @@
 				
 				@if(i >= plano.getPeriodoAtual()){
 				
-					<div id="periodo_@(i + 1)" class="coluna" align='center'>
+					@if(i == plano.getPeriodoAtual()){
+						<div id="periodo_@(i + 1)" class="colunaPeriodoAtual" align='center'>
+					}else{
+						<div id="periodo_@(i + 1)" class="coluna" align='center'>
+					}
+				
+					
 					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
 		
 						@for(disciplina <- periodo.getDisciplinas()){

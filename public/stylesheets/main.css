@@ -75,6 +75,28 @@ body_2{
 	padding-top: 2px;
 }
 
+.colunaNaoRemovivel {
+	background-color: #006400;
+	float: left;
+	height: 1050x;
+	width: 148px;
+	margin-left: 10.5px;
+	margin-top: 10px;
+	border-radius: 10px;
+	padding-top: 2px;
+}
+
+.colunaPeriodoAtual {
+	background-color: #7CFC00;
+	float: left;
+	height: 1050x;
+	width: 148px;
+	margin-left: 10.5px;
+	margin-top: 10px;
+	border-radius: 10px;
+	padding-top: 2px;
+}
+
 .colunaDisponiveis {
 	background-color: #d8e2eb;
 	float: left;
@@ -105,8 +127,30 @@ body_2{
 	text-align: center;
 }
 
+.disciplinaImovel {
+	background-color: #FFFFFF;
+	margin: auto;
+	margin-top: 6px;
+	width: 138px;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
 
 .disciplinaNaoAlocada{
+	background-color: #CD3333;
+	margin: auto;
+	margin-top: 6px;
+	width: 138px;
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.disciplinaNaoAlocadaImovel{
 	background-color: #CD3333;
 	margin: auto;
 	margin-top: 6px;

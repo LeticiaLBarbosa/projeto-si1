@@ -187,4 +187,11 @@ public class Planejador extends Model {
 	public List<Periodo> getPeriodos() {
 		return periodos;
 	}
+	
+	public void reiniciaPlanejador(){
+		periodos.clear();
+		disciplinasDisponiveis.clear();
+		
+		setPeriodosInicial();
+	}
 }

@@ -73,7 +73,7 @@ public class Aluno extends Model {
 	}
 
 	public void reiniciaPlanejador(){
-		planejador = new Planejador();
+		planejador.reiniciaPlanejador();
 	}
 
 	@Override

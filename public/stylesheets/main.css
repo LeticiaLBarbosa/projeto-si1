@@ -14,8 +14,15 @@ nome-principal {
 	font-weight: bold;
 }
 
+nome-secundario {
+	color: #FFFFFF;
+	font-size: 25px;
+	font-aling: center;
+	font-weight: bold;
+}
+
 mensagem-erro {
-	color: #F80000 ;
+	color: #F80000;
 	font-size: 20px;
 	font-weight: bold;
 }

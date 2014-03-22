@@ -12,8 +12,6 @@ import views.html.login;
 public class Application extends Controller {
 	
 	static Sistema sistema  = new Sistema();
-
-	private static String erro = "";
 	
 	public static class Login {
 
@@ -62,8 +60,7 @@ public class Application extends Controller {
 			return login();
 		}
 		
-		return ok(index.render(sistema.getAluno().getPlanejador().getPeriodos(),
-				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),erro));
+		return ok(index.render(sistema.getAluno().getPlanejador()));
 	}
 
 	@Security.Authenticated(Secured.class)

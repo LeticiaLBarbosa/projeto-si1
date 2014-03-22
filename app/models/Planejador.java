@@ -15,6 +15,8 @@ import play.db.ebean.Model;
 public class Planejador extends Model {
 
 	private static final long serialVersionUID = -4109330281933663818L;
+	
+	private int periodoAtual;
 
 	@Id
 	public Long id;
@@ -57,6 +59,7 @@ public class Planejador extends Model {
 	}
 
 	private	void setPeriodoAtual(int periodoAtual){
+		this.periodoAtual = periodoAtual;
 		
 		// Set para os que estao antes do periodo atual
 		for (int i = 0; i < periodoAtual; i++) {
@@ -76,8 +79,11 @@ public class Planejador extends Model {
 			}
 		}
 	}
-	
 
+	public int getPeriodoAtual(){
+		return periodoAtual;
+	}
+	
 	private void verificaTodasDisciplinas() {
 		int i = 0;
 		for (Periodo periodoAnalisado : periodos) {
@@ -214,8 +220,6 @@ public class Planejador extends Model {
 
 		verificaTodasDisciplinas();
 	}
-
-	
 	
 	private void auxRemoveDependentes(String nomeDisciplina) {
 		for (Periodo periodo : periodos) {

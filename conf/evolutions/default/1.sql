@@ -27,6 +27,7 @@ create table periodo (
 
 create table planejador (
   id                        bigint not null,
+  periodo_atual             integer,
   constraint pk_planejador primary key (id))
 ;
 

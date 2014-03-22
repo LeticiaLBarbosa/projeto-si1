@@ -23,6 +23,10 @@ public class Sistema {
 	public Aluno getAluno() {
 		return aluno;
 	}
+	
+	public Planejador getPlano(){
+		return plano;
+	}
 
 	public void alocaDisciplina(int periodo, String nomeDisciplina) throws TotalDeCreditosInvalidoException {
 		plano.alocaDisciplinaPeriodo(nomeDisciplina, periodo);

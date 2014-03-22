@@ -1,4 +1,4 @@
-@(periodos: List[Periodo],disponiveis: List[Disciplina], erro: String) @import helper._
+@(plano: Planejador) @import helper._
 
 @main("Planejamento de curso") {
 
@@ -74,45 +74,68 @@
 		</div>
 
 
-		@for((periodo, i) <- periodos.zipWithIndex) {
+		
+		<div id="colunas">
+		@for((periodo, i) <- plano.getPeriodos().zipWithIndex) {
 		
 			@if(i < 7){
-			<div id="colunas">
-			<div id="periodo_@(i + 1)" class="coluna" align='center'>
-			<nome-periodo>Período @(1 + periodos.indexOf(periodo))</nome-periodo>
-
-				@for(disciplina <- periodo.getDisciplinas()){
-					@if(disciplina.isAlocadaCorretamente()){
-						<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
-						<nome>@disciplina.getNome()</nome>
-						<br />
-						<descricao>@disciplina.getCreditos() créditos <br>
-						Dificuldade: @disciplina.getDificuldade()</descricao>
-						</div>
-					}else{
-						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
-						<nome>@disciplina.getNome()</nome>
-						<br />
-						<descricao>@disciplina.getCreditos() créditos <br>
-						Dificuldade: @disciplina.getDificuldade()</descricao>
-						</div>
-					}
+					
+				@if(i < plano.getPeriodoAtual()){
+					<div id="periodo_@(i + 1)" class="coluna" align='center'>
+					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
+		
+						@for(disciplina <- periodo.getDisciplinas()){
+							@if(disciplina.isAlocadaCorretamente()){
+								<div class="disciplina" id="@disciplina.getNome()">
+			
+							}else{
+								<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+							}
+							
+							<nome>@disciplina.getNome()</nome>
+								<br />
+								<descricao>@disciplina.getCreditos() créditos <br>
+								Dificuldade: @disciplina.getDificuldade()</descricao>
+								</div>
+						}
+				} 
+				
+				@if(i >= plano.getPeriodoAtual()){
+				
+					<div id="periodo_@(i + 1)" class="coluna" align='center'>
+					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
+		
+						@for(disciplina <- periodo.getDisciplinas()){
+							@if(disciplina.isAlocadaCorretamente()){
+								<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
+							}else{
+								<div class="disciplinaNaoAlocada" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
+							}
+							
+								<nome>@disciplina.getNome()</nome>
+								<br />
+								<descricao>@disciplina.getCreditos() créditos <br>
+								Dificuldade: @disciplina.getDificuldade()</descricao>
+							</div>
+						}				
 				}
-				<div class="periodo">
-				<nome> Total de créditos</nome>
-				<br />
-				<descricao>@periodo.getTotalCreditos() créditos <br>
-				<nome>Dificuldade Total <br>
-				</nome>@periodo.getDificuldadeTotal()</descricao>
+				
+					<div class="periodo">
+							<nome> Total de créditos</nome>
+							<br />
+							<descricao>@periodo.getTotalCreditos() créditos <br>
+							<nome>Dificuldade Total <br>
+							</nome>@periodo.getDificuldadeTotal()</descricao>
+					</div>
+				
 				</div>
-
-			</div>
+			
 				@if(i == 6){
 					
 					<div id="periodo_15" class="colunaDisponiveis" align='right'>
 					<nome-periodo>Disciplinas Disponíveis:</nome-periodo>
 		
-						@for(disciplina <- disponiveis){
+						@for(disciplina <- plano.getDisciplinasDisponiveis()){
 							@if(disciplina.isAlocadaCorretamente()){
 								<div class="disciplina" id="@disciplina.getNome()">
 								<nome>@disciplina.getNome()</nome>
@@ -131,39 +154,63 @@
 						}
 					</div>
 							
-					</div>
+				</div>
+				
+				<div id="colunas">
 				}
 			}else{
-				<div id="colunas">
-				<div id="periodo_@(i + 1)" class="coluna" align='center'>
-				<nome-periodo>Período @(1 + periodos.indexOf(periodo))</nome-periodo>
-
-				@for(disciplina <- periodo.getDisciplinas()){
-					@if(disciplina.isAlocadaCorretamente()){
-						<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
-						<nome>@disciplina.getNome()</nome>
-						<br />
-						<descricao>@disciplina.getCreditos() créditos <br>
-						Dificuldade: @disciplina.getDificuldade()</descricao>
-						</div>
-					}else{
-						<div class="disciplinaNaoAlocada" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
-						<nome>@disciplina.getNome()</nome>
-						<br />
-						<descricao>@disciplina.getCreditos() créditos <br>
-						Dificuldade: @disciplina.getDificuldade()</descricao>
-						</div>
-					}
+				
+					
+				@if(i < plano.getPeriodoAtual()){
+					<div id="periodo_@(i + 1)" class="coluna" align='center'>
+					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
+		
+						@for(disciplina <- periodo.getDisciplinas()){
+							@if(disciplina.isAlocadaCorretamente()){
+								<div class="disciplina" id="@disciplina.getNome()">
+			
+							}else{
+								<div class="disciplinaNaoAlocada" id="@disciplina.getNome()">
+							}
+							
+							<nome>@disciplina.getNome()</nome>
+								<br />
+								<descricao>@disciplina.getCreditos() créditos <br>
+								Dificuldade: @disciplina.getDificuldade()</descricao>
+								</div>
+						}
+					
+				} 
+				
+				@if(i >= plano.getPeriodoAtual()){
+				
+					<div id="periodo_@(i + 1)" class="coluna" align='center'>
+					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
+		
+						@for(disciplina <- periodo.getDisciplinas()){
+							@if(disciplina.isAlocadaCorretamente()){
+								<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
+							}else{
+								<div class="disciplinaNaoAlocada" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
+							}
+							
+								<nome>@disciplina.getNome()</nome>
+								<br />
+								<descricao>@disciplina.getCreditos() créditos <br>
+								Dificuldade: @disciplina.getDificuldade()</descricao>
+							</div>
+						}
+									
 				}
-				<div class="periodo">
-				<nome> Total de créditos</nome>
-				<br />
-				<descricao>@periodo.getTotalCreditos() créditos <br>
-				<nome>Dificuldade Total <br>
-				</nome>@periodo.getDificuldadeTotal()</descricao>
+				
+					<div class="periodo">
+							<nome> Total de créditos</nome>
+							<br />
+							<descricao>@periodo.getTotalCreditos() créditos <br>
+							<nome>Dificuldade Total <br>
+							</nome>@periodo.getDificuldadeTotal()</descricao>
+					</div>
 				</div>
-
-			</div>
 			}
 		
 		}

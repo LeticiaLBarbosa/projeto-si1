@@ -3,8 +3,7 @@ package controllers;
 import models.Aluno;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
-import play.mvc.Controller;
-import play.mvc.Result;
+import play.mvc.*;
 import views.html.*;
 
 public class CadastroAlunos extends Controller{

@@ -37,6 +37,24 @@ public class Planejador extends Model {
 		setPeriodosInicial();
 	}
 	
+	public int getTotalCreditosCursados(){
+		int total = 0;
+		for (int i = 0; i < periodoAtual; i++) {
+			total += periodos.get(i).getTotalCreditos();
+		}
+		
+		return total;
+	}
+	
+	public int getTotalDificuldadeCursada(){
+		int total = 0;
+		for (int i = 0; i < periodoAtual; i++) {
+			total += periodos.get(i).getDificuldadeTotal();
+		}
+		
+		return total;
+	}
+	
 	private void setPeriodosInicial() {
 		List<String[]> periodosDefault = catalogo.getPeriodosDefault();
 

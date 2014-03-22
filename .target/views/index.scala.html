@@ -72,6 +72,8 @@
 	<p align="center">Para alocar a disciplina em um novo período basta arrastá-la para o periodo desejado. Para remover dê um duplo clique sobre a disciplina desejada.</p>
 	</body_2>
 
+
+
 		<div class="form-actions">
 			@if(flash.containsKey("erro")){
 				<div class="alert alert-erro container">
@@ -84,6 +86,8 @@
 				</div>
 			}
 		</div>
+		
+		<body_2> Total de créditos cursados: @plano.getTotalCreditosCursados() | Dificuldade total: @plano.getTotalDificuldadeCursada() </body_2> 
 
 		<form id="periodo" method="POST" action="@routes.Application.periodoAtual()">
         

@@ -1,18 +1,9 @@
 import static org.junit.Assert.*;
-import static play.test.Helpers.fakeApplication;
-import static play.test.Helpers.inMemoryDatabase;
-import static play.test.Helpers.start;
+import static play.test.Helpers.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import models.Aluno;
-import models.CatalogoDisciplinas;
-import models.Disciplina;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import java.util.*;
+import models.*;
+import org.junit.*;
 
 import play.db.ebean.Model.Finder;
 

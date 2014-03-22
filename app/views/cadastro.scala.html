@@ -15,7 +15,9 @@
 <div id="main">
 
 	<br><br>
-	<h3>Preencha os campos abaixo para fazer o cadastro</h3>
+	<nome-secundario>
+	<h3 align="center">Preencha os campos abaixo para fazer o cadastro</h3>
+	</nome-secundario>
 	<form class="form-signin" role="form" action="@routes.CadastroAlunos.efetuaCadastroAlunos()" method="post">
  		<br><br>
 		<div class="textBox">
@@ -28,6 +30,7 @@
 			<input type="password" class="form-control" name="repassword" placeholder="Confirme a senha" required>
 			<br>
 			<button type="submit" class="btn  btn-primary">Cadastrar</button>
+			<button type="button" class="btn" onclick="location.href ='@routes.Application.login()';">Voltar</button>
 		</div>
 	</form>
 		<div class="form-actions">

@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import Exceptions.TotalDeCreditosInvalidoException;
 import play.db.ebean.Model.Finder;
 
 
@@ -31,10 +32,19 @@ public class PlanejadorTest {
 
 	@Test
 	public void verificaMudancaDeStatusTest() {
-		planner.removeDisciplina("Cálculo I");
+		try {
+			planner.removeDisciplinaEDependentes("Cálculo I");
+		} catch (TotalDeCreditosInvalidoException e1) {
+			Assert.assertEquals("Número de créditos insuficientes", e1.getMessage());
+		}
 		assertFalse(planner.getDisciplinasPeriodo(0).contains(new Disciplina("Cálculo I", 4, 3)));
 		
-		planner.adicionaDisciplina(new Disciplina("Cálculo I", 4, 3), 7);
+		try {
+			planner.alocaDisciplinaPeriodo("Cálculo I", 7);
+		} catch (TotalDeCreditosInvalidoException e) {
+			Assert.assertEquals("Não foi possível alocar essa disciplina"
+						+ " pois o número de créditos foi excedido.", e.getMessage());
+		}
 		assertTrue(planner.getDisciplinasPeriodo(7).contains(new Disciplina("Cálculo I", 4, 3)));
 		
 		assertFalse(planner.getDisciplinasPeriodo(0).contains(new Disciplina("Cálculo I", 4, 3)));

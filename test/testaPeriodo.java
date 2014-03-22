@@ -1,27 +1,20 @@
-import static org.junit.Assert.*;
-import static play.test.Helpers.fakeApplication;
-import static play.test.Helpers.inMemoryDatabase;
-import static play.test.Helpers.start;
+import static play.test.Helpers.*;
 
 import java.util.List;
+import models.*;
+import org.junit.*;
 
-import models.Disciplina;
-import models.Periodo;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
+import Exceptions.TotalDeCreditosInvalidoException;
 import play.db.ebean.Model.Finder;
 
 public class testaPeriodo {
 
-	Periodo p;
+	Periodo periodo;
 
 	@Before
 	public void setUp() {
 		start(fakeApplication(inMemoryDatabase()));
-		p = new Periodo();
+		periodo = new Periodo();
 	}
 
 	@Test
@@ -33,7 +26,7 @@ public class testaPeriodo {
 		List<Periodo> resultado = finder.all();
 		Assert.assertTrue(resultado.isEmpty());
 
-		p.save();
+		periodo.save();
 
 		resultado = finder.all();
 	}
@@ -47,29 +40,33 @@ public class testaPeriodo {
 		
 		//Total de Creditos
 		
-		Assert.assertEquals(p.getTotalCreditos(), 0);
+		Assert.assertEquals(periodo.getTotalCreditos(), 0);
 		
-		p.addDisciplina(d);
+		periodo.addDisciplina(d);
 		
-		Assert.assertEquals(p.getTotalCreditos(), 4);
+		Assert.assertEquals(periodo.getTotalCreditos(), 4);
 		
-		p.addDisciplina(d2);
+		periodo.addDisciplina(d2);
 		
-		Assert.assertEquals(p.getTotalCreditos(), 6);
+		Assert.assertEquals(periodo.getTotalCreditos(), 6);
 		
 		//Get disciplina por nome
 		
-		Assert.assertEquals(p.getDisciplinaPorNome("SI").getNome(), "SI");
-		Assert.assertEquals(p.getDisciplinaPorNome("SI3"), null);
-		Assert.assertEquals(p.getDisciplinaPorNome("SI2").getNome(), "SI2");
+		Assert.assertEquals(periodo.getDisciplinaPorNome("SI").getNome(), "SI");
+		Assert.assertEquals(periodo.getDisciplinaPorNome("SI3"), null);
+		Assert.assertEquals(periodo.getDisciplinaPorNome("SI2").getNome(), "SI2");
 		
 		//Get dificuldade total
 		
-		Assert.assertEquals(p.getDificuldadeTotal(), 4);
+		Assert.assertEquals(periodo.getDificuldadeTotal(), 4);
 		
-		p.removeDisciplina("SI");
+		try {
+			periodo.removeDisciplina("SI");
+		} catch (TotalDeCreditosInvalidoException e) {
+			Assert.assertEquals("Número de créditos insuficientes", e.getMessage());
+		}
 		
-		Assert.assertEquals(p.getDificuldadeTotal(), 2);
+		Assert.assertEquals(periodo.getDificuldadeTotal(), 4);
 		
 	}
 }

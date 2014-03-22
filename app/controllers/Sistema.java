@@ -24,7 +24,7 @@ public class Sistema {
 		return aluno;
 	}
 
-	public void alocaDisciplina(int periodo, String nomeDisciplina) {
+	public void alocaDisciplina(int periodo, String nomeDisciplina) throws TotalDeCreditosInvalidoException {
 		plano.alocaDisciplinaPeriodo(nomeDisciplina, periodo);
 		
 		aluno.save();

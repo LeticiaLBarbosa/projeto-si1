@@ -73,16 +73,16 @@ public class Application extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result alocaDisciplina(Integer periodo, String nomeDisciplina)
-			throws Exception {
-		sistema.alocaDisciplina(periodo - 1, nomeDisciplina);
+	public static Result alocaDisciplina(Integer periodo, String nomeDisciplina) {
+		
+		try {
+			sistema.alocaDisciplina(periodo - 1, nomeDisciplina);
 
-		String aux = "";
+		} catch (TotalDeCreditosInvalidoException e) {
+			flash("erro", e.getMessage());
+		}		
 
-		return ok(index.render(
-				sistema.getAluno().getPlanejador().getPeriodos(),
-				sistema.getAluno().getPlanejador().getDisciplinasDisponiveis(),
-				aux));
+		return index();
 
 	}
 

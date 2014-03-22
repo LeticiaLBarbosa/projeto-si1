@@ -139,10 +139,58 @@ public class Planejador extends Model {
 		verificaTodasDisciplinas();
 	}
 
-	public void alocaDisciplinaPeriodo(String nomeDisciplina, int periodo) {
-		removeDisciplina(nomeDisciplina);
-		adicionaDisciplina(getDisciplina(nomeDisciplina), periodo);
-
+	public void alocaDisciplinaPeriodo(String nomeDisciplina, int periodoFuturo) throws TotalDeCreditosInvalidoException{
+		int periodoAtual = procuraDisciplinaPeriodo(nomeDisciplina);
+				
+		if(procuraDisciplinaEmDisponiveis(nomeDisciplina)){
+			
+			if(periodos.get(periodoFuturo).podeAdicionar(getDisciplina(nomeDisciplina))){
+				removeDisciplina(nomeDisciplina);
+				adicionaDisciplina(getDisciplina(nomeDisciplina), periodoFuturo);
+			}else{
+				throw new TotalDeCreditosInvalidoException("Não foi possível alocar essa disciplina"
+						+ " pois o número de créditos foi excedido.");
+			}
+			
+		}else if(periodos.get(periodoAtual).podeRemover(nomeDisciplina)){
+			if(periodos.get(periodoFuturo).podeAdicionar(getDisciplina(nomeDisciplina))){
+				removeDisciplina(nomeDisciplina);
+				adicionaDisciplina(getDisciplina(nomeDisciplina), periodoFuturo);
+			}else{
+				throw new TotalDeCreditosInvalidoException("Não foi possível alocar essa disciplina"
+						+ " pois o número de créditos foi excedido.");
+			}
+			
+		}else{
+			throw new TotalDeCreditosInvalidoException("Não foi possível mover essa disciplina"
+					+ " pois o número de créditos é insuficiente no seu periodo atual.");
+		}
+	}
+	
+	private boolean procuraDisciplinaEmDisponiveis(String nomeDisciplina){
+		boolean result = false;
+		
+		for (Disciplina disciplina : disciplinasDisponiveis) {
+			if(disciplina.getNome().equals(nomeDisciplina)){
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
+ 	private int procuraDisciplinaPeriodo(String nomeDisciplina){
+		int i = 0;
+		for (Periodo periodo : periodos) {
+			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {
+				return i;
+			}
+			
+			i++;
+		}
+		
+		return -1;
 	}
 
 	private void addDisciplinaEmDisponivel(String nomeDisciplina) {

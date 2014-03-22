@@ -18,7 +18,7 @@ POST    /login                      			controllers.Application.authenticate()
 GET		/cadastro								controllers.CadastroAlunos.cadastro()
 POST	/cadastro								controllers.CadastroAlunos.efetuaCadastroAlunos()
 GET		/logout							    	controllers.Application.logout()
-
+POST    /periodoAtual							controllers.Application.periodoAtual()
 
 
 # Map static resources from the /public folder to the /assets URL path

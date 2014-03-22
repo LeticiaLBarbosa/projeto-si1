@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import Exceptions.TotalDeCreditosInvalidoException;
+import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 @Entity
@@ -16,6 +17,7 @@ public class Planejador extends Model {
 
 	private static final long serialVersionUID = -4109330281933663818L;
 	
+	@Required
 	private int periodoAtual;
 
 	@Id
@@ -58,7 +60,7 @@ public class Planejador extends Model {
 
 	}
 
-	private	void setPeriodoAtual(int periodoAtual){
+	public	void setPeriodoAtual(int periodoAtual){
 		this.periodoAtual = periodoAtual;
 		
 		// Set para os que estao antes do periodo atual

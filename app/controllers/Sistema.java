@@ -37,6 +37,11 @@ public class Sistema {
 		plano.removeDisciplinaEDependentes(nomeDisciplina);
 		aluno.save();
 	}
+	
+	public void alteraPeriodoAtual(int periodo){
+		aluno.getPlanejador().setPeriodoAtual(periodo);
+		aluno.save();
+	}
 
 	public void reset() {
 		aluno.reiniciaPlanejador();

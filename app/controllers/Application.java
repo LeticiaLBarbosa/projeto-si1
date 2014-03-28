@@ -2,7 +2,6 @@ package controllers;
 
 import Exceptions.TotalDeCreditosInvalidoException;
 import models.Aluno;
-import models.PeriodoAtual;
 import models.Planejador;
 import play.data.DynamicForm;
 import play.data.Form;

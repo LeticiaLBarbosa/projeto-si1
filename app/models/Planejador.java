@@ -16,7 +16,7 @@ import play.db.ebean.Model;
 public class Planejador extends Model {
 
 	private static final long serialVersionUID = -4109330281933663818L;
-	
+
 	@Required
 	private int periodoAtual;
 
@@ -36,25 +36,25 @@ public class Planejador extends Model {
 		disciplinasDisponiveis = new ArrayList<Disciplina>();
 		setPeriodosInicial();
 	}
-	
+
 	public int getTotalCreditosCursados(){
 		int total = 0;
 		for (int i = 0; i < periodoAtual; i++) {
 			total += periodos.get(i).getTotalCreditos();
 		}
-		
+
 		return total;
 	}
-	
+
 	public int getTotalDificuldadeCursada(){
 		int total = 0;
 		for (int i = 0; i < periodoAtual; i++) {
 			total += periodos.get(i).getDificuldadeTotal();
 		}
-		
+
 		return total;
 	}
-	
+
 	private void setPeriodosInicial() {
 		List<String[]> periodosDefault = catalogo.getPeriodosDefault();
 
@@ -72,7 +72,7 @@ public class Planejador extends Model {
 				adicionaDisciplina(getDisciplina(disciplina), i);
 			}
 		}
-		
+
 		//Inicia o primeiro como default
 		setPeriodoAtual(0);
 
@@ -80,17 +80,17 @@ public class Planejador extends Model {
 
 	public	void setPeriodoAtual(int periodoAtual){
 		this.periodoAtual = periodoAtual;
-		
+
 		// Set para os que estao antes do periodo atual
 		for (int i = 0; i < periodoAtual; i++) {
 			periodos.get(i).setValidador(new MaximoCreditos());
 		}
-		
+
 		// Set para os que estao depois do periodo atual
 		for (int j = periodoAtual; j < periodos.size(); j++) {
 			periodos.get(j).setValidador(new MaximoMinimoCreditos());
 		}
-		
+
 		// Set ultimo periodo
 		for(int h = 0; h < periodos.size(); h++){
 			if(periodos.size() == 0){
@@ -103,7 +103,7 @@ public class Planejador extends Model {
 	public int getPeriodoAtual(){
 		return periodoAtual;
 	}
-	
+
 	private void verificaTodasDisciplinas() {
 		int i = 0;
 		for (Periodo periodoAnalisado : periodos) {
@@ -167,9 +167,9 @@ public class Planejador extends Model {
 
 	public void alocaDisciplinaPeriodo(String nomeDisciplina, int periodoFuturo) throws TotalDeCreditosInvalidoException{
 		int periodoAtual = procuraDisciplinaPeriodo(nomeDisciplina);
-				
+
 		if(procuraDisciplinaEmDisponiveis(nomeDisciplina)){
-			
+
 			if(periodos.get(periodoFuturo).podeAdicionar(getDisciplina(nomeDisciplina))){
 				removeDisciplina(nomeDisciplina);
 				adicionaDisciplina(getDisciplina(nomeDisciplina), periodoFuturo);
@@ -177,7 +177,7 @@ public class Planejador extends Model {
 				throw new TotalDeCreditosInvalidoException("Não foi possível alocar essa disciplina"
 						+ " pois o número de créditos foi excedido.");
 			}
-			
+
 		}else if(periodos.get(periodoAtual).podeRemover(nomeDisciplina)){
 			if(periodos.get(periodoFuturo).podeAdicionar(getDisciplina(nomeDisciplina))){
 				removeDisciplina(nomeDisciplina);
@@ -186,36 +186,36 @@ public class Planejador extends Model {
 				throw new TotalDeCreditosInvalidoException("Não foi possível alocar essa disciplina"
 						+ " pois o número de créditos foi excedido.");
 			}
-			
+
 		}else{
 			throw new TotalDeCreditosInvalidoException("Não foi possível mover essa disciplina"
 					+ " pois o número de créditos é insuficiente no seu periodo atual.");
 		}
 	}
-	
+
 	private boolean procuraDisciplinaEmDisponiveis(String nomeDisciplina){
 		boolean result = false;
-		
+
 		for (Disciplina disciplina : disciplinasDisponiveis) {
 			if(disciplina.getNome().equals(nomeDisciplina)){
 				result = true;
 				break;
 			}
 		}
-		
+
 		return result;
 	}
-	
+
  	private int procuraDisciplinaPeriodo(String nomeDisciplina){
 		int i = 0;
 		for (Periodo periodo : periodos) {
 			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {
 				return i;
 			}
-			
+
 			i++;
 		}
-		
+
 		return -1;
 	}
 
@@ -240,7 +240,7 @@ public class Planejador extends Model {
 
 		verificaTodasDisciplinas();
 	}
-	
+
 	private void auxRemoveDependentes(String nomeDisciplina) {
 		for (Periodo periodo : periodos) {
 			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {
@@ -260,7 +260,7 @@ public class Planejador extends Model {
 			}
 		}		
 	}
-		
+
 	public void removeDisciplinaEDependentes(String nomeDisciplina) throws TotalDeCreditosInvalidoException {
 		for (Periodo periodo : periodos) {
 			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {

@@ -37,7 +37,7 @@ public class Planejador extends Model {
 		setPeriodosInicial();
 	}
 
-	public int getTotalCreditosCursados(){
+	public int getTotalCreditosCursados() {
 		int total = 0;
 		for (int i = 0; i < periodoAtual; i++) {
 			total += periodos.get(i).getTotalCreditos();
@@ -46,7 +46,7 @@ public class Planejador extends Model {
 		return total;
 	}
 
-	public int getTotalDificuldadeCursada(){
+	public int getTotalDificuldadeCursada() {
 		int total = 0;
 		for (int i = 0; i < periodoAtual; i++) {
 			total += periodos.get(i).getDificuldadeTotal();
@@ -73,12 +73,12 @@ public class Planejador extends Model {
 			}
 		}
 
-		//Inicia o primeiro como default
+		// Inicia o primeiro como default
 		setPeriodoAtual(0);
 
 	}
 
-	public	void setPeriodoAtual(int periodoAtual){
+	public void setPeriodoAtual(int periodoAtual) {
 		this.periodoAtual = periodoAtual;
 
 		// Set para os que estao antes do periodo atual
@@ -92,15 +92,15 @@ public class Planejador extends Model {
 		}
 
 		// Set ultimo periodo
-		for(int h = 0; h < periodos.size(); h++){
-			if(periodos.size() == 0){
+		for (int h = 0; h < periodos.size(); h++) {
+			if (periodos.size() == 0) {
 				periodos.get(h - 1).setValidador(new MinimoCreditos());
 				break;
 			}
 		}
 	}
 
-	public int getPeriodoAtual(){
+	public int getPeriodoAtual() {
 		return periodoAtual;
 	}
 
@@ -165,39 +165,45 @@ public class Planejador extends Model {
 		verificaTodasDisciplinas();
 	}
 
-	public void alocaDisciplinaPeriodo(String nomeDisciplina, int periodoFuturo) throws TotalDeCreditosInvalidoException{
+	public void alocaDisciplinaPeriodo(String nomeDisciplina, int periodoFuturo)
+			throws TotalDeCreditosInvalidoException {
 		int periodoAtual = procuraDisciplinaPeriodo(nomeDisciplina);
 
-		if(procuraDisciplinaEmDisponiveis(nomeDisciplina)){
+		if (procuraDisciplinaEmDisponiveis(nomeDisciplina)) {
 
-			if(periodos.get(periodoFuturo).podeAdicionar(getDisciplina(nomeDisciplina))){
+			if (periodos.get(periodoFuturo).podeAdicionar(
+					getDisciplina(nomeDisciplina))) {
 				removeDisciplina(nomeDisciplina);
 				adicionaDisciplina(getDisciplina(nomeDisciplina), periodoFuturo);
-			}else{
-				throw new TotalDeCreditosInvalidoException("Não foi possível alocar essa disciplina"
-						+ " pois o número de créditos foi excedido.");
+			} else {
+				throw new TotalDeCreditosInvalidoException(
+						"Não foi possível alocar essa disciplina"
+								+ " pois o número de créditos foi excedido.");
 			}
 
-		}else if(periodos.get(periodoAtual).podeRemover(nomeDisciplina)){
-			if(periodos.get(periodoFuturo).podeAdicionar(getDisciplina(nomeDisciplina))){
+		} else if (periodos.get(periodoAtual).podeRemover(nomeDisciplina)) {
+			if (periodos.get(periodoFuturo).podeAdicionar(
+					getDisciplina(nomeDisciplina))) {
 				removeDisciplina(nomeDisciplina);
 				adicionaDisciplina(getDisciplina(nomeDisciplina), periodoFuturo);
-			}else{
-				throw new TotalDeCreditosInvalidoException("Não foi possível alocar essa disciplina"
-						+ " pois o número de créditos foi excedido.");
+			} else {
+				throw new TotalDeCreditosInvalidoException(
+						"Não foi possível alocar essa disciplina"
+								+ " pois o número de créditos foi excedido.");
 			}
 
-		}else{
-			throw new TotalDeCreditosInvalidoException("Não foi possível mover essa disciplina"
-					+ " pois o número de créditos é insuficiente no seu periodo atual.");
+		} else {
+			throw new TotalDeCreditosInvalidoException(
+					"Não foi possível mover essa disciplina"
+							+ " pois o número de créditos é insuficiente no seu periodo atual.");
 		}
 	}
 
-	private boolean procuraDisciplinaEmDisponiveis(String nomeDisciplina){
+	private boolean procuraDisciplinaEmDisponiveis(String nomeDisciplina) {
 		boolean result = false;
 
 		for (Disciplina disciplina : disciplinasDisponiveis) {
-			if(disciplina.getNome().equals(nomeDisciplina)){
+			if (disciplina.getNome().equals(nomeDisciplina)) {
 				result = true;
 				break;
 			}
@@ -206,7 +212,7 @@ public class Planejador extends Model {
 		return result;
 	}
 
- 	private int procuraDisciplinaPeriodo(String nomeDisciplina){
+	private int procuraDisciplinaPeriodo(String nomeDisciplina) {
 		int i = 0;
 		for (Periodo periodo : periodos) {
 			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {
@@ -253,15 +259,17 @@ public class Planejador extends Model {
 		String temp;
 		for (Periodo periodo : periodos) {
 			for (int i = periodo.getDisciplinas().size() - 1; i >= 0; i--) {
-				if (periodo.getDisciplinas().get(i).verificaPreRequisitos(nomeDisciplina)) {
+				if (periodo.getDisciplinas().get(i)
+						.verificaPreRequisitos(nomeDisciplina)) {
 					temp = periodo.getDisciplinas().get(i).getNome();
 					auxRemoveDependentes(temp);
 				}
 			}
-		}		
+		}
 	}
 
-	public void removeDisciplinaEDependentes(String nomeDisciplina) throws TotalDeCreditosInvalidoException {
+	public void removeDisciplinaEDependentes(String nomeDisciplina)
+			throws TotalDeCreditosInvalidoException {
 		for (Periodo periodo : periodos) {
 			if (periodo.indiceDisciplina(nomeDisciplina) != -1) {
 				periodo.removeDisciplina(nomeDisciplina);
@@ -273,7 +281,8 @@ public class Planejador extends Model {
 		String temp;
 		for (Periodo periodo : periodos) {
 			for (int i = periodo.getDisciplinas().size() - 1; i >= 0; i--) {
-				if (periodo.getDisciplinas().get(i).verificaPreRequisitos(nomeDisciplina)) {
+				if (periodo.getDisciplinas().get(i)
+						.verificaPreRequisitos(nomeDisciplina)) {
 					temp = periodo.getDisciplinas().get(i).getNome();
 					auxRemoveDependentes(temp);
 				}
@@ -302,5 +311,20 @@ public class Planejador extends Model {
 		disciplinasDisponiveis.clear();
 
 		setPeriodosInicial();
+	}
+
+	public boolean minimoRespeitado(int indicePeriodo) {
+
+		Periodo periodo = periodos.get(indicePeriodo);
+
+		if (periodo.getTotalCreditos() < 14) {
+			return false;
+		}
+		return true;
+
+	}
+
+	public int creditosParaCompletar14(int indicePeriodo) {
+		return 14 - (periodos.get(indicePeriodo).getTotalCreditos());
 	}
 }

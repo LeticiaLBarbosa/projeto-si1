@@ -153,7 +153,12 @@
 
 
 					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
-
+						@if(!plano.minimoRespeitado(i)){
+     					<div class="alert">
+ 						<button type="button" class="close" data-dismiss="alert">×</button>
+  						<strong>Créditos Insuficientes!</strong> Você precisa adicionar mais @plano.creditosParaCompletar14(i)
+ 						creditos a este período</div>
+						}
 						@for(disciplina <- periodo.getDisciplinas()){
 							@if(disciplina.isAlocadaCorretamente()){
 								<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
@@ -213,7 +218,12 @@
 				@if(i < plano.getPeriodoAtual()){
 					<div id="periodo_@(i + 1)" class="coluna" align='center'>
 					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
-
+						@if(!plano.minimoRespeitado(i)){
+     					<div class="alert">
+ 						<button type="button" class="close" data-dismiss="alert">×</button>
+  						<strong>Créditos Insuficientes!</strong> Você precisa adicionar mais @plano.creditosParaCompletar14(i)
+ 						creditos a este período</div>
+						}
 						@for(disciplina <- periodo.getDisciplinas()){
 							@if(disciplina.isAlocadaCorretamente()){
 								<div class="disciplina" id="@disciplina.getNome()">

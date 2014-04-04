@@ -19,7 +19,9 @@ GET		/cadastro								controllers.CadastroAlunos.cadastro()
 POST	/cadastro								controllers.CadastroAlunos.efetuaCadastroAlunos()
 GET		/logout							    	controllers.Application.logout()
 POST    /periodoAtual							controllers.Application.periodoAtual()
-
+GET     /user/:email                    		controllers.Application.getPerfil(email: String)
+GET		/redesocial								controllers.Application.buscaUsuarios()
+#POST	/redesocial/:nome						controllers.Application.buscaUsuariosPorNome(nome: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

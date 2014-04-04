@@ -23,7 +23,7 @@ public class Planejador extends Model {
 	@Id
 	public Long id;
 
-	private CatalogoDisciplinas catalogo = new CatalogoDisciplinas();
+	private Grade catalogo = GradeAtual.getInstance();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Periodo> periodos;

@@ -64,7 +64,7 @@ public class Application extends Controller {
 			return login();
 		}
 
-		return ok(index.render(sistema.getAluno().getPlanejador()));
+		return ok(index.render(sistema.getAluno().getPlanejador(), sistema.getAluno()));
 	}
 
 	@Security.Authenticated(Secured.class)

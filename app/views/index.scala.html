@@ -1,4 +1,4 @@
-@(plano: Planejador) @import helper._
+@(plano: Planejador, aluno: Aluno) @import helper._
 
 @main("Planejamento de curso") {
 
@@ -56,6 +56,15 @@
 			<nav class="collapse navbar-collapse bs-navbar-collapse"
 				role="navigation">
 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="">Planejamento Comum</a></li>
+					<li><a href="">Planejamento Sugerido</a></li>
+					<li><a href="">Meu plano</a></li>
+					<form class="navbar-form pull-left" action="#" method="GET">
+    					<div class="input-append">
+   						<input type="text" class="input-large" name="query">
+     					<button type="submit" class="btn" placeholder="Plano dos cadastrados">Busca</button>
+     					</div>
+    				</form>
 					<li><a href="/reiniciar">Reiniciar</a></li>
 					<li><a href="@routes.Application.logout()">Logout</a></li>
 				</ul>
@@ -71,6 +80,8 @@
 		<nome-principal>Planejador de Curso</nome-principal>
 		
 	</div>
+	
+	<nome-secundario> Bem-Vindo(a) @aluno.getNome()!</nome-secundario>
 	
 	<br><br>
 	

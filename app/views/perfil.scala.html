@@ -1,49 +1,6 @@
-@(plano: Planejador, aluno: Aluno) @import helper._
-
-@main("Planejamento de curso") {
-
-<head>
-<meta charset="UTF-8">
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-<script>
-  $(function() {
-    $( ".disciplina" ).draggable();
-    $( ".disciplinaNaoAlocada" ).draggable();
-    $( ".colunaPeriodoAtual" ).droppable({
-        drop: function( event, ui ) {
-      	var disciplina = ui.draggable[0].id;
-        	var periodo = event.target.id.replace('periodo_', '');
-        	
-          location.href = '/alocaDisciplina/' + periodo + '/' + disciplina
-        }
-      });
-    $( ".coluna" ).droppable({
-      drop: function( event, ui ) {
-    	var disciplina = ui.draggable[0].id;
-      	var periodo = event.target.id.replace('periodo_', '');
-      	
-        location.href = '/alocaDisciplina/' + periodo + '/' + disciplina
-      }
-    });
-  });
-  
-  function deletaComClick(disciplinaNome){
-
-	  location.href = '/deletaDisciplina/' + disciplinaNome;
-  }
-  
-
-  function setPeriodoAtual(periodo){
-
-	  location.href = '/mudaPeriodo/' + periodo;
-  }
-  
-  
-</script>
-
-</head>
+@(plano: models.Planejador, aluno: models.Aluno)
+@import helper._
+@main("Início") {
 
 <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav"
 	role="banner">
@@ -74,51 +31,11 @@
 		
 	</div>
 	
-	<nome-secundario> Bem-Vindo(a) @aluno.getNome()!</nome-secundario>
-	
-	<br><br>
-	
-	<nome-secundario>Para alocar a disciplina em um novo período basta arrastá-la para o periodo desejado. Para remover dê um duplo clique sobre a disciplina desejada.</nome-secundario>
-
-		<div class="form-actions">
-			@if(flash.containsKey("erro")){
-				<div class="alert alert-erro container">
-					@flash.get("erro")
-				</div>
-			}
-			@if(flash.containsKey("success")){
-				<div class="alert alert-success container">
-					@flash.get("success")
-				</div>
-			}
-		</div>
+	<nome-secundario> Olá, este é o plano do aluno(a) @aluno.getNome()!</nome-secundario>
 		<br><br>
 
 		<body_2> Total de créditos cursados: @plano.getTotalCreditosCursados() | Dificuldade total: @plano.getTotalDificuldadeCursada() </body_2> 
-
-		<br><br>
-		<form id="periodo" method="POST" action="@routes.Application.periodoAtual()">
-        
-        
-           <label>Período:</label>
-			
-	              <select name="periodo">
-	              @for(i <- 1 to 14){
-	              	
-	              	@if(i == plano.getPeriodoAtual() + 1){
-	              		<option value="@(i-1)" selected="selected" >@i</option>
-	              	}else{
-		             <option value="@(i-1)">@i</option>
-		            }
-		          }	
-	             </select>
-        
-	       <input type="submit" value="Mudar periodo atual">
-
-           </form>
-		
-
-		
+	<br/><br/>
 		<div id="periodo_15" class="colunaDisponiveis" align='left'>
 					<nome-periodo>Disciplinas Disponíveis:</nome-periodo>
 						<br/>
@@ -169,12 +86,7 @@
 
 
 					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
-						@if(!plano.minimoRespeitado(i)){
-     					<div class="alert">
- 						<button type="button" class="close" data-dismiss="alert">×</button>
-  						<strong>Créditos Insuficientes!</strong> Você precisa adicionar mais @plano.creditosParaCompletar14(i)
- 						creditos a este período</div>
-						}
+						
 						@for(disciplina <- periodo.getDisciplinas()){
 							@if(disciplina.isAlocadaCorretamente()){
 								<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">
@@ -208,7 +120,7 @@
 				<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 				}
 			}else{
-@if(i < plano.getPeriodoAtual()){
+				@if(i < plano.getPeriodoAtual()){
 					<div id="periodo_@(i + 1)" class="colunaNaoRemovivel" align='center'>
 					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
 
@@ -238,12 +150,7 @@
 
 
 					<nome-periodo>Período @(1 + plano.getPeriodos().indexOf(periodo))</nome-periodo>
-						@if(!plano.minimoRespeitado(i)){
-     					<div class="alert">
- 						<button type="button" class="close" data-dismiss="alert">×</button>
-  						<strong>Créditos Insuficientes!</strong> Você precisa adicionar mais @plano.creditosParaCompletar14(i)
- 						creditos a este período</div>
-						}
+						
 						@for(disciplina <- periodo.getDisciplinas()){
 							@if(disciplina.isAlocadaCorretamente()){
 								<div class="disciplina" id="@disciplina.getNome()" ondblclick="deletaComClick(this.id);">

@@ -1,5 +1,8 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Exceptions.TotalDeCreditosInvalidoException;
 import models.Aluno;
 import models.Planejador;
@@ -111,6 +114,35 @@ public class Application extends Controller {
 		}
 
 		return index();
+	}
+	
+	@Security.Authenticated(Secured.class)
+	public static Result buscaUsuarios() {
+		
+    	return ok(redesocial.render(sistema.findAll()));
+    }
+	
+//	@Security.Authenticated(Secured.class)
+//	public static Result buscaUsuariosPorNome(String nome) {
+//		List<Aluno> alunosQueTemOnome = new ArrayList<Aluno>();
+//		
+//		for(Aluno aluno: sistema.findAll()){
+//			if (aluno.getNome().contains(nome)){
+//				alunosQueTemOnome.add(aluno);
+//			}
+//		}
+//		
+//    	return ok(redesocial.render(alunosQueTemOnome));
+//    }
+//	
+	@Security.Authenticated(Secured.class)
+	public static Result getPerfil(String email){
+		Aluno aluno = sistema.findByEmail(email);
+    	
+    	if(aluno != null)
+    		return ok(perfil.render(aluno.getPlanejador(), aluno));
+    	else
+    		return ok();
 	}
 
 }

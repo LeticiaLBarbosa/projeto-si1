@@ -16,7 +16,7 @@ nome-principal {
 
 nome-secundario {
 	color: #FFFFFF;
-	font-size: 25px;
+	font-size: 18px;
 	font-aling: center;
 	font-weight: bold;
 }
@@ -38,7 +38,7 @@ body_2{
 .wrapper {
 	font-family: arial;
 	max-width: 1300px;
-	margin: auto;
+	margin-left: 10.5px;
 	padding-top: 10px;
 	padding-bottom: 20px;
 }
@@ -56,10 +56,12 @@ body_2{
 
 #colunas {
 	margin: auto;
+	float: left;
+	overflow-y: scroll;
 	margin-top: 50px;
 	margin-bottom: 10px;
-	height: 1100px;
-	width: 1280px;
+	height: 800px;
+	width: 1140px;
 	display: inherit;
 	border-radius: 10px;
 }
@@ -101,12 +103,13 @@ body_2{
 	background-color: #F5DEB3;
 	float: left;
 	height: 1050x;
-	width: 148px;
-	margin-left: 10.5px;
-	margin-top: 10px;
+	width: 155px;
+	margin-left: 5px;
+	margin-top: 10.5px;
 	border-radius: 10px;
 	padding-top: 2px;
 }
+
 
 #disciplinas {
 	background-color: #c0c0c0;

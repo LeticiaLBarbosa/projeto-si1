@@ -1,6 +1,6 @@
 package models;
 
-public class GradeComum extends Grade{
+public class GradeNova extends Grade{
 
 	@Override
 	protected void instanciaDisciplinas() {

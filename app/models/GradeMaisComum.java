@@ -1,16 +1,16 @@
 package models;
 
-public class GradeAtual extends Grade{
+public class GradeMaisComum extends Grade{
 	
-	private static GradeAtual instance;
+	private static GradeMaisComum instance;
 	
-	private GradeAtual(){
+	private GradeMaisComum(){
 		instanciaDisciplinas();
 	}
 	
-	public static GradeAtual getInstance(){
+	public static GradeMaisComum getInstance(){
 		if(instance == null){
-			instance = new GradeAtual();
+			instance = new GradeMaisComum();
 		}
 		
 		return instance;		
@@ -236,52 +236,36 @@ public class GradeAtual extends Grade{
 				FACIL));
 
 		setPeriodosDefault();
-
-		
 	}
 
 	@Override
 	protected void setPeriodosDefault() {
-		
-		String[] primeiro = { "Programação I", "Lab. de Programação I",
-				"Cálculo I", "Álgebra Vetorial e Geometria Analítica",
+		String[] primeiro = { "Programação I", "Lab. de Programação I",	"Cálculo I", "Álgebra Vetorial e Geometria Analítica",
 				"Introdução a Computação", "Leitura e Produção de Textos" };
+		
+		String[] segundo = { "Cálculo II", "Matemática Discreta","Programação II", "Teoria dos Grafos",
+				"Fund. de Física Clássica", "Lab. de Programação II", "Metodologia Científica" };
+		
+		String[] terceiro = { "Álgebra Linear", "Probabilidade e Estatística","Teoria da Computação", "Estruturas de Dados e Algoritmos",
+				"Fund. de Física Moderna", "Gerência da Informação","Lab. de Estruturas de Dados e Algoritmos" };
+		
+		String[] quarto = { "Paradigmas de Linguagem de Programação", "Lógica Matemática","Organização e Arquitetura de Computadores I",
+				"Lab. de Organização e Arquitetura de Computadores I", "Sistemas de Informação I" };
+		
+		String[] quinto = { "Métodos Estatísticos", "Informática e Sociedade", "Engenharia de Software I",
+				"Banco de Dados I",	"Sistemas de Informação II", "Optativa 1"};
 
-		String[] segundo = { "Cálculo II", "Matemática Discreta",
-				"Programação II", "Teoria dos Grafos",
-				"Fund. de Física Clássica", "Lab. de Programação II",
-				"Metodologia Científica" };
-
-		String[] terceiro = { "Álgebra Linear", "Probabilidade e Estatística",
-				"Teoria da Computação", "Estruturas de Dados e Algoritmos",
-				"Fund. de Física Moderna", "Gerência da Informação",
-				"Lab. de Estruturas de Dados e Algoritmos" };
-
-		String[] quarto = { "Métodos Estatísticos",
-				"Paradigmas de Linguagem de Programação", "Lógica Matemática",
-				"Organização e Arquitetura de Computadores I",
-				"Lab. de Organização e Arquitetura de Computadores I",
-				"Engenharia de Software I", "Sistemas de Informação I" };
-
-		String[] quinto = { "Informática e Sociedade",
-				"Analises e Tecnicas de Algoritmos", "Compiladores",
-				"Redes de Computadores", "Banco de Dados I",
-				"Sistemas de Informação II", "Lab. de Engenharia de Software" };
-
-		String[] sexto = { "Sistemas Operacionais",
-				"Interconexão de Redes de Computadores",
-				"Lab. de Interconexão de Redes de Computadores",
-				"Inteligencia Artificial I", "Banco de Dados II",
-				"Direito e Cidadania", "Optativa 1", "Optativa 2" };
-
-		String[] setimo = { "Métodos e Software Numéricos",
-				"Avaliação de Desempenho de Sistemas Discretos",
-				"Projeto em Computação I", "Optativa 3", "Optativa 4",
-				"Optativa 5", "Optativa 6" };
-
-		String[] oitavo = { "Projeto em Computação II", "Optativa 7",
-				"Optativa 8", "Optativa 9", "Optativa 10", "Optativa 11" };
-
+		String[] sexto = { "Lab. de Engenharia de Software", "Analises e Tecnicas de Algoritmos", "Redes de Computadores",
+				 "Optativa 2", "Optativa 3", "Optativa 4"};
+		
+		String[] setimo = { "Direito e Cidadania","Lab. de Interconexão de Redes de Computadores", "Compiladores"
+				, "Interconexão de Redes de Computadores", "Sistemas Operacionais", "Banco de Dados II"	};
+		
+		String[] oitavo = { "Projeto em Computação I", "Métodos e Software Numéricos", "Avaliação de Desempenho de Sistemas Discretos",
+				 "Optativa 5", "Optativa 6", "Optativa 7"};
+		
+		String[] nono = { "Projeto em Computação II", "Inteligencia Artificial I", "Optativa 8", "Optativa 9", "Optativa 10", "Optativa 11"};
+		
 		periodosDefault.add(primeiro);
 		periodosDefault.add(segundo);
 		periodosDefault.add(terceiro);
@@ -290,7 +274,7 @@ public class GradeAtual extends Grade{
 		periodosDefault.add(sexto);
 		periodosDefault.add(setimo);
 		periodosDefault.add(oitavo);
-		
+		periodosDefault.add(nono);
 	}
 
 }

@@ -23,7 +23,7 @@ public class Planejador extends Model {
 	@Id
 	public Long id;
 
-	private Grade catalogo = GradeAtual.getInstance();
+	private Grade catalogo = GradeMaisComum.getInstance();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Periodo> periodos;
@@ -65,7 +65,7 @@ public class Planejador extends Model {
 
 		}
 
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < periodosDefault.size(); i++) {
 			String[] setPeriodo = periodosDefault.get(i);
 
 			for (String disciplina : setPeriodo) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 public abstract class Grade {
 
+
 	protected List<Disciplina> todasDisciplinas = new ArrayList<Disciplina>();
 	protected List<String[]> periodosDefault = new ArrayList<String[]>();
 

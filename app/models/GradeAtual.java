@@ -1,5 +1,7 @@
 package models;
 
+import Exceptions.PreRequisitoInvalidoException;
+
 public class GradeAtual extends Grade{
 	
 	private static GradeAtual instance;
@@ -33,6 +35,8 @@ public class GradeAtual extends Grade{
 				"Álgebra Vetorial e Geometria Analítica", QUATRO_CREDITOS,
 				MEDIO));
 
+		try{
+		
 		// 2periodo
 		todasDisciplinas.add(new Disciplina("Cálculo II", QUATRO_CREDITOS,
 				listaDePreRequisitos("Cálculo I"), DIFICIL));
@@ -235,6 +239,10 @@ public class GradeAtual extends Grade{
 		todasDisciplinas.add(new Disciplina("Optativa 11", QUATRO_CREDITOS,
 				FACIL));
 
+		} catch (PreRequisitoInvalidoException e) {
+			e.printStackTrace();
+		}
+		
 		setPeriodosDefault();
 
 		

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import Exceptions.NomeDisciplinaInexistenteException;
 import Exceptions.TotalDeCreditosInvalidoException;
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
@@ -23,7 +24,7 @@ public class Planejador extends Model {
 	@Id
 	public Long id;
 
-	private Grade catalogo = GradeMaisComum.getInstance();
+	private Grade catalogo = GradeNova.getInstance();
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Periodo> periodos;
@@ -299,7 +300,13 @@ public class Planejador extends Model {
 	}
 
 	public Disciplina getDisciplina(String nomeDisciplina) {
-		return catalogo.getDisciplina(nomeDisciplina);
+		try {
+			return catalogo.getDisciplina(nomeDisciplina);
+		} catch (NomeDisciplinaInexistenteException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 	public List<Periodo> getPeriodos() {

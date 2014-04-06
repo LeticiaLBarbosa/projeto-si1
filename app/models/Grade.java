@@ -3,6 +3,9 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.NomeDisciplinaInexistenteException;
+import Exceptions.PreRequisitoInvalidoException;
+
 public abstract class Grade {
 
 
@@ -24,7 +27,7 @@ public abstract class Grade {
 		return periodosDefault;
 	}
 
-	protected List<Disciplina> listaDePreRequisitos(String disciplinas) {
+	protected List<Disciplina> listaDePreRequisitos(String disciplinas) throws PreRequisitoInvalidoException {
 		List<Disciplina> listaDePreRequisitos = new ArrayList<Disciplina>();
 		String[] aux = disciplinas.split(", ");
 		for (String disciplinaNome : aux) {
@@ -34,6 +37,11 @@ public abstract class Grade {
 				}
 			}
 		}
+		
+		if(listaDePreRequisitos.size() != aux.length){
+			throw new PreRequisitoInvalidoException(disciplinas);
+		}
+		
 		return listaDePreRequisitos;
 	}
 
@@ -52,13 +60,14 @@ public abstract class Grade {
 		return todasDisciplinas;
 	}
 
-	public Disciplina getDisciplina(String nome) {
+	public Disciplina getDisciplina(String nome) throws NomeDisciplinaInexistenteException {
 		for (int i = 0; i < todasDisciplinas.size(); i++) {
 			if (todasDisciplinas.get(i).getNome().equals(nome)) {
 				return todasDisciplinas.get(i);
 			}
 		}
-		return null;
+		
+		throw new NomeDisciplinaInexistenteException("Não há nenhuma disciplina com esse nome :" + nome);
 
 	}
 

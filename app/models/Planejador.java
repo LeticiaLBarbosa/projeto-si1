@@ -345,4 +345,24 @@ public class Planejador extends Model {
 	public int creditosParaCompletar14(int indicePeriodo) {
 		return 14 - (periodos.get(indicePeriodo).getTotalCreditos());
 	}
+	
+	public List<Disciplina> getRequisitosEmFaltaDe(Disciplina disciplina, int idxPeriodo) {
+		ArrayList<Disciplina> requisitosEmFalta = new ArrayList<Disciplina>();
+		ArrayList<Disciplina> requisitosPresentes = new ArrayList<Disciplina>();
+		for (Disciplina requisito: disciplina.getPreRequisitos()) {
+			for (int i = 0; i < idxPeriodo; i++){
+				if (periodos.get(i).getDisciplinas().contains(requisito)){
+					requisitosPresentes.add(requisito);
+				}
+			}
+		}
+		
+		for (Disciplina requisito: disciplina.getPreRequisitos()){
+			if (!requisitosPresentes.contains(requisito) || !requisito.isAlocadaCorretamente()){
+				requisitosEmFalta.add(requisito);
+			}
+		}
+		
+		return requisitosEmFalta;
+	}
 }

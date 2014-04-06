@@ -24,8 +24,12 @@ public class Planejador extends Model {
 	@Id
 	public Long id;
 
-	private Grade catalogo = GradeNova.getInstance();
 
+	private FactoryGrade factory = FactoryGrade.getInstance();
+
+	
+	private Grade catalogo = factory.getGrade("Escolhe a grade default");
+	
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Periodo> periodos;
 
@@ -38,6 +42,13 @@ public class Planejador extends Model {
 		setPeriodosInicial();
 	}
 
+	
+	public void alteraGrade(String tipo){
+		catalogo = factory.getGrade(tipo);
+		
+		reiniciaPlanejador();
+	}
+	
 	public int getTotalCreditosCursados() {
 		int total = 0;
 		for (int i = 0; i < periodoAtual; i++) {

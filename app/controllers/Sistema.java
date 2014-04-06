@@ -47,6 +47,11 @@ public class Sistema {
 		aluno.reiniciaPlanejador();
 		aluno.save();
 	}
+	
+	public void alteraGrade(String tipo){
+		aluno.getPlanejador().alteraGrade(tipo);
+		aluno.save();
+	}
 
 	public static List<Aluno> findAll() {
 		return finder.all();

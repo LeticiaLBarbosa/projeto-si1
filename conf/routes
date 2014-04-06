@@ -9,6 +9,7 @@ GET		/home								controllers.Application.index()
 
 # Aplicacao
 
+GET     /alteraGrade/:tipo						controllers.Application.alteraGrade(tipo: String)
 GET     /alocaDisciplina/:periodo/:nome			controllers.Application.alocaDisciplina(periodo: Integer, nome: String)
 GET     /deletaDisciplina/:nome					controllers.Application.removeDisciplina(nome: String)
 GET		/reiniciar								controllers.Application.reiniciar()

@@ -89,6 +89,16 @@ public class Application extends Controller {
 		return index();
 
 	}
+	
+	@Security.Authenticated(Secured.class)
+	public static Result alteraGrade(String tipo) {
+
+		sistema.alteraGrade(tipo);
+
+		return index();
+
+	}
+	
 
 	public static Result periodoAtual(){
 		

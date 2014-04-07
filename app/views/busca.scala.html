@@ -1,5 +1,5 @@
-@(alunos: List[models.Aluno]) @import helper._
-@main("Rede Social") {
+@(query: String, alunos: List[models.Aluno]) @import helper._
+@main("Busca por aluno") {
 
 <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav"
 	role="banner">
@@ -19,21 +19,11 @@
 </header>
 
 <br></br>
-
-  <form class="navbar-form pull-left" action="/busca/" method="GET">
-    <div class="input-append">
-     
-	  <nome-secundario>Buscar aluno pelo nome: </nome-secundario>
-      <input type="text" class="input-large" name="query">
-     <button type="submit" class="btn">Busca</button>
-     </div>
-    </form>
-<br></br>
-<br></br>
-
 <div align="center">
-<nome-principal>Alunos cadastrados</nome-principal>
+
+<nome-principal> Busca pelo aluno @query</nome-principal>
 </div>
+
 <div class="wrapper" style="height: 100%;">
         
         @for(aluno <- alunos) {

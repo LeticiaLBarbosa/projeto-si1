@@ -14,6 +14,8 @@ import views.html.*;
 public class Application extends Controller {
 
 	static Sistema sistema = new Sistema();
+	
+	public static CadastroAlunos cadastro = new CadastroAlunos();
 
 	static Form<Planejador> planejadorForm = Form.form(Planejador.class);
 
@@ -132,19 +134,7 @@ public class Application extends Controller {
     	return ok(redesocial.render(sistema.findAll()));
     }
 	
-//	@Security.Authenticated(Secured.class)
-//	public static Result buscaUsuariosPorNome(String nome) {
-//		List<Aluno> alunosQueTemOnome = new ArrayList<Aluno>();
-//		
-//		for(Aluno aluno: sistema.findAll()){
-//			if (aluno.getNome().contains(nome)){
-//				alunosQueTemOnome.add(aluno);
-//			}
-//		}
-//		
-//    	return ok(redesocial.render(alunosQueTemOnome));
-//    }
-//	
+	
 	@Security.Authenticated(Secured.class)
 	public static Result getPerfil(String email){
 		Aluno aluno = sistema.findByEmail(email);
@@ -154,5 +144,11 @@ public class Application extends Controller {
     	else
     		return ok();
 	}
+	
+	
+	   public static Result buscaUsuario() {
+	    	String query = request().queryString().get("query")[0];
+	    	return ok(views.html.busca.render(query, cadastro.getUsuarioPorNome(query)));
+	    }
 
 }

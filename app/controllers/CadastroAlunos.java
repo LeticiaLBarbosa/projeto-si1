@@ -1,8 +1,11 @@
 package controllers;
 
+import java.util.List;
+
 import models.Aluno;
 import play.data.Form;
 import play.data.validation.Constraints.Required;
+import play.db.ebean.Model.Finder;
 import play.mvc.*;
 import views.html.*;
 
@@ -15,6 +18,14 @@ public class CadastroAlunos extends Controller{
 	private String repassword;
 	@Required
 	private String nome;
+	
+	
+	private Finder<String, Aluno> finder;
+
+	public CadastroAlunos() {
+		finder = new Finder<String, Aluno>(String.class, Aluno.class);
+	}
+
 	
 	 public void setEmail(String email) {
 		 this.email = email;
@@ -88,4 +99,16 @@ public class CadastroAlunos extends Controller{
 		 }
 		 return redirect("/");
 	 }
+	 
+	 public List<Aluno> getUsuarioPorNome(String query) {
+			List<Aluno> result = null;
+
+			if (query != null) {
+				result = finder.where()
+						.ilike("nome","%"+  query + "%")
+	                    .findList();
+			}
+
+			return result;
+		}
 }

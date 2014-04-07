@@ -69,5 +69,7 @@ public class testaPeriodo {
 		
 		Assert.assertEquals(periodo.getDificuldadeTotal(), 4);
 		
+		Assert.assertEquals(2, periodo.numeroDisciplinas());
+		
 	}
 }

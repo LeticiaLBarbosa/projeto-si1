@@ -7,7 +7,7 @@
 		<div class="container">
 			<nav class="collapse navbar-collapse bs-navbar-collapse"
 				role="navigation">
-				<ul class="nav navbar-nav navbar-left">
+				<ul class="nav navbar-nav navbar-right">
 					<li><a href="/home">Meu plano</a></li>
 					<li><a href="/redesocial">Rede Social</a></li>
 					<li><a href="@routes.Application.logout()">Logout</a></li>
@@ -17,7 +17,17 @@
 		</div>
 	</div>
 </header>
+<br></br>
 
+  <form class="navbar-form pull-left" action="/busca/" method="GET">
+    <div class="input-append">
+     
+	  <nome-secundario>Buscar aluno pelo nome: </nome-secundario>
+      <input type="text" class="input-large" name="query">
+     <button type="submit" class="btn">Buscar</button>
+     </div>
+    </form>
+<br></br>
 <br></br>
 <div align="center">
 
